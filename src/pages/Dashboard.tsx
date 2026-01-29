@@ -13,13 +13,15 @@ import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { useAuth } from "@/hooks/useAuth";
 import { useOrganization } from "@/hooks/useOrganization";
 import { SignatureMetrics } from "@/components/dashboard/SignatureMetrics";
+import { DashboardRequirementsTable } from "@/components/dashboard/DashboardRequirementsTable";
 
 export default function Dashboard() {
   const { user, loading: authLoading } = useAuth();
   const { organization, loading: orgLoading } = useOrganization(user);
   const [stats, setStats] = useState({
     totalRecipients: 0,
-    activeRequirements: 0,
+    totalRequirements: 0, // All requirements (draft + published)
+    activeRequirements: 0, // Published only
     pendingSignatures: 0,
     complianceRate: null as number | null,
   });
@@ -42,8 +44,14 @@ export default function Dashboard() {
         .eq('organization_id', organization.id)
         .eq('is_deleted', false);
 
-      // Fetch requirements count (published only)
-      const { count: requirementsCount } = await supabase
+      // Fetch all requirements count (for determining onboarding vs operating mode)
+      const { count: totalRequirementsCount } = await supabase
+        .from('requirements')
+        .select('*', { count: 'exact', head: true })
+        .eq('organization_id', organization.id);
+
+      // Fetch published requirements count (for stats display)
+      const { count: publishedRequirementsCount } = await supabase
         .from('requirements')
         .select('*', { count: 'exact', head: true })
         .eq('organization_id', organization.id)
@@ -70,7 +78,8 @@ export default function Dashboard() {
 
       setStats({
         totalRecipients: recipientsCount || 0,
-        activeRequirements: requirementsCount || 0,
+        totalRequirements: totalRequirementsCount || 0,
+        activeRequirements: publishedRequirementsCount || 0,
         pendingSignatures: pendingCount || 0,
         complianceRate,
       });
@@ -163,8 +172,8 @@ export default function Dashboard() {
         <SignatureMetrics organizationId={organization.id} />
       )}
 
-      {/* Empty State or Recent Activity */}
-      {stats.totalRecipients === 0 && stats.activeRequirements === 0 ? (
+      {/* Empty State (Onboarding Mode) or Requirements Table (Operating Mode) */}
+      {stats.totalRequirements === 0 ? (
         <>
           <div className="card-elevated p-12 text-center">
             <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-accent/10 text-accent mb-6">
@@ -233,28 +242,8 @@ export default function Dashboard() {
           </div>
         </>
       ) : (
-        <div className="card-elevated p-6">
-          <h2 className="text-lg font-semibold text-foreground mb-4">Quick Actions</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Link to="/recipients" className="p-4 rounded-lg border border-border hover:border-accent/50 hover:bg-accent/5 transition-colors">
-              <Users className="h-6 w-6 text-accent mb-2" />
-              <h3 className="font-medium text-foreground">Manage Recipients</h3>
-              <p className="text-sm text-muted-foreground">{stats.totalRecipients} total</p>
-            </Link>
-            <Link to="/requirements" className="p-4 rounded-lg border border-border hover:border-accent/50 hover:bg-accent/5 transition-colors">
-              <FileText className="h-6 w-6 text-accent mb-2" />
-              <h3 className="font-medium text-foreground">View Requirements</h3>
-              <p className="text-sm text-muted-foreground">{stats.activeRequirements} active</p>
-            </Link>
-            <div className="p-4 rounded-lg border border-border">
-              <BarChart3 className="h-6 w-6 text-accent mb-2" />
-              <h3 className="font-medium text-foreground">Compliance Overview</h3>
-              <p className="text-sm text-muted-foreground">
-                {stats.complianceRate !== null ? `${stats.complianceRate}% complete` : 'No requests yet'}
-              </p>
-            </div>
-          </div>
-        </div>
+        /* Operating Mode: Requirements Table */
+        organization?.id && <DashboardRequirementsTable organizationId={organization.id} />
       )}
     </DashboardLayout>
   );
