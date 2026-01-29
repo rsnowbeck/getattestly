@@ -1,0 +1,133 @@
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Shield, ArrowLeft, Loader2 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
+
+export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) {
+        if (error.message.includes("Invalid login credentials")) {
+          toast.error("Invalid email or password");
+        } else {
+          toast.error(error.message);
+        }
+        return;
+      }
+
+      toast.success("Welcome back!");
+      navigate("/dashboard");
+    } catch (error) {
+      toast.error("An unexpected error occurred");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-background flex flex-col">
+      {/* Header */}
+      <header className="border-b border-border">
+        <div className="container flex h-16 items-center">
+          <Link to="/" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
+            <ArrowLeft className="h-4 w-4" />
+            <span className="text-sm">Back to home</span>
+          </Link>
+        </div>
+      </header>
+
+      {/* Login Form */}
+      <main className="flex-1 flex items-center justify-center py-12 px-4">
+        <div className="w-full max-w-md">
+          <div className="text-center mb-8">
+            <Link to="/" className="inline-flex items-center gap-2 mb-6">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary">
+                <Shield className="h-5 w-5 text-primary-foreground" />
+              </div>
+              <span className="text-2xl font-bold text-foreground">Attestly</span>
+            </Link>
+            <h1 className="text-2xl font-bold text-foreground mb-2">Welcome back</h1>
+            <p className="text-muted-foreground">
+              Sign in to your account to continue
+            </p>
+          </div>
+
+          <div className="card-elevated p-8">
+            <form onSubmit={handleLogin} className="space-y-6">
+              <div className="space-y-2">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="you@company.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="input-styled"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="password">Password</Label>
+                  <Link to="/forgot-password" className="text-sm text-accent hover:underline">
+                    Forgot password?
+                  </Link>
+                </div>
+                <Input
+                  id="password"
+                  type="password"
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  className="input-styled"
+                />
+              </div>
+
+              <Button
+                type="submit"
+                variant="hero"
+                className="w-full"
+                disabled={loading}
+              >
+                {loading ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    Signing in...
+                  </>
+                ) : (
+                  "Sign In"
+                )}
+              </Button>
+            </form>
+          </div>
+
+          <p className="text-center text-sm text-muted-foreground mt-6">
+            Don't have an account?{" "}
+            <Link to="/signup" className="text-accent hover:underline font-medium">
+              Start your free trial
+            </Link>
+          </p>
+        </div>
+      </main>
+    </div>
+  );
+}
