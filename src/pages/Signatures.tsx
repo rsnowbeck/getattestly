@@ -22,9 +22,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { Search, FileSignature, Clock, CheckCircle2, XCircle, RefreshCw } from "lucide-react";
+import { Search, FileSignature, Clock, CheckCircle2, XCircle, RefreshCw, Download } from "lucide-react";
 import { format } from "date-fns";
 import { ResendLinkDialog } from "@/components/signatures/ResendLinkDialog";
+import { toast } from "sonner";
 
 interface SigningRequest {
   id: string;
@@ -141,6 +142,52 @@ export default function Signatures() {
     setResendDialogOpen(true);
   };
 
+  const exportToCSV = () => {
+    const completedRequests = signingRequests.filter((r) => r.status === "completed");
+    
+    if (completedRequests.length === 0) {
+      toast.error("No completed signatures to export");
+      return;
+    }
+
+    const headers = [
+      "Recipient Name",
+      "Recipient Email",
+      "Requirement",
+      "Signed As",
+      "Sent Date",
+      "Completed Date",
+    ];
+
+    const rows = completedRequests.map((req) => [
+      req.recipient?.full_name || "",
+      req.recipient?.email || "",
+      req.requirement?.title || "",
+      req.signed_name || "",
+      req.sent_at ? format(new Date(req.sent_at), "yyyy-MM-dd HH:mm:ss") : "",
+      req.completed_at ? format(new Date(req.completed_at), "yyyy-MM-dd HH:mm:ss") : "",
+    ]);
+
+    const csvContent = [
+      headers.join(","),
+      ...rows.map((row) =>
+        row.map((cell) => `"${String(cell).replace(/"/g, '""')}"`).join(",")
+      ),
+    ].join("\n");
+
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `signatures-export-${format(new Date(), "yyyy-MM-dd")}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+
+    toast.success(`Exported ${completedRequests.length} completed signature(s)`);
+  };
+
   if (authLoading || orgLoading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
@@ -159,6 +206,14 @@ export default function Signatures() {
             Track and manage all signing requests
           </p>
         </div>
+        <Button
+          variant="outline"
+          onClick={exportToCSV}
+          disabled={loading || signingRequests.filter((r) => r.status === "completed").length === 0}
+        >
+          <Download className="h-4 w-4" />
+          Export CSV
+        </Button>
       </div>
 
       {/* Filters */}
