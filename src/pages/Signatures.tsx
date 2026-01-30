@@ -23,7 +23,6 @@ import {
 } from "@/components/ui/select";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Search, FileSignature, Clock, CheckCircle2, XCircle, Send, Download, FileText } from "lucide-react";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { format } from "date-fns";
 import { ResendLinkDialog } from "@/components/signatures/ResendLinkDialog";
 import { toast } from "sonner";
@@ -358,24 +357,14 @@ export default function Signatures() {
                           </Button>
                         )}
                         {isRequestPendingOrExpired(request) && (
-                          <TooltipProvider>
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <Button
-                                  size="sm"
-                                  variant="ghost"
-                                  onClick={() => handleResendClick(request)}
-                                  className="h-8 px-2"
-                                >
-                                  <Send className="h-4 w-4" />
-                                  <span className="sr-only">Resend</span>
-                                </Button>
-                              </TooltipTrigger>
-                              <TooltipContent>
-                                <p>Resend</p>
-                              </TooltipContent>
-                            </Tooltip>
-                          </TooltipProvider>
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={() => handleResendClick(request)}
+                          >
+                            <Send className="h-4 w-4" />
+                            Resend
+                          </Button>
                         )}
                       </div>
                     </TableCell>

@@ -471,9 +471,8 @@ export default function RequirementDetail() {
                         variant="ghost"
                         size="sm"
                         onClick={() => handleResendClick(request)}
-                        className="opacity-0 group-hover:opacity-100 transition-opacity"
                       >
-                        <Send className="h-4 w-4 mr-1" />
+                        <Send className="h-4 w-4" />
                         Resend
                       </Button>
                     )}
