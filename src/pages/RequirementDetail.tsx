@@ -407,7 +407,9 @@ export default function RequirementDetail() {
             {signingRequests.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={6} className="text-center py-8 text-muted-foreground">
-                  No recipients assigned yet. Publish this requirement to send signing requests.
+                  {requirement.status === "published" 
+                    ? "No recipients assigned yet. Click 'Add Recipients' above to send signing requests."
+                    : "This requirement is still a draft. Publish it first to send signing requests."}
                 </TableCell>
               </TableRow>
             ) : (
