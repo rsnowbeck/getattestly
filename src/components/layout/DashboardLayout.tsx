@@ -8,7 +8,8 @@ import {
   LogOut,
   Menu,
   X,
-  FileSignature
+  FileSignature,
+  HelpCircle
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
@@ -65,7 +66,14 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           })}
         </nav>
 
-        <div className="p-4 border-t border-sidebar-border">
+        <div className="p-4 border-t border-sidebar-border space-y-1">
+          <Link
+            to="/contact"
+            className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground transition-colors w-full"
+          >
+            <HelpCircle className="h-5 w-5" />
+            Support
+          </Link>
           <button
             onClick={handleLogout}
             className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground transition-colors w-full"
@@ -114,7 +122,15 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
               })}
             </nav>
 
-            <div className="p-4 border-t border-sidebar-border">
+            <div className="p-4 border-t border-sidebar-border space-y-1">
+              <Link
+                to="/contact"
+                onClick={() => setSidebarOpen(false)}
+                className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground transition-colors w-full"
+              >
+                <HelpCircle className="h-5 w-5" />
+                Support
+              </Link>
               <button
                 onClick={handleLogout}
                 className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground transition-colors w-full"

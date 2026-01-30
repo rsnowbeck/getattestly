@@ -23,6 +23,9 @@ export function Footer() {
             <a href="#how-it-works" className="text-muted-foreground hover:text-foreground transition-colors">
               How It Works
             </a>
+            <Link to="/contact" className="text-muted-foreground hover:text-foreground transition-colors">
+              Contact
+            </Link>
             <Link to="/login" className="text-muted-foreground hover:text-foreground transition-colors">
               Sign In
             </Link>
