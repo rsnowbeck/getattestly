@@ -29,7 +29,8 @@ import {
   Send,
   Trash2,
   Edit,
-  Eye
+  Eye,
+  Search
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -65,6 +66,8 @@ export default function Requirements() {
   const [formLoading, setFormLoading] = useState(false);
   const [sendDialogOpen, setSendDialogOpen] = useState(false);
   const [selectedRequirement, setSelectedRequirement] = useState<Requirement | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState<string>("all");
 
   // Form state
   const [title, setTitle] = useState("");
@@ -182,6 +185,14 @@ export default function Requirements() {
         return 'bg-muted text-muted-foreground';
     }
   };
+
+  const filteredRequirements = requirements.filter((req) => {
+    const matchesSearch =
+      req.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      req.description?.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesStatus = statusFilter === "all" || req.status === statusFilter;
+    return matchesSearch && matchesStatus;
+  });
 
   if (authLoading) {
     return (
@@ -301,32 +312,58 @@ export default function Requirements() {
         </Dialog>
       </div>
 
+      {/* Search and Filters */}
+      <div className="flex flex-col sm:flex-row gap-4 mb-6">
+        <div className="relative flex-1">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          <Input
+            placeholder="Search requirements..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="pl-10"
+          />
+        </div>
+        <Select value={statusFilter} onValueChange={setStatusFilter}>
+          <SelectTrigger className="w-full sm:w-[180px]">
+            <SelectValue placeholder="Filter by status" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All statuses</SelectItem>
+            <SelectItem value="draft">Draft</SelectItem>
+            <SelectItem value="published">Published</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
       {/* Requirements List or Empty State */}
       {requirementsLoading ? (
         <div className="card-elevated p-12 text-center">
           <Loader2 className="h-8 w-8 animate-spin mx-auto text-muted-foreground" />
         </div>
-      ) : requirements.length === 0 ? (
+      ) : filteredRequirements.length === 0 ? (
         <div className="card-elevated p-12 text-center">
           <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-accent/10 text-accent mb-6">
             <FilePlus className="h-8 w-8" />
           </div>
           <h2 className="text-xl font-semibold text-foreground mb-2">
-            No requirements yet
+            {searchQuery || statusFilter !== "all" ? "No requirements found" : "No requirements yet"}
           </h2>
           <p className="text-muted-foreground max-w-md mx-auto mb-6">
-            Create your first compliance requirement—like a policy acknowledgment, 
-            NDA, or training confirmation—and start collecting signatures.
+            {searchQuery || statusFilter !== "all"
+              ? "Try adjusting your search or filter."
+              : "Create your first compliance requirement—like a policy acknowledgment, NDA, or training confirmation—and start collecting signatures."}
           </p>
-          <Button variant="hero" onClick={() => setDialogOpen(true)}>
-            <Plus className="h-4 w-4" />
-            Create Your First Requirement
-          </Button>
+          {!searchQuery && statusFilter === "all" && (
+            <Button variant="hero" onClick={() => setDialogOpen(true)}>
+              <Plus className="h-4 w-4" />
+              Create Your First Requirement
+            </Button>
+          )}
         </div>
       ) : (
         <div className="grid gap-4">
-          {requirements.map((requirement) => (
-            <div 
+          {filteredRequirements.map((requirement) => (
+            <div
               key={requirement.id} 
               className="card-elevated p-6 cursor-pointer hover:border-accent/30 transition-colors"
               onClick={() => navigate(`/requirements/${requirement.id}`)}
