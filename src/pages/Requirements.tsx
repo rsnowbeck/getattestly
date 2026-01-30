@@ -326,7 +326,11 @@ export default function Requirements() {
       ) : (
         <div className="grid gap-4">
           {requirements.map((requirement) => (
-            <div key={requirement.id} className="card-elevated p-6">
+            <div 
+              key={requirement.id} 
+              className="card-elevated p-6 cursor-pointer hover:border-accent/30 transition-colors"
+              onClick={() => navigate(`/requirements/${requirement.id}`)}
+            >
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-3 mb-2">
@@ -349,7 +353,7 @@ export default function Requirements() {
                     )}
                   </div>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
                   {requirement.status === 'published' && (
                     <Button
                       variant="outline"
