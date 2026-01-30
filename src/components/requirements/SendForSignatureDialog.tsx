@@ -308,49 +308,12 @@ export function SendForSignatureDialog({
                 <CheckCircle2 className="h-6 w-6" />
               </div>
               <h3 className="text-lg font-semibold text-foreground">
-                Signing Requests Created!
+                Emails Sent Successfully!
               </h3>
               <p className="text-sm text-muted-foreground mt-1">
-                Share these links with your recipients
+                {signingLinks.length} recipient{signingLinks.length !== 1 ? "s" : ""} will receive an email with their signing link
               </p>
             </div>
-
-            <ScrollArea className="max-h-[300px] -mx-6 px-6">
-              <div className="space-y-3">
-                {signingLinks.map((link, index) => (
-                  <div
-                    key={index}
-                    className="p-3 rounded-lg border border-border bg-muted/30"
-                  >
-                    <div className="flex items-center justify-between gap-2 mb-2">
-                      <div className="min-w-0">
-                        <p className="font-medium text-foreground truncate text-sm">
-                          {link.recipientName}
-                        </p>
-                        <p className="text-xs text-muted-foreground truncate">
-                          {link.email}
-                        </p>
-                      </div>
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => copyToClipboard(link.url, index)}
-                        className="shrink-0"
-                      >
-                        {copiedIndex === index ? (
-                          <Check className="h-4 w-4 text-primary" />
-                        ) : (
-                          <Copy className="h-4 w-4" />
-                        )}
-                      </Button>
-                    </div>
-                    <code className="text-xs text-muted-foreground block truncate bg-background px-2 py-1 rounded">
-                      {link.url}
-                    </code>
-                  </div>
-                ))}
-              </div>
-            </ScrollArea>
 
             <div className="mt-6 text-center">
               <Button onClick={handleClose}>Done</Button>
