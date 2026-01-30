@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Dialog,
   DialogContent,
@@ -10,8 +12,15 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Loader2, Send, Search, Users, CheckCircle2, Copy, Check } from "lucide-react";
+import { Loader2, Send, Search, Users, CheckCircle2, Copy, Check, UserPlus, ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
 
 interface Recipient {
@@ -53,6 +62,14 @@ export function SendForSignatureDialog({
   const [success, setSuccess] = useState(false);
   const [signingLinks, setSigningLinks] = useState<SigningLink[]>([]);
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+  
+  // Inline add recipient state
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [addingRecipient, setAddingRecipient] = useState(false);
+  const [newName, setNewName] = useState("");
+  const [newEmail, setNewEmail] = useState("");
+  const [newType, setNewType] = useState("employee");
+  const [newDepartment, setNewDepartment] = useState("");
 
   useEffect(() => {
     if (open && organizationId) {
@@ -61,8 +78,17 @@ export function SendForSignatureDialog({
       setSuccess(false);
       setSigningLinks([]);
       setCopiedIndex(null);
+      setShowAddForm(false);
+      resetAddForm();
     }
   }, [open, organizationId]);
+
+  const resetAddForm = () => {
+    setNewName("");
+    setNewEmail("");
+    setNewType("employee");
+    setNewDepartment("");
+  };
 
   const fetchRecipients = async () => {
     setLoading(true);
@@ -81,6 +107,41 @@ export function SendForSignatureDialog({
       toast.error("Failed to load recipients");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleAddRecipient = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setAddingRecipient(true);
+
+    try {
+      const { data, error } = await supabase
+        .from("recipients")
+        .insert({
+          organization_id: organizationId,
+          full_name: newName,
+          email: newEmail,
+          recipient_type: newType,
+          department: newDepartment || null,
+        })
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      toast.success(`Added ${newName}`);
+      
+      // Add to local state and auto-select
+      setRecipients((prev) => [...prev, data].sort((a, b) => a.full_name.localeCompare(b.full_name)));
+      setSelectedIds((prev) => new Set([...prev, data.id]));
+      
+      setShowAddForm(false);
+      resetAddForm();
+    } catch (error: any) {
+      console.error("Error adding recipient:", error);
+      toast.error(error.message || "Failed to add recipient");
+    } finally {
+      setAddingRecipient(false);
     }
   };
 
@@ -193,9 +254,12 @@ export function SendForSignatureDialog({
       setSuccess(false);
       setSelectedIds(new Set());
       setSearchQuery("");
+      setShowAddForm(false);
+      resetAddForm();
     }, 200);
   };
 
+  // Success state
   if (success) {
     return (
       <Dialog open={open} onOpenChange={handleClose}>
@@ -259,6 +323,112 @@ export function SendForSignatureDialog({
     );
   }
 
+  // Add recipient form
+  if (showAddForm) {
+    return (
+      <Dialog open={open} onOpenChange={onOpenChange}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowAddForm(false)}
+                className="h-8 w-8 p-0"
+              >
+                <ArrowLeft className="h-4 w-4" />
+              </Button>
+              <div>
+                <DialogTitle>Add New Recipient</DialogTitle>
+                <DialogDescription>
+                  Create a new recipient and add them to this request
+                </DialogDescription>
+              </div>
+            </div>
+          </DialogHeader>
+
+          <form onSubmit={handleAddRecipient} className="space-y-4 mt-2">
+            <div className="space-y-2">
+              <Label htmlFor="inline-name">Full Name *</Label>
+              <Input
+                id="inline-name"
+                placeholder="Jane Smith"
+                value={newName}
+                onChange={(e) => setNewName(e.target.value)}
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="inline-email">Email *</Label>
+              <Input
+                id="inline-email"
+                type="email"
+                placeholder="jane@company.com"
+                value={newEmail}
+                onChange={(e) => setNewEmail(e.target.value)}
+                required
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="inline-type">Type</Label>
+                <Select value={newType} onValueChange={setNewType}>
+                  <SelectTrigger id="inline-type">
+                    <SelectValue placeholder="Select type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="employee">Employee</SelectItem>
+                    <SelectItem value="contractor">Contractor</SelectItem>
+                    <SelectItem value="vendor">Vendor</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="inline-department">Department</Label>
+                <Input
+                  id="inline-department"
+                  placeholder="Engineering"
+                  value={newDepartment}
+                  onChange={(e) => setNewDepartment(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="flex gap-3 pt-4">
+              <Button
+                type="button"
+                variant="outline"
+                className="flex-1"
+                onClick={() => setShowAddForm(false)}
+                disabled={addingRecipient}
+              >
+                Cancel
+              </Button>
+              <Button
+                type="submit"
+                variant="hero"
+                className="flex-1"
+                disabled={addingRecipient}
+              >
+                {addingRecipient ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    Adding...
+                  </>
+                ) : (
+                  <>
+                    <UserPlus className="h-4 w-4" />
+                    Add & Select
+                  </>
+                )}
+              </Button>
+            </div>
+          </form>
+        </DialogContent>
+      </Dialog>
+    );
+  }
+
+  // Main recipient selection view
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-lg">
@@ -277,23 +447,47 @@ export function SendForSignatureDialog({
             <Loader2 className="h-8 w-8 animate-spin mx-auto text-muted-foreground" />
           </div>
         ) : recipients.length === 0 ? (
-          <div className="py-12 text-center">
-            <Users className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-            <p className="text-muted-foreground">
-              No recipients found. Add recipients first.
+          <div className="py-8 text-center">
+            <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-muted text-muted-foreground mb-4">
+              <Users className="h-6 w-6" />
+            </div>
+            <h3 className="font-medium text-foreground mb-1">No recipients yet</h3>
+            <p className="text-sm text-muted-foreground mb-4">
+              Add people to your organization before sending signing requests.
             </p>
+            <div className="flex flex-col gap-2">
+              <Button onClick={() => setShowAddForm(true)}>
+                <UserPlus className="h-4 w-4 mr-2" />
+                Add New Recipient
+              </Button>
+              <Button variant="ghost" size="sm" asChild>
+                <Link to="/recipients" onClick={() => onOpenChange(false)}>
+                  Go to Recipients page →
+                </Link>
+              </Button>
+            </div>
           </div>
         ) : (
           <>
-            {/* Search */}
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Search recipients..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-9"
-              />
+            {/* Search + Add Button */}
+            <div className="flex gap-2">
+              <div className="relative flex-1">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  placeholder="Search recipients..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-9"
+                />
+              </div>
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => setShowAddForm(true)}
+                title="Add new recipient"
+              >
+                <UserPlus className="h-4 w-4" />
+              </Button>
             </div>
 
             {/* Select All */}
