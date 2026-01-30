@@ -511,6 +511,7 @@ export default function RequirementDetail() {
           requirementId={requirement.id}
           requirementTitle={requirement.title}
           organizationId={organization.id}
+          organizationName={organization.name}
           onSuccess={fetchRequirementDetails}
         />
       )}

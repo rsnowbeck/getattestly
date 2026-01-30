@@ -2,3 +2,6 @@ project_id = "urpqjnoowsdehvkrqxmy"
 
 [functions.verify-signing-token]
 verify_jwt = false
+
+[functions.send-signing-email]
+verify_jwt = false
