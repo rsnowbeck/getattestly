@@ -22,10 +22,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { Search, FileSignature, Clock, CheckCircle2, XCircle, RefreshCw, Download } from "lucide-react";
+import { Search, FileSignature, Clock, CheckCircle2, XCircle, RefreshCw, Download, FileText } from "lucide-react";
 import { format } from "date-fns";
 import { ResendLinkDialog } from "@/components/signatures/ResendLinkDialog";
 import { toast } from "sonner";
+import { generateSignaturePdf } from "@/lib/generateSignaturePdf";
 
 interface SigningRequest {
   id: string;
@@ -34,6 +35,8 @@ interface SigningRequest {
   completed_at: string | null;
   signed_name: string | null;
   expires_at: string | null;
+  ip_address: string | null;
+  user_agent: string | null;
   recipient: {
     full_name: string;
     email: string;
@@ -73,6 +76,8 @@ export default function Signatures() {
           completed_at,
           signed_name,
           expires_at,
+          ip_address,
+          user_agent,
           recipient:recipients(full_name, email),
           requirement:requirements(title)
         `)
@@ -140,6 +145,27 @@ export default function Signatures() {
   const handleResendClick = (request: SigningRequest) => {
     setSelectedRequest(request);
     setResendDialogOpen(true);
+  };
+
+  const handleDownloadPdf = (request: SigningRequest) => {
+    if (request.status !== "completed") {
+      toast.error("PDF export is only available for completed signatures");
+      return;
+    }
+
+    generateSignaturePdf({
+      recipientName: request.recipient?.full_name || "Unknown",
+      recipientEmail: request.recipient?.email || "",
+      requirementTitle: request.requirement?.title || "Unknown",
+      signedName: request.signed_name || "",
+      sentAt: request.sent_at,
+      completedAt: request.completed_at,
+      ipAddress: request.ip_address,
+      userAgent: request.user_agent,
+      signingRequestId: request.id,
+    });
+
+    toast.success("PDF certificate downloaded");
   };
 
   const exportToCSV = () => {
@@ -317,17 +343,32 @@ export default function Signatures() {
                       )}
                     </TableCell>
                     <TableCell>
-                      {isRequestPendingOrExpired(request) && (
-                        <Button
-                          size="sm"
-                          variant="ghost"
-                          onClick={() => handleResendClick(request)}
-                          className="h-8 px-2"
-                        >
-                          <RefreshCw className="h-4 w-4" />
-                          <span className="sr-only">Resend</span>
-                        </Button>
-                      )}
+                      <div className="flex gap-1">
+                        {request.status === "completed" && (
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={() => handleDownloadPdf(request)}
+                            className="h-8 px-2"
+                            title="Download PDF certificate"
+                          >
+                            <FileText className="h-4 w-4" />
+                            <span className="sr-only">Download PDF</span>
+                          </Button>
+                        )}
+                        {isRequestPendingOrExpired(request) && (
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            onClick={() => handleResendClick(request)}
+                            className="h-8 px-2"
+                            title="Resend signing link"
+                          >
+                            <RefreshCw className="h-4 w-4" />
+                            <span className="sr-only">Resend</span>
+                          </Button>
+                        )}
+                      </div>
                     </TableCell>
                   </TableRow>
                 ))}
