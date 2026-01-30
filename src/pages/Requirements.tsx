@@ -601,6 +601,7 @@ export default function Requirements() {
           requirementId={selectedRequirement.id}
           requirementTitle={selectedRequirement.title}
           organizationId={organization.id}
+          organizationName={organization.name}
         />
       )}
     </DashboardLayout>

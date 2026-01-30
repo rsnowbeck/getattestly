@@ -43,6 +43,7 @@ interface SendForSignatureDialogProps {
   requirementId: string;
   requirementTitle: string;
   organizationId: string;
+  organizationName?: string;
   onSuccess?: () => void;
 }
 
@@ -52,6 +53,7 @@ export function SendForSignatureDialog({
   requirementId,
   requirementTitle,
   organizationId,
+  organizationName,
   onSuccess,
 }: SendForSignatureDialogProps) {
   const [recipients, setRecipients] = useState<Recipient[]>([]);
@@ -203,9 +205,45 @@ export function SendForSignatureDialog({
         url: `${baseUrl}/sign/${req._plain_token}`,
       }));
 
+      // Send emails to each recipient
+      const emailPromises = links.map(async (link) => {
+        try {
+          const response = await supabase.functions.invoke("send-signing-email", {
+            body: {
+              recipientName: link.recipientName,
+              recipientEmail: link.email,
+              requirementTitle,
+              signingUrl: link.url,
+              organizationName: organizationName || "Your organization",
+            },
+          });
+          
+          if (response.error) {
+            console.error(`Failed to send email to ${link.email}:`, response.error);
+            return { success: false, email: link.email, error: response.error };
+          }
+          
+          console.log(`Email sent to ${link.email}`);
+          return { success: true, email: link.email };
+        } catch (err) {
+          console.error(`Error sending email to ${link.email}:`, err);
+          return { success: false, email: link.email, error: err };
+        }
+      });
+
+      const emailResults = await Promise.all(emailPromises);
+      const successCount = emailResults.filter((r) => r.success).length;
+      const failCount = emailResults.filter((r) => !r.success).length;
+
       setSigningLinks(links);
       setSuccess(true);
-      toast.success(`Created ${selectedIds.size} signing request(s)`);
+      
+      if (failCount > 0) {
+        toast.warning(`Sent ${successCount} email(s), ${failCount} failed. Links are still available below.`);
+      } else {
+        toast.success(`Sent ${selectedIds.size} signing request(s) via email`);
+      }
+      
       onSuccess?.();
     } catch (error: any) {
       console.error("Error creating signing requests:", error);
