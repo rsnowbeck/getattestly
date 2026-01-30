@@ -361,6 +361,7 @@ export default function Signatures() {
                             size="sm"
                             variant="ghost"
                             onClick={() => handleResendClick(request)}
+                            className="hover:bg-primary hover:text-primary-foreground"
                           >
                             <Send className="h-4 w-4" />
                             Resend

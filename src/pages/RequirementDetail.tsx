@@ -471,6 +471,7 @@ export default function RequirementDetail() {
                         variant="ghost"
                         size="sm"
                         onClick={() => handleResendClick(request)}
+                        className="hover:bg-primary hover:text-primary-foreground"
                       >
                         <Send className="h-4 w-4" />
                         Resend
