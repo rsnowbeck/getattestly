@@ -27,10 +27,12 @@ import {
   Send,
   Paperclip,
   Edit,
+  UserPlus,
 } from "lucide-react";
 import { format, isPast, isToday } from "date-fns";
 import { ResendLinkDialog } from "@/components/signatures/ResendLinkDialog";
 import { RequirementEditForm } from "@/components/requirements/RequirementEditForm";
+import { SendForSignatureDialog } from "@/components/requirements/SendForSignatureDialog";
 
 interface Requirement {
   id: string;
@@ -70,6 +72,7 @@ export default function RequirementDetail() {
   const [signingRequests, setSigningRequests] = useState<SigningRequestWithRecipient[]>([]);
   const [loading, setLoading] = useState(true);
   const [resendDialogOpen, setResendDialogOpen] = useState(false);
+  const [sendDialogOpen, setSendDialogOpen] = useState(false);
   const [selectedRequest, setSelectedRequest] = useState<SigningRequestWithRecipient | null>(null);
   const [isEditing, setIsEditing] = useState(searchParams.get("edit") === "true");
 
@@ -374,11 +377,19 @@ export default function RequirementDetail() {
 
       {/* Recipients Table */}
       <div className="card-elevated overflow-hidden">
-        <div className="p-6 border-b border-border">
-          <h2 className="text-lg font-semibold text-foreground">Recipients</h2>
-          <p className="text-sm text-muted-foreground">
-            {totalCount} recipient{totalCount !== 1 ? "s" : ""} assigned to this requirement
-          </p>
+        <div className="p-6 border-b border-border flex items-center justify-between">
+          <div>
+            <h2 className="text-lg font-semibold text-foreground">Recipients</h2>
+            <p className="text-sm text-muted-foreground">
+              {totalCount} recipient{totalCount !== 1 ? "s" : ""} assigned to this requirement
+            </p>
+          </div>
+          {requirement.status === "published" && (
+            <Button variant="outline" size="sm" onClick={() => setSendDialogOpen(true)}>
+              <UserPlus className="h-4 w-4 mr-2" />
+              Add Recipients
+            </Button>
+          )}
         </div>
 
         <Table>
@@ -463,6 +474,18 @@ export default function RequirementDetail() {
           recipientEmail={selectedRequest.recipient.email}
           requirementTitle={requirement.title}
           signingRequestId={selectedRequest.id}
+          onSuccess={fetchRequirementDetails}
+        />
+      )}
+
+      {/* Send for Signature Dialog */}
+      {organization && (
+        <SendForSignatureDialog
+          open={sendDialogOpen}
+          onOpenChange={setSendDialogOpen}
+          requirementId={requirement.id}
+          requirementTitle={requirement.title}
+          organizationId={organization.id}
           onSuccess={fetchRequirementDetails}
         />
       )}
