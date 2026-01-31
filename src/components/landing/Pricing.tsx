@@ -2,7 +2,16 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Check } from "lucide-react";
 
-const plans = [
+const plans: {
+  name: string;
+  price: string;
+  period: string;
+  description: string;
+  features: string[];
+  proOnlyFeatures?: string[];
+  cta: string;
+  featured: boolean;
+}[] = [
   {
     name: "Starter",
     price: "$9",
@@ -16,8 +25,7 @@ const plans = [
       "Secure one-time links",
       "Real-time dashboard",
       "Standard email delivery",
-      "PDF exports",
-      "14-day free trial"
+      "PDF exports"
     ],
     cta: "Start Free Trial",
     featured: false
@@ -38,8 +46,7 @@ const plans = [
       "Team collaboration",
       "Priority email delivery",
       "CSV & PDF exports",
-      "Bulk reminders",
-      "14-day free trial"
+      "Bulk reminders"
     ],
     cta: "Start Free Trial",
     featured: true
@@ -58,12 +65,13 @@ const plans = [
       "Real-time dashboard",
       "Automated reminders",
       "Team collaboration",
+      "Priority support"
+    ],
+    proOnlyFeatures: [
       "Requirement file attachments",
-      "Priority support",
       "Custom branding",
       "API access",
-      "Advanced audit logs",
-      "14-day free trial"
+      "Advanced audit logs"
     ],
     cta: "Start Free Trial",
     featured: false
@@ -117,6 +125,23 @@ export function Pricing() {
                     <span className="text-foreground">{feature}</span>
                   </li>
                 ))}
+                {plan.proOnlyFeatures && (
+                  <>
+                    <li className="pt-2">
+                      <span className="text-sm font-semibold text-accent">Pro-only features:</span>
+                    </li>
+                    {plan.proOnlyFeatures.map((feature) => (
+                      <li key={feature} className="flex items-center gap-3 text-sm pl-2">
+                        <Check className="h-4 w-4 text-accent flex-shrink-0" />
+                        <span className="text-foreground">{feature}</span>
+                      </li>
+                    ))}
+                  </>
+                )}
+                <li className="flex items-center gap-3 text-sm">
+                  <Check className="h-4 w-4 text-accent flex-shrink-0" />
+                  <span className="text-foreground">14-day free trial</span>
+                </li>
               </ul>
 
               <Button
