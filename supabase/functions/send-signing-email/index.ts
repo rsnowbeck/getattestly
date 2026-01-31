@@ -144,7 +144,7 @@ const handler = async (req: Request): Promise<Response> => {
                       </table>
                       
                       <p style="margin: 24px 0 0; font-size: 14px; color: #71717a; line-height: 1.6;">
-                        If you have any questions, please contact your organization administrator${senderEmail ? ` at <a href="mailto:${senderEmail}" style="color: #2563eb;">${senderEmail}</a>` : ""} or reach out to <a href="mailto:support@attestly.com" style="color: #2563eb;">support@attestly.com</a>.
+                        If you have any questions, please contact your organization administrator${senderEmail ? ` at <a href="mailto:${senderEmail}" style="color: #2563eb;">${senderEmail}</a>` : ""} or reach out to Support at <a href="mailto:hello@attestly.com" style="color: #2563eb;">hello@attestly.com</a>.
                       </p>
                     </td>
                   </tr>
@@ -159,7 +159,7 @@ const handler = async (req: Request): Promise<Response> => {
                         If you didn't expect this email, you can safely ignore it.
                       </p>
                       <p style="margin: 12px 0 0; font-size: 11px; color: #d4d4d8;">
-                        Need help? <a href="mailto:support@attestly.com" style="color: #a1a1aa;">support@attestly.com</a>
+                        Support: <a href="mailto:hello@attestly.com" style="color: #a1a1aa;">hello@attestly.com</a>
                       </p>
                     </td>
                   </tr>

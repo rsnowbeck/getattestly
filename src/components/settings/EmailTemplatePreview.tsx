@@ -70,12 +70,13 @@ export function EmailTemplatePreview({ organizationName, senderName, logoUrl }: 
                   </span>
                 </div>
                 <p className="text-sm text-muted-foreground mt-6">
-                  If you have any questions, please contact your organization administrator or email support@attestly.com.
+                  If you have any questions, please contact your organization administrator or Support at hello@attestly.com.
                 </p>
               </div>
               <div className="pt-4 border-t border-border text-center text-xs text-muted-foreground">
                 <p>This email was sent by Attestly on behalf of {displaySender}.</p>
                 <p className="mt-1">If you didn't expect this email, you can safely ignore it.</p>
+                <p className="mt-2">Support: hello@attestly.com</p>
               </div>
             </EmailPreviewFrame>
           </TabsContent>
@@ -109,11 +110,12 @@ export function EmailTemplatePreview({ organizationName, senderName, logoUrl }: 
                   </span>
                 </div>
                 <p className="text-sm text-muted-foreground mt-6">
-                  Need help? Contact support@attestly.com
+                  Support: hello@attestly.com
                 </p>
               </div>
               <div className="pt-4 border-t border-border text-center text-xs text-muted-foreground">
                 <p>This reminder was sent by Attestly on behalf of {displaySender}.</p>
+                <p className="mt-2">Support: hello@attestly.com</p>
               </div>
             </EmailPreviewFrame>
           </TabsContent>
@@ -141,11 +143,12 @@ export function EmailTemplatePreview({ organizationName, senderName, logoUrl }: 
                   </span>
                 </div>
                 <p className="text-sm text-muted-foreground mt-6">
-                  This invitation expires in 7 days. Questions? Contact support@attestly.com
+                  This invitation expires in 7 days. Questions? Support: hello@attestly.com
                 </p>
               </div>
               <div className="pt-4 border-t border-border text-center text-xs text-muted-foreground">
                 <p>If you didn't expect this invitation, you can safely ignore it.</p>
+                <p className="mt-2">Support: hello@attestly.com</p>
               </div>
             </EmailPreviewFrame>
           </TabsContent>
@@ -183,11 +186,12 @@ export function EmailTemplatePreview({ organizationName, senderName, logoUrl }: 
                   </span>
                 </div>
                 <p className="text-sm text-muted-foreground mt-6 text-center">
-                  Questions about plans? Contact support@attestly.com
+                  Questions about plans? Support: hello@attestly.com
                 </p>
               </div>
               <div className="pt-4 border-t border-border text-center text-xs text-muted-foreground">
                 <p>© 2025 Attestly. All rights reserved.</p>
+                <p className="mt-2">Support: hello@attestly.com</p>
               </div>
             </EmailPreviewFrame>
           </TabsContent>

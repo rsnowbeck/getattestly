@@ -103,7 +103,7 @@ export function EmailSettingsForm({ organization, onUpdate }: EmailSettingsFormP
           <Alert>
             <Info className="h-4 w-4" />
             <AlertDescription>
-              All emails include a support contact (<strong>support@attestly.com</strong>) by default 
+              All emails include Support contact (<strong>hello@attestly.com</strong>) by default 
               to help recipients with any issues.
             </AlertDescription>
           </Alert>
