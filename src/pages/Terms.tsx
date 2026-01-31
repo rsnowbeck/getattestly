@@ -31,7 +31,7 @@ export default function Terms() {
               <FileText className="h-7 w-7 text-primary" />
             </div>
             <h1 className="text-3xl font-bold text-foreground mb-3">Terms of Service</h1>
-            <p className="text-muted-foreground">Effective Date: [Add date]</p>
+            <p className="text-muted-foreground">Effective Date: January 31, 2026</p>
           </div>
 
           <div className="card-elevated p-8 space-y-8">
