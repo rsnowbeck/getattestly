@@ -2,18 +2,18 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Mail, Bell, AlertTriangle, UserPlus } from "lucide-react";
-
 interface EmailTemplatePreviewProps {
   organizationName: string;
   senderName: string;
   logoUrl?: string | null;
 }
-
-export function EmailTemplatePreview({ organizationName, senderName, logoUrl }: EmailTemplatePreviewProps) {
+export function EmailTemplatePreview({
+  organizationName,
+  senderName,
+  logoUrl
+}: EmailTemplatePreviewProps) {
   const displaySender = senderName || organizationName || "Your Organization";
-  
-  return (
-    <Card>
+  return <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Mail className="h-5 w-5" />
@@ -45,14 +45,9 @@ export function EmailTemplatePreview({ organizationName, senderName, logoUrl }: 
           </TabsList>
 
           <TabsContent value="signing" className="mt-4">
-            <EmailPreviewFrame
-              subject={`Action Required: Please sign "Annual Compliance Policy"`}
-              senderName={displaySender}
-            >
+            <EmailPreviewFrame subject={`Action Required: Please sign "Annual Compliance Policy"`} senderName={displaySender}>
               <div className="text-center pb-6 border-b border-border">
-                {logoUrl ? (
-                  <img src={logoUrl} alt="Logo" className="h-8 mx-auto mb-2" />
-                ) : null}
+                {logoUrl ? <img src={logoUrl} alt="Logo" className="h-8 mx-auto mb-2" /> : null}
                 <h2 className="text-xl font-semibold text-foreground">Attestly</h2>
               </div>
               <div className="py-6">
@@ -70,26 +65,20 @@ export function EmailTemplatePreview({ organizationName, senderName, logoUrl }: 
                   </span>
                 </div>
                 <p className="text-sm text-muted-foreground mt-6">
-                  If you have any questions, please contact your organization administrator or Support at hello@attestly.com.
+                  If you have any questions, please contact your organization administrator or email hello@attestly.com.
                 </p>
               </div>
               <div className="pt-4 border-t border-border text-center text-xs text-muted-foreground">
                 <p>This email was sent by Attestly on behalf of {displaySender}.</p>
                 <p className="mt-1">If you didn't expect this email, you can safely ignore it.</p>
-                <p className="mt-2">Support: hello@attestly.com</p>
               </div>
             </EmailPreviewFrame>
           </TabsContent>
 
           <TabsContent value="reminder" className="mt-4">
-            <EmailPreviewFrame
-              subject={`Reminder: Please sign "Annual Compliance Policy"`}
-              senderName={displaySender}
-            >
+            <EmailPreviewFrame subject={`Reminder: Please sign "Annual Compliance Policy"`} senderName={displaySender}>
               <div className="text-center pb-6 border-b border-border">
-                {logoUrl ? (
-                  <img src={logoUrl} alt="Logo" className="h-8 mx-auto mb-2" />
-                ) : null}
+                {logoUrl ? <img src={logoUrl} alt="Logo" className="h-8 mx-auto mb-2" /> : null}
                 <h2 className="text-xl font-semibold text-foreground">Attestly</h2>
               </div>
               <div className="py-6">
@@ -110,21 +99,17 @@ export function EmailTemplatePreview({ organizationName, senderName, logoUrl }: 
                   </span>
                 </div>
                 <p className="text-sm text-muted-foreground mt-6">
-                  Support: hello@attestly.com
+                  Need help? Contact support@attestly.com
                 </p>
               </div>
               <div className="pt-4 border-t border-border text-center text-xs text-muted-foreground">
                 <p>This reminder was sent by Attestly on behalf of {displaySender}.</p>
-                <p className="mt-2">Support: hello@attestly.com</p>
               </div>
             </EmailPreviewFrame>
           </TabsContent>
 
           <TabsContent value="invite" className="mt-4">
-            <EmailPreviewFrame
-              subject={`You've been invited to join ${displaySender} on Attestly`}
-              senderName={displaySender}
-            >
+            <EmailPreviewFrame subject={`You've been invited to join ${displaySender} on Attestly`} senderName={displaySender}>
               <div className="text-center pb-6 border-b border-border">
                 <h2 className="text-xl font-semibold text-foreground">Attestly</h2>
               </div>
@@ -143,21 +128,17 @@ export function EmailTemplatePreview({ organizationName, senderName, logoUrl }: 
                   </span>
                 </div>
                 <p className="text-sm text-muted-foreground mt-6">
-                  This invitation expires in 7 days. Questions? Support: hello@attestly.com
+                  This invitation expires in 7 days. Questions? Contact support@attestly.com
                 </p>
               </div>
               <div className="pt-4 border-t border-border text-center text-xs text-muted-foreground">
                 <p>If you didn't expect this invitation, you can safely ignore it.</p>
-                <p className="mt-2">Support: hello@attestly.com</p>
               </div>
             </EmailPreviewFrame>
           </TabsContent>
 
           <TabsContent value="trial" className="mt-4">
-            <EmailPreviewFrame
-              subject="Your Attestly trial ends in 3 days"
-              senderName="Attestly"
-            >
+            <EmailPreviewFrame subject="Your Attestly trial ends in 3 days" senderName="Attestly">
               <div className="text-center pb-6 border-b border-border">
                 <h2 className="text-xl font-semibold text-foreground">Attestly</h2>
               </div>
@@ -186,30 +167,29 @@ export function EmailTemplatePreview({ organizationName, senderName, logoUrl }: 
                   </span>
                 </div>
                 <p className="text-sm text-muted-foreground mt-6 text-center">
-                  Questions about plans? Support: hello@attestly.com
+                  Questions about plans? Contact support@attestly.com
                 </p>
               </div>
               <div className="pt-4 border-t border-border text-center text-xs text-muted-foreground">
                 <p>© 2025 Attestly. All rights reserved.</p>
-                <p className="mt-2">Support: hello@attestly.com</p>
               </div>
             </EmailPreviewFrame>
           </TabsContent>
         </Tabs>
       </CardContent>
-    </Card>
-  );
+    </Card>;
 }
-
 interface EmailPreviewFrameProps {
   subject: string;
   senderName: string;
   children: React.ReactNode;
 }
-
-function EmailPreviewFrame({ subject, senderName, children }: EmailPreviewFrameProps) {
-  return (
-    <div className="border rounded-lg overflow-hidden bg-card">
+function EmailPreviewFrame({
+  subject,
+  senderName,
+  children
+}: EmailPreviewFrameProps) {
+  return <div className="border rounded-lg overflow-hidden bg-card">
       {/* Email Header */}
       <div className="bg-muted/50 px-4 py-3 border-b">
         <div className="flex items-center gap-2 mb-1">
@@ -231,6 +211,5 @@ function EmailPreviewFrame({ subject, senderName, children }: EmailPreviewFrameP
       <div className="p-6 max-h-[400px] overflow-y-auto">
         {children}
       </div>
-    </div>
-  );
+    </div>;
 }
