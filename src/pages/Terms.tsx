@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, FileText, Mail } from "lucide-react";
+import { Footer } from "@/components/landing/Footer";
 
 export default function Terms() {
   return (
@@ -123,6 +124,7 @@ export default function Terms() {
           </div>
         </div>
       </main>
+      <Footer />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Shield, Mail } from "lucide-react";
+import { Footer } from "@/components/landing/Footer";
 
 export default function Privacy() {
   return (
@@ -126,6 +127,7 @@ export default function Privacy() {
           </div>
         </div>
       </main>
+      <Footer />
     </div>
   );
 }
