@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Lock, Mail } from "lucide-react";
+import { Footer } from "@/components/landing/Footer";
 
 export default function Security() {
   return (
@@ -100,6 +101,7 @@ export default function Security() {
           </div>
         </div>
       </main>
+      <Footer />
     </div>
   );
 }
