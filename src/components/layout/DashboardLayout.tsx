@@ -9,7 +9,8 @@ import {
   Menu,
   X,
   FileSignature,
-  HelpCircle
+  HelpCircle,
+  Settings
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
@@ -23,6 +24,7 @@ const navItems = [
   { label: "Recipients", icon: Users, href: "/recipients" },
   { label: "Requirements", icon: FileText, href: "/requirements" },
   { label: "Signatures", icon: FileSignature, href: "/signatures" },
+  { label: "Settings", icon: Settings, href: "/settings" },
 ];
 
 export function DashboardLayout({ children }: DashboardLayoutProps) {
