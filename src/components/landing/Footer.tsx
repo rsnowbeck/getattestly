@@ -5,6 +5,9 @@ export function Footer() {
     <footer className="border-t border-border bg-background py-8">
       <div className="container">
         <div className="flex flex-col md:flex-row justify-center items-center gap-6">
+          <p className="text-sm text-muted-foreground">
+            © 2026 Attestly
+          </p>
           <nav className="flex flex-wrap justify-center gap-6 text-sm">
             <Link to="/contact" className="text-muted-foreground hover:text-foreground transition-colors">
               Contact
@@ -19,9 +22,6 @@ export function Footer() {
               Security
             </Link>
           </nav>
-          <p className="text-sm text-muted-foreground">
-            © Attestly
-          </p>
         </div>
       </div>
     </footer>
