@@ -22,9 +22,10 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { User, Building2, Shield, Loader2, Bell, Trash2 } from "lucide-react";
+import { User, Building2, Shield, Loader2, Bell, Trash2, Users } from "lucide-react";
 import { toast } from "sonner";
 import { OrganizationSettingsForm } from "@/components/settings/OrganizationSettingsForm";
+import { TeamManagement } from "@/components/settings/TeamManagement";
 
 // Common timezones
 const TIMEZONES = [
@@ -249,6 +250,10 @@ export default function Settings() {
             <TabsTrigger value="organization" className="gap-2">
               <Building2 className="h-4 w-4" />
               Organization
+            </TabsTrigger>
+            <TabsTrigger value="team" className="gap-2">
+              <Users className="h-4 w-4" />
+              Team
             </TabsTrigger>
           </TabsList>
 
@@ -510,6 +515,22 @@ export default function Settings() {
               <OrganizationSettingsForm 
                 organization={organization} 
                 onUpdate={refetchOrg}
+              />
+            ) : (
+              <Card>
+                <CardContent className="py-8 text-center text-muted-foreground">
+                  No organization found
+                </CardContent>
+              </Card>
+            )}
+          </TabsContent>
+
+          {/* Team Tab */}
+          <TabsContent value="team" className="space-y-6">
+            {organization ? (
+              <TeamManagement 
+                organizationId={organization.id} 
+                organizationName={organization.name}
               />
             ) : (
               <Card>
