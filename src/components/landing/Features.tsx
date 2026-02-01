@@ -14,7 +14,7 @@ const features: Feature[] = [{
 }, {
   icon: FileText,
   title: "Flexible Requirements",
-  description: "Create one-time or annual compliance items. Attach PDFs. Set due dates. Draft before publishing."
+  description: "Create one-time or recurring compliance items. Attach documents, set due dates, and draft before publishing."
 }, {
   icon: Send,
   title: "Secure Signing Links",
