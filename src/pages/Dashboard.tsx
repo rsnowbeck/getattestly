@@ -126,7 +126,25 @@ export default function Dashboard() {
     }
   };
 
-  if (authLoading || orgLoading) {
+  // Show loading while auth is being determined, or redirect is happening
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="space-y-4 text-center">
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent mx-auto" />
+          <p className="text-sm text-muted-foreground">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // If no user after auth loaded, the useAuth hook will redirect to login
+  // Show nothing while redirect is happening
+  if (!user) {
+    return null;
+  }
+
+  if (orgLoading) {
     return (
       <DashboardLayout>
         <div className="space-y-6 animate-in fade-in-50 duration-300">
