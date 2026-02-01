@@ -6,7 +6,7 @@ export function Hero() {
       <div className="container">
         <div className="mx-auto max-w-4xl text-center">
           {/* Badge */}
-          <div className="inline-flex -translate-y-2 items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5 text-sm text-muted-foreground mb-8 -mt-8 animate-fade-in">
+          <div className="inline-flex -translate-y-2 items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5 text-sm text-muted-foreground mb-11 -mt-8 animate-fade-in">
             <Shield className="h-4 w-4 text-accent" />
             <span>Audit-ready proof, without complexity</span>
           </div>
@@ -59,7 +59,7 @@ export function Hero() {
         </div>
 
         {/* Feature Cards Preview */}
-        <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto animate-slide-up" style={{
+        <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto animate-slide-up" style={{
         animationDelay: "0.4s"
       }}>
           <div className="card-elevated p-6 text-center">
