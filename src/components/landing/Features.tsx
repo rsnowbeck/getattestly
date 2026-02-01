@@ -34,7 +34,7 @@ const features: Feature[] = [{
 }, {
   icon: Download,
   title: "Export & Audit Proof",
-  description: "Generate PDF proof documents and CSV exports. Timestamped records with full metadata."
+  description: "Generate audit-ready PDF certificates and CSV exports with timestamps and metadata."
 }, {
   icon: Shield,
   title: "Enterprise Security",
