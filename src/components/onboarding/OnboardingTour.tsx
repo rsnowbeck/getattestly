@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { supabase } from "@/integrations/supabase/client";
 import { 
   Users, 
   FileText, 
@@ -86,14 +87,36 @@ export function OnboardingTour({ organizationId }: OnboardingTourProps) {
     const tourKey = `attestly_tour_completed_${organizationId}`;
     const completed = localStorage.getItem(tourKey);
     
-    if (!completed) {
-      setHasCompletedTour(false);
-      // Small delay to let the page load first
-      const timer = setTimeout(() => {
-        setIsVisible(true);
-      }, 500);
-      return () => clearTimeout(timer);
+    if (completed) {
+      setHasCompletedTour(true);
+      return;
     }
+
+    // Check if this is a truly new organization (no data yet)
+    const checkIfNewOrg = async () => {
+      const [recipientsRes, requirementsRes, signaturesRes] = await Promise.all([
+        supabase.from('recipients').select('id', { count: 'exact', head: true }).eq('organization_id', organizationId),
+        supabase.from('requirements').select('id', { count: 'exact', head: true }).eq('organization_id', organizationId),
+        supabase.from('signing_requests').select('id', { count: 'exact', head: true }).eq('organization_id', organizationId),
+      ]);
+
+      const hasRecipients = (recipientsRes.count ?? 0) > 0;
+      const hasRequirements = (requirementsRes.count ?? 0) > 0;
+      const hasSignatures = (signaturesRes.count ?? 0) > 0;
+
+      // If org already has any data, they're not new - mark tour as complete
+      if (hasRecipients || hasRequirements || hasSignatures) {
+        localStorage.setItem(tourKey, 'true');
+        setHasCompletedTour(true);
+        return;
+      }
+
+      // Truly new org - show the tour
+      setHasCompletedTour(false);
+      setTimeout(() => setIsVisible(true), 500);
+    };
+
+    checkIfNewOrg();
   }, [organizationId]);
 
   const completeTour = () => {
