@@ -261,9 +261,14 @@ export default function Sign() {
                   enterKeyHint="done"
                 />
                 {signedName && (
-                  <div className="p-3 rounded-lg bg-muted/50 border border-border">
-                    <p className="text-xs text-muted-foreground mb-1">Signature preview</p>
-                    <p className="text-lg font-serif italic text-foreground">{signedName}</p>
+                  <div className="p-4 rounded-lg bg-muted/50 border border-border text-center">
+                    <p className="text-xs text-muted-foreground mb-2">Signature preview</p>
+                    <p 
+                      className="text-2xl text-foreground"
+                      style={{ fontFamily: "'Brush Script MT', 'Segoe Script', 'Bradley Hand', cursive" }}
+                    >
+                      {signedName}
+                    </p>
                   </div>
                 )}
               </div>
