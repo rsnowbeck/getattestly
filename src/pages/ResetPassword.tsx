@@ -18,6 +18,32 @@ export default function ResetPassword() {
 
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
+    let sessionEstablished = false;
+
+    // Newer auth flows can land on /reset-password?code=...&type=recovery
+    // We must exchange that code for a session before updateUser() will work.
+    const exchangeIfNeeded = async () => {
+      const url = new URL(window.location.href);
+      const code = url.searchParams.get("code");
+
+      if (!code) return;
+
+      const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+      if (error) {
+        console.error("exchangeCodeForSession error:", error);
+        toast.error("This reset link is invalid or has expired. Please request a new one.");
+        setHasSession(false);
+        setChecking(false);
+        return;
+      }
+
+      if (data.session) {
+        sessionEstablished = true;
+        setHasSession(true);
+        setChecking(false);
+        return;
+      }
+    };
 
     // Listen for auth state changes (user clicking reset link)
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
@@ -33,6 +59,11 @@ export default function ResetPassword() {
 
     // Check if user already has a valid session (from the URL hash tokens)
     const checkSession = async () => {
+      await exchangeIfNeeded();
+
+      // If we already got a session via exchange, no need to keep checking.
+      if (sessionEstablished) return;
+
       const { data: { session } } = await supabase.auth.getSession();
       if (session) {
         setHasSession(true);
@@ -52,6 +83,7 @@ export default function ResetPassword() {
       subscription.unsubscribe();
       if (timeoutId) clearTimeout(timeoutId);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
