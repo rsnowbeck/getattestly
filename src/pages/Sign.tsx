@@ -126,6 +126,12 @@ export default function Sign() {
   }
 
   if (pageState === 'success') {
+    const signedDate = new Date().toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+    
     return (
       <div className="min-h-screen bg-gradient-to-b from-background to-muted/30 flex items-center justify-center p-4">
         <Card className="w-full max-w-md border-primary/20">
@@ -134,12 +140,28 @@ export default function Sign() {
               <CheckCircle className="h-10 w-10 text-primary" />
             </div>
             <h2 className="text-2xl font-bold text-foreground mb-3">Signature Complete!</h2>
-            <p className="text-muted-foreground mb-6 leading-relaxed">
-              Thank you for acknowledging this document. You may now close this page.
+            <p className="text-muted-foreground mb-4 leading-relaxed">
+              Thank you for acknowledging this document.
             </p>
+            
+            {/* Document details */}
+            <div className="bg-muted/50 rounded-lg p-4 mb-4 text-left">
+              <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Document</p>
+              <p className="font-medium text-foreground">{signingData?.requirementTitle}</p>
+            </div>
+            
+            <p className="text-sm text-muted-foreground mb-6">
+              Signed on {signedDate}
+            </p>
+            
+            <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
+              Your signature has been securely recorded and shared with your organization.<br />
+              You may now close this page.
+            </p>
+            
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-muted text-xs text-muted-foreground">
               <Shield className="h-3.5 w-3.5" />
-              <span>Your signature has been securely recorded</span>
+              <span>Securely recorded</span>
             </div>
           </CardContent>
         </Card>
