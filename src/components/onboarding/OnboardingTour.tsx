@@ -85,7 +85,17 @@ export function OnboardingTour({ organizationId }: OnboardingTourProps) {
     if (!organizationId) return;
     
     const tourKey = `attestly_tour_completed_${organizationId}`;
+    const forceShowKey = `attestly_tour_force_show_${organizationId}`;
     const completed = localStorage.getItem(tourKey);
+    const forceShow = localStorage.getItem(forceShowKey);
+    
+    // If force show is set, show the tour regardless of other conditions
+    if (forceShow) {
+      localStorage.removeItem(forceShowKey); // Clear the flag
+      setHasCompletedTour(false);
+      setTimeout(() => setIsVisible(true), 500);
+      return;
+    }
     
     if (completed) {
       setHasCompletedTour(true);
@@ -257,8 +267,12 @@ export function OnboardingTour({ organizationId }: OnboardingTourProps) {
 export function useOnboardingTour(organizationId: string | undefined) {
   const resetTour = () => {
     if (organizationId) {
+      // Clear the completion flag
       localStorage.removeItem(`attestly_tour_completed_${organizationId}`);
-      window.location.reload();
+      // Also set a flag to force show tour even if org has data
+      localStorage.setItem(`attestly_tour_force_show_${organizationId}`, 'true');
+      // Navigate to dashboard and reload
+      window.location.href = '/dashboard';
     }
   };
 
@@ -267,5 +281,16 @@ export function useOnboardingTour(organizationId: string | undefined) {
     return localStorage.getItem(`attestly_tour_completed_${organizationId}`) === 'true';
   };
 
-  return { resetTour, hasCompletedTour };
+  const shouldForceShow = () => {
+    if (!organizationId) return false;
+    return localStorage.getItem(`attestly_tour_force_show_${organizationId}`) === 'true';
+  };
+
+  const clearForceShow = () => {
+    if (organizationId) {
+      localStorage.removeItem(`attestly_tour_force_show_${organizationId}`);
+    }
+  };
+
+  return { resetTour, hasCompletedTour, shouldForceShow, clearForceShow };
 }
