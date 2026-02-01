@@ -50,7 +50,7 @@ function getEmailContent(
         buttonText: "Review & Sign Now",
         dueText: formattedDueDate 
           ? `Please complete your signature by <strong>${formattedDueDate}</strong>.`
-          : `Please complete your signature as soon as possible.`,
+          : `Please complete your signature as soon as possible to meet your organization's requirements.`,
         consequence: `Without your signature, this acknowledgment will remain incomplete in your organization's records.`,
         closing: ``,
       };
@@ -64,7 +64,7 @@ function getEmailContent(
         buttonText: "Review & Sign Now",
         dueText: formattedDueDate
           ? `Please review and sign by <strong>${formattedDueDate}</strong>.`
-          : `Please review and sign as soon as possible.`,
+          : `Please review and sign as soon as possible to meet your organization's requirements.`,
         consequence: `Your acknowledgment is required to complete this compliance requirement.`,
         closing: `Thank you for taking care of this.`,
       };
@@ -81,9 +81,9 @@ function getEmailContent(
         buttonText: "Review & Sign Now",
         dueText: formattedDueDate
           ? `⏰ <strong>Due in ${daysText} (${formattedDueDate})</strong>`
-          : `Please complete this as soon as possible.`,
+          : `Please complete this as soon as possible to meet your organization's requirements.`,
         consequence: `Missing this deadline may be flagged in your organization's compliance records.`,
-        closing: `Please complete this as soon as possible.`,
+        closing: ``,
       };
     
     case "overdue":
@@ -107,7 +107,7 @@ function getEmailContent(
         buttonText: "Review & Sign Document",
         dueText: formattedDueDate
           ? `Please complete by <strong>${formattedDueDate}</strong>.`
-          : `Please complete as soon as possible.`,
+          : `Please complete as soon as possible to meet your organization's requirements.`,
         consequence: `Your acknowledgment is needed to complete this requirement.`,
         closing: ``,
       };
