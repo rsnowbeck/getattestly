@@ -32,6 +32,7 @@ import {
   Eye,
   Search,
   CheckCircle2,
+  RefreshCw,
   X,
   Paperclip
 } from "lucide-react";
@@ -770,6 +771,20 @@ export default function Requirements() {
                         }}>
                           <CheckCircle2 className="h-4 w-4 mr-2" />
                           Mark Complete
+                        </DropdownMenuItem>
+                      )}
+                      {requirement.status === 'completed' && (
+                        <DropdownMenuItem onClick={async () => {
+                          try {
+                            await supabase.from('requirements').update({ status: 'published' }).eq('id', requirement.id);
+                            toast.success(`Reopened "${requirement.title}"`);
+                            fetchRequirements();
+                          } catch {
+                            toast.error('Failed to reopen');
+                          }
+                        }}>
+                          <RefreshCw className="h-4 w-4 mr-2" />
+                          Reopen
                         </DropdownMenuItem>
                       )}
                       <DropdownMenuItem 
