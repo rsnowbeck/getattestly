@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
@@ -85,16 +85,16 @@ export function BulkReminderDialog({
     }
   };
 
-  // Fetch when dialog opens
-  const handleOpenChange = (newOpen: boolean) => {
-    if (newOpen) {
+  // Fetch when dialog opens via prop change
+  useEffect(() => {
+    if (open) {
       fetchPendingSignatures();
     } else {
+      // Reset state when closing
       setPendingSignatures([]);
       setSelectedIds(new Set());
     }
-    onOpenChange(newOpen);
-  };
+  }, [open, organizationId]);
 
   const toggleSelection = (id: string) => {
     const newSelected = new Set(selectedIds);
@@ -204,7 +204,7 @@ export function BulkReminderDialog({
   };
 
   return (
-    <Dialog open={open} onOpenChange={handleOpenChange}>
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
