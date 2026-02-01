@@ -271,7 +271,7 @@ const handler = async (req: Request): Promise<Response> => {
                       </table>
                       
                       <p style="margin: 24px 0 0; font-size: 14px; color: #71717a; line-height: 1.6;">
-                        If you have questions, please contact your organization administrator or Attestly Support at <a href="mailto:hello@attestly.com" style="color: #2563eb;">hello@attestly.com</a>.
+                        If you have questions, please contact your organization administrator.
                       </p>
                     </td>
                   </tr>
