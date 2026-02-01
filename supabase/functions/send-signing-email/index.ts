@@ -46,7 +46,7 @@ function getEmailContent(
         subject: formattedDueDate 
           ? `Signature requested for "${requirementTitle}" — due ${formattedDueDate}`
           : `Action required: Please sign "${requirementTitle}"`,
-        intro: `${displaySenderName} has requested your signature on the following document:`,
+        intro: `${displaySenderName} has requested that you review and sign the following document:`,
         buttonText: "Review & Sign Now",
         dueText: formattedDueDate 
           ? `Please complete your signature by <strong>${formattedDueDate}</strong>.`

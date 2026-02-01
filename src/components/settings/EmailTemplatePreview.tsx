@@ -57,7 +57,7 @@ export function EmailTemplatePreview({
               <div className="py-6">
                 <p className="text-muted-foreground mb-4">Hi John Smith,</p>
                 <p className="text-muted-foreground mb-6">
-                  {displaySender} has requested your signature on the following document:
+                  {displaySender} has requested that you review and sign the following document:
                 </p>
                 <DocumentCard title="Annual Compliance Policy" />
                 <DueDateBanner 
