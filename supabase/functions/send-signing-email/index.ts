@@ -42,38 +42,40 @@ function getEmailContent(
   const formattedDueDate = dueDate ? formatDueDate(dueDate) : null;
   const displaySenderName = senderName || organizationName;
   
-  // Build the attribution line: "This request was sent by [Sender] on behalf of [Organization]..."
-  const attribution = senderName 
-    ? `This request was sent by ${senderName} on behalf of ${organizationName}`
-    : `This request was sent by ${organizationName}`;
+  // Build the intro line - include "on behalf of [Org]" only if we have both sender and org
+  const intro = senderName 
+    ? `${senderName} has requested that you review and sign the following document on behalf of ${organizationName}:`
+    : `${organizationName} has requested that you review and sign the following document:`;
+  
+  // Standard closing for all email types
+  const closing = "This request is part of your organization's acknowledgment process.";
+  
+  // Build subject with due date if available
+  const subjectDate = formattedDueDate ? ` by ${formattedDueDate}` : "";
   
   switch (emailType) {
     case "initial":
       return {
-        subject: formattedDueDate 
-          ? `Signature requested for "${requirementTitle}" — due ${formattedDueDate}`
-          : `Action required: Please sign "${requirementTitle}"`,
-        intro: `${displaySenderName} has requested that you review and sign the following document:`,
+        subject: `Action required: Please sign ${requirementTitle}${subjectDate}`,
+        intro,
         buttonText: "Review & Sign Now",
         dueText: formattedDueDate 
-          ? `Please complete your signature by <strong>${formattedDueDate}</strong>.`
-          : `Please complete your signature as soon as possible to meet your organization's requirements.`,
+          ? `⏰ Please complete your signature by ${formattedDueDate}.`
+          : `Please complete your signature as soon as possible.`,
         consequence: ``,
-        closing: `${attribution} to confirm acknowledgment of this document.`,
+        closing,
       };
     
     case "reminder":
       return {
-        subject: formattedDueDate
-          ? `Reminder: Signature needed for "${requirementTitle}" (due ${formattedDueDate})`
-          : `Reminder: Please sign "${requirementTitle}"`,
-        intro: `This is a friendly reminder that ${displaySenderName} is waiting for your signature on:`,
+        subject: `Reminder: Please sign ${requirementTitle}${subjectDate}`,
+        intro,
         buttonText: "Review & Sign Now",
         dueText: formattedDueDate
-          ? `Please review and sign by <strong>${formattedDueDate}</strong>.`
-          : `Please review and sign as soon as possible to meet your organization's requirements.`,
+          ? `⏰ Please complete your signature by ${formattedDueDate}.`
+          : `Please complete your signature as soon as possible.`,
         consequence: ``,
-        closing: `${attribution} to confirm acknowledgment of this document.`,
+        closing,
       };
     
     case "escalated":
@@ -81,42 +83,38 @@ function getEmailContent(
         ? `${daysUntilDue} day${daysUntilDue === 1 ? "" : "s"}`
         : "soon";
       return {
-        subject: formattedDueDate
-          ? `Action required: "${requirementTitle}" signature due in ${daysText}`
-          : `Action required: Please sign "${requirementTitle}"`,
-        intro: `Your signature is still required for the document below:`,
+        subject: `Action required: ${requirementTitle} signature due in ${daysText}`,
+        intro,
         buttonText: "Review & Sign Now",
         dueText: formattedDueDate
-          ? `⏰ <strong>Due in ${daysText} (${formattedDueDate})</strong>`
-          : `Please complete this as soon as possible to meet your organization's requirements.`,
+          ? `⏰ Due in ${daysText} (${formattedDueDate})`
+          : `Please complete this as soon as possible.`,
         consequence: `Missing this deadline may be flagged in your organization's compliance records.`,
-        closing: `${attribution} to confirm acknowledgment of this document.`,
+        closing,
       };
     
     case "overdue":
       return {
-        subject: formattedDueDate
-          ? `Overdue: "${requirementTitle}" signature was due ${formattedDueDate}`
-          : `Overdue: Please sign "${requirementTitle}"`,
-        intro: `Your signature for the document below is now overdue:`,
+        subject: `Overdue: ${requirementTitle} signature was due ${formattedDueDate || "recently"}`,
+        intro,
         buttonText: "Review & Sign Now",
         dueText: formattedDueDate
-          ? `The due date was <strong>${formattedDueDate}</strong>.`
+          ? `The due date was ${formattedDueDate}.`
           : `This signature request is now overdue.`,
         consequence: `This has been marked as incomplete in your organization's compliance records.`,
-        closing: `${attribution}. Please complete your signature immediately or contact your organization administrator if you need assistance.`,
+        closing,
       };
     
     default:
       return {
-        subject: `Action Required: Please sign "${requirementTitle}"`,
-        intro: `${displaySenderName} has requested your signature on the following document:`,
-        buttonText: "Review & Sign Document",
+        subject: `Action required: Please sign ${requirementTitle}${subjectDate}`,
+        intro,
+        buttonText: "Review & Sign Now",
         dueText: formattedDueDate
-          ? `Please complete by <strong>${formattedDueDate}</strong>.`
-          : `Please complete as soon as possible to meet your organization's requirements.`,
+          ? `⏰ Please complete your signature by ${formattedDueDate}.`
+          : `Please complete your signature as soon as possible.`,
         consequence: ``,
-        closing: `${attribution} to confirm acknowledgment of this document.`,
+        closing,
       };
   }
 }
@@ -228,9 +226,10 @@ const handler = async (req: Request): Promise<Response> => {
                 <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width: 520px; background-color: #ffffff; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
                   <!-- Header -->
                   <tr>
-                    <td style="padding: 32px 32px 24px; text-align: center; border-bottom: 1px solid #e4e4e7;">
+                    <td style="padding: 32px 32px 24px; text-align: center;">
                       ${logoHtml}
                       <h1 style="margin: 0; font-size: 24px; font-weight: 600; color: #18181b;">Attestly</h1>
+                      <hr style="margin-top: 20px; border: none; border-top: 1px solid #e4e4e7;" />
                     </td>
                   </tr>
                   
@@ -272,7 +271,7 @@ const handler = async (req: Request): Promise<Response> => {
                       </table>
                       
                       <p style="margin: 24px 0 0; font-size: 14px; color: #71717a; line-height: 1.6;">
-                        If you have questions, contact your organization administrator${senderEmail ? ` at <a href="mailto:${senderEmail}" style="color: #2563eb;">${senderEmail}</a>` : ""} or Attestly Support at <a href="mailto:hello@attestly.com" style="color: #2563eb;">hello@attestly.com</a>.
+                        If you have questions, please contact your organization administrator or Attestly Support at <a href="mailto:hello@attestly.com" style="color: #2563eb;">hello@attestly.com</a>.
                       </p>
                     </td>
                   </tr>
