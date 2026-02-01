@@ -38,7 +38,7 @@ const features: Feature[] = [{
 }, {
   icon: Shield,
   title: "Enterprise Security",
-  description: "HTTPS everywhere. Hashed tokens. Rate limiting. Database backups. Your data is protected."
+  description: "HTTPS everywhere. Secure tokens, rate limiting, and backups keep your data protected."
 }];
 
 export function Features() {
