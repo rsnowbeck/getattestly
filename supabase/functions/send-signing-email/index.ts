@@ -270,17 +270,24 @@ const handler = async (req: Request): Promise<Response> => {
     // Build custom message HTML
     const customMessageHtml = buildCustomMessageHtml(customMessage);
 
-    // Build logo HTML - only for Pro users with a custom logo
+    // Build logo HTML - Pro users get custom logo, everyone gets Attestly logo
+    const attestlyLogoUrl = "https://urpqjnoowsdehvkrqxmy.supabase.co/storage/v1/object/public/email-assets/attestly-logo.png?v=1";
     let logoHtml = "";
     if (isPro && logoUrl) {
+      // Pro users with custom logo: show their logo
       const logoAlt = organizationName ? `${organizationName} logo` : "Organization logo";
       logoHtml = `
-        <img src="${logoUrl}" alt="${logoAlt}" style="height: 32px; max-width: 120px; object-fit: contain; margin-bottom: 8px;" />
+        <img src="${logoUrl}" alt="${logoAlt}" style="height: 40px; max-width: 160px; object-fit: contain; margin-bottom: 12px;" />
+      `;
+    } else {
+      // Default: show Attestly logo with shield
+      logoHtml = `
+        <img src="${attestlyLogoUrl}" alt="Attestly" style="height: 48px; width: 48px; object-fit: contain; margin-bottom: 12px; border-radius: 8px;" />
       `;
     }
 
     // Build footer with proper attribution
-    const footerText = organizationName 
+    const footerText = organizationName
       ? `If you have questions, please contact ${senderName || "the requester"} or your primary contact at ${organizationName}.`
       : `If you have questions, please contact ${senderName || "the requester"}.`;
 

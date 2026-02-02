@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Mail, Bell, AlertTriangle, Clock } from "lucide-react";
+import { Mail, Bell, AlertTriangle, Clock, Shield } from "lucide-react";
 
 interface EmailTemplatePreviewProps {
   organizationName: string;
@@ -184,7 +184,13 @@ export function EmailTemplatePreview({
 function EmailHeader({ logoUrl }: { logoUrl?: string | null }) {
   return (
     <div className="text-center pb-6 border-b border-border">
-      {logoUrl ? <img src={logoUrl} alt="Logo" className="h-8 mx-auto mb-2" /> : null}
+      {logoUrl ? (
+        <img src={logoUrl} alt="Logo" className="h-10 mx-auto mb-2" />
+      ) : (
+        <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary mx-auto mb-2">
+          <Shield className="h-6 w-6 text-primary-foreground" />
+        </div>
+      )}
       <h2 className="text-xl font-semibold text-foreground">Attestly</h2>
     </div>
   );
