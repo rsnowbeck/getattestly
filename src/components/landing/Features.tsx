@@ -10,35 +10,35 @@ interface Feature {
 const features: Feature[] = [{
   icon: Users,
   title: "Recipient Management",
-  description: "Import employees, contractors, or vendors. Add names and emails manually or via CSV."
+  description: "Import employees, contractors, or vendors in seconds. Add recipients manually or upload via CSV to keep your compliance list organized and up to date."
 }, {
   icon: FileText,
   title: "Flexible Requirements",
-  description: "Create one-time or recurring compliance items. Attach documents and review them."
+  description: "Create one-time or recurring compliance requirements. Upload documents or turn PDFs into fillable forms with required fields, dates, and signatures — all in one workflow."
 }, {
   icon: Send,
   title: "Secure Signing Links",
-  description: "Generate unique, single-use signing links. Send via email. Links expire after completion."
+  description: "Generate unique, single-use signing links and send them instantly. Links are secure, trackable, and expire automatically after completion."
 }, {
   icon: Clock,
-  title: "No-Login Signing",
-  description: "Recipients click, review, and acknowledge in seconds. No accounts or passwords required."
+  title: "No-Login Completion",
+  description: "Recipients review, complete required fields, and sign — no accounts, no passwords, no friction."
 }, {
   icon: BarChart3,
   title: "Real-Time Dashboard",
-  description: "See compliance status in real time. Track pending, completed, and overdue items."
+  description: "See compliance status at a glance. Track pending, completed, and overdue forms and acknowledgments in real time."
 }, {
   icon: Bell,
   title: "Automated Reminders",
-  description: "Automatically remind recipients who haven't completed acknowledgments."
+  description: "Automatically follow up with recipients who haven't completed their forms or signatures — so nothing slips through the cracks."
 }, {
   icon: Download,
-  title: "Export & Audit Proof",
-  description: "Generate audit-ready PDF certificates and CSV exports with timestamps and metadata."
+  title: "Structured Exports & Audit Proof",
+  description: "Download completed PDF copies and export structured response data via CSV — complete with timestamps, IP tracking, and full audit metadata."
 }, {
   icon: Shield,
-  title: "Enterprise Security",
-  description: "HTTPS everywhere. Secure tokens, rate limiting, and backups keep your data protected."
+  title: "Enterprise-Grade Security",
+  description: "HTTPS everywhere. Secure tokens, encrypted storage, and system safeguards protect your compliance data at every step."
 }];
 
 export function Features() {
@@ -46,9 +46,9 @@ export function Features() {
       <div className="container">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl mb-4">
-            Everything you need for compliance
+            Everything you need to manage compliance
           </h2>
-          <p className="mx-auto max-w-2xl text-lg text-muted-foreground">From policy acknowledgments to audit exports, Attestly handles it all so you can focus on your business. Works for employees, contractors, and vendors — even if they're not in the HR system.</p>
+          <p className="mx-auto max-w-2xl text-lg text-muted-foreground">From compliance forms and signatures to structured audit exports, Attestly keeps your documentation organized, trackable, and defensible — without enterprise complexity. Works for employees, contractors, and vendors — even if they're not in your HR system.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
