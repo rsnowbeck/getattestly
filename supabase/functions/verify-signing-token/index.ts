@@ -6,7 +6,6 @@ const corsHeaders = {
 };
 
 Deno.serve(async (req) => {
-  // Handle CORS preflight
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders });
   }
@@ -17,17 +16,21 @@ Deno.serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
     );
 
-    const { action, token, signedName }: { action: string; token: string; signedName?: string } = await req.json();
+    const { action, token, signedName, formResponses }: {
+      action: string;
+      token: string;
+      signedName?: string;
+      formResponses?: Record<string, any>;
+    } = await req.json();
 
     if (!token) {
-      console.error('Missing token');
       return new Response(
         JSON.stringify({ error: 'Token is required' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    // Hash the token to compare with stored hash
+    // Hash the token
     const encoder = new TextEncoder();
     const data = encoder.encode(token);
     const hashBuffer = await crypto.subtle.digest('SHA-256', data);
@@ -37,7 +40,6 @@ Deno.serve(async (req) => {
     console.log('Looking up signing request with token hash:', tokenHash.substring(0, 8) + '...');
 
     if (action === 'verify') {
-      // Fetch signing request with related data
       const { data: signingRequest, error: fetchError } = await supabase
         .from('signing_requests')
         .select(`
@@ -62,40 +64,28 @@ Deno.serve(async (req) => {
         );
       }
 
-      // Check if already completed
       if (signingRequest.status === 'completed') {
-        console.log('Signing request already completed');
         return new Response(
           JSON.stringify({ error: 'This document has already been signed' }),
           { status: 410, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
       }
 
-      // Check if expired
       if (new Date(signingRequest.expires_at) < new Date()) {
-        console.log('Signing request expired');
         return new Response(
           JSON.stringify({ error: 'This signing link has expired' }),
           { status: 410, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
       }
 
-      console.log('Successfully verified signing request:', signingRequest.id);
-
-      // Extract from joined data (single record due to !inner)
       const recipient = signingRequest.recipients as unknown as { full_name: string; email: string };
       const requirement = signingRequest.requirements as unknown as { title: string; description: string | null; attachment_url: string | null; attachment_name: string | null };
       const organization = signingRequest.organizations as unknown as { name: string; logo_url: string | null };
 
-      // Attachment URLs are stored as a "public URL" today, but the bucket may not actually be public.
-      // To ensure recipients can always open the document without being logged in, generate a signed URL
-      // using the service role key (time-limited).
+      // Generate signed URL for attachment
       let attachmentUrl: string | null = requirement.attachment_url;
       if (attachmentUrl) {
         try {
-          // Expecting a Supabase storage URL shape like:
-          // .../storage/v1/object/public/<bucket>/<path>
-          // .../storage/v1/object/<bucket>/<path>
           const match = attachmentUrl.match(/\/storage\/v1\/object\/(?:public\/)?([^/]+)\/(.+)$/);
           if (match) {
             const bucket = match[1];
@@ -103,12 +93,9 @@ Deno.serve(async (req) => {
             const { data: signed, error: signedErr } = await supabase
               .storage
               .from(bucket)
-              .createSignedUrl(path, 60 * 60); // 1 hour
-
+              .createSignedUrl(path, 60 * 60);
             if (!signedErr && signed?.signedUrl) {
               attachmentUrl = signed.signedUrl;
-            } else {
-              console.warn('Unable to create signed URL for attachment:', signedErr);
             }
           }
         } catch (e) {
@@ -116,8 +103,54 @@ Deno.serve(async (req) => {
         }
       }
 
+      // Check for published form template
+      let formTemplate = null;
+      const { data: template } = await supabase
+        .from('form_templates')
+        .select('id, fields_json, pdf_url, pdf_name, status')
+        .eq('requirement_id', signingRequest.requirement_id)
+        .eq('status', 'published')
+        .order('version', { ascending: false })
+        .limit(1)
+        .maybeSingle();
+
+      if (template) {
+        // Generate signed URL for form PDF too
+        let formPdfUrl = template.pdf_url;
+        if (formPdfUrl) {
+          try {
+            const match = formPdfUrl.match(/\/storage\/v1\/object\/(?:public\/)?([^/]+)\/(.+)$/);
+            if (match) {
+              const bucket = match[1];
+              const path = decodeURIComponent(match[2]);
+              const { data: signed } = await supabase
+                .storage
+                .from(bucket)
+                .createSignedUrl(path, 60 * 60);
+              if (signed?.signedUrl) {
+                formPdfUrl = signed.signedUrl;
+              }
+            }
+          } catch (e) {
+            console.warn('Failed to generate signed form PDF URL:', e);
+          }
+        }
+
+        formTemplate = {
+          id: template.id,
+          fields: typeof template.fields_json === 'string' 
+            ? JSON.parse(template.fields_json) 
+            : template.fields_json,
+          pdfUrl: formPdfUrl,
+          pdfName: template.pdf_name,
+        };
+      }
+
+      console.log('Verified signing request:', signingRequest.id, 'hasForm:', !!formTemplate);
+
       return new Response(
         JSON.stringify({
+          signingRequestId: signingRequest.id,
           recipientName: recipient.full_name,
           recipientEmail: recipient.email,
           requirementTitle: requirement.title,
@@ -126,6 +159,8 @@ Deno.serve(async (req) => {
           attachmentName: requirement.attachment_name,
           organizationName: organization.name,
           organizationLogo: organization.logo_url,
+          organizationId: signingRequest.organization_id,
+          formTemplate,
         }),
         { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
@@ -138,16 +173,28 @@ Deno.serve(async (req) => {
         );
       }
 
-      // Get client info for audit trail
       const ipAddress = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 
                        req.headers.get('cf-connecting-ip') || 
                        'unknown';
       const userAgent = req.headers.get('user-agent') || 'unknown';
 
-      console.log('Completing signing request with IP:', ipAddress);
+      // Find the signing request first to get IDs
+      const { data: sr } = await supabase
+        .from('signing_requests')
+        .select('id, organization_id, requirement_id, recipients!inner(email, full_name)')
+        .eq('token_hash', tokenHash)
+        .eq('status', 'pending')
+        .single();
+
+      if (!sr) {
+        return new Response(
+          JSON.stringify({ error: 'Unable to complete signing. The link may be invalid or already used.' }),
+          { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
 
       // Update the signing request
-      const { data: updated, error: updateError } = await supabase
+      const { error: updateError } = await supabase
         .from('signing_requests')
         .update({
           status: 'completed',
@@ -156,20 +203,54 @@ Deno.serve(async (req) => {
           ip_address: ipAddress,
           user_agent: userAgent,
         })
-        .eq('token_hash', tokenHash)
-        .eq('status', 'pending')
-        .select('id')
-        .single();
+        .eq('id', sr.id);
 
-      if (updateError || !updated) {
+      if (updateError) {
         console.error('Failed to complete signing:', updateError);
         return new Response(
-          JSON.stringify({ error: 'Unable to complete signing. The link may be invalid or already used.' }),
+          JSON.stringify({ error: 'Unable to complete signing.' }),
           { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
       }
 
-      console.log('Successfully completed signing request:', updated.id);
+      // If form responses provided, save submission
+      if (formResponses) {
+        // Find published template
+        const { data: template } = await supabase
+          .from('form_templates')
+          .select('id')
+          .eq('requirement_id', sr.requirement_id)
+          .eq('status', 'published')
+          .order('version', { ascending: false })
+          .limit(1)
+          .maybeSingle();
+
+        if (template) {
+          const recipient = sr.recipients as unknown as { email: string; full_name: string };
+          const { error: subError } = await supabase
+            .from('form_submissions')
+            .insert({
+              template_id: template.id,
+              signing_request_id: sr.id,
+              organization_id: sr.organization_id,
+              signer_email: recipient.email,
+              signer_name: signedName.trim(),
+              responses_json: formResponses,
+              ip_address: ipAddress,
+              user_agent: userAgent,
+              snapshot_status: 'pending',
+            });
+
+          if (subError) {
+            console.error('Failed to save form submission:', subError);
+            // Don't fail the whole request - signature is saved
+          } else {
+            console.log('Form submission saved for signing request:', sr.id);
+          }
+        }
+      }
+
+      console.log('Successfully completed signing request:', sr.id);
 
       return new Response(
         JSON.stringify({ success: true }),

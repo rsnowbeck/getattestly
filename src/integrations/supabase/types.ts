@@ -44,6 +44,130 @@ export type Database = {
         }
         Relationships: []
       }
+      form_submissions: {
+        Row: {
+          id: string
+          ip_address: string | null
+          organization_id: string
+          responses_json: Json
+          signer_email: string
+          signer_name: string | null
+          signing_request_id: string | null
+          snapshot_status: string
+          snapshot_url: string | null
+          submitted_at: string
+          template_id: string
+          user_agent: string | null
+        }
+        Insert: {
+          id?: string
+          ip_address?: string | null
+          organization_id: string
+          responses_json?: Json
+          signer_email: string
+          signer_name?: string | null
+          signing_request_id?: string | null
+          snapshot_status?: string
+          snapshot_url?: string | null
+          submitted_at?: string
+          template_id: string
+          user_agent?: string | null
+        }
+        Update: {
+          id?: string
+          ip_address?: string | null
+          organization_id?: string
+          responses_json?: Json
+          signer_email?: string
+          signer_name?: string | null
+          signing_request_id?: string | null
+          snapshot_status?: string
+          snapshot_url?: string | null
+          submitted_at?: string
+          template_id?: string
+          user_agent?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "form_submissions_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "form_submissions_signing_request_id_fkey"
+            columns: ["signing_request_id"]
+            isOneToOne: false
+            referencedRelation: "signing_requests"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "form_submissions_template_id_fkey"
+            columns: ["template_id"]
+            isOneToOne: false
+            referencedRelation: "form_templates"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      form_templates: {
+        Row: {
+          created_at: string
+          fields_json: Json
+          id: string
+          organization_id: string
+          pdf_name: string | null
+          pdf_url: string
+          published_at: string | null
+          requirement_id: string
+          status: string
+          updated_at: string
+          version: number
+        }
+        Insert: {
+          created_at?: string
+          fields_json?: Json
+          id?: string
+          organization_id: string
+          pdf_name?: string | null
+          pdf_url: string
+          published_at?: string | null
+          requirement_id: string
+          status?: string
+          updated_at?: string
+          version?: number
+        }
+        Update: {
+          created_at?: string
+          fields_json?: Json
+          id?: string
+          organization_id?: string
+          pdf_name?: string | null
+          pdf_url?: string
+          published_at?: string | null
+          requirement_id?: string
+          status?: string
+          updated_at?: string
+          version?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "form_templates_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "form_templates_requirement_id_fkey"
+            columns: ["requirement_id"]
+            isOneToOne: false
+            referencedRelation: "requirements"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       organizations: {
         Row: {
           auto_reminder_days: number | null
