@@ -9,8 +9,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { FileText, Sparkles } from "lucide-react";
-import { requirementTemplates, RequirementTemplate } from "./RequirementTemplates";
+import { FileText, Sparkles, Download } from "lucide-react";
+import { requirementTemplates, RequirementTemplate, generateSamplePdf } from "./RequirementTemplates";
 
 interface TemplatePickerDialogProps {
   open: boolean;
@@ -149,6 +149,19 @@ export function TemplatePickerDialog({
                             <p className="text-sm text-muted-foreground line-clamp-2">
                               {template.description}
                             </p>
+                            {template.sampleDocContent && (
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  generateSamplePdf(template);
+                                }}
+                                className="inline-flex items-center gap-1.5 text-xs text-accent hover:text-accent/80 mt-1.5 transition-colors"
+                              >
+                                <Download className="h-3 w-3" />
+                                {template.sampleDocLabel || "Download sample document"}
+                              </button>
+                            )}
                           </div>
                         </div>
                       </button>
