@@ -21,6 +21,9 @@ export function Footer() {
             <Link to="/security" className="text-muted-foreground hover:text-foreground transition-colors">
               Security
             </Link>
+            <Link to="/blog/track-employee-policy-acknowledgments" className="text-muted-foreground hover:text-foreground transition-colors">
+              Blog
+            </Link>
           </nav>
         </div>
       </div>
