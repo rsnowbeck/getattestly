@@ -18,7 +18,7 @@ export function Hero() {
           <p className="mx-auto max-w-[39rem] text-lg text-muted-foreground mb-10 animate-slide-up" style={{
           animationDelay: "0.1s"
         }}>
-            Collect legally defensible signatures and required form data for policies, onboarding, NDAs, and training — with audit-ready proof in seconds.
+            Collect signatures and required compliance forms for policies, onboarding, NDAs, and training — with audit-ready proof in seconds.
           </p>
 
           {/* CTAs */}
@@ -48,7 +48,7 @@ export function Hero() {
             </div>
             <div className="flex items-center gap-2">
               <CheckCircle2 className="h-4 w-4 text-success" />
-              <span>Setup in 5 minutes</span>
+              <span>Live in 5 minutes</span>
             </div>
             <div className="flex items-center gap-2">
               <CheckCircle2 className="h-4 w-4 text-success" />
