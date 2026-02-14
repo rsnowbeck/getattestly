@@ -7,6 +7,7 @@ import { useOrganization } from "@/hooks/useOrganization";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Table,
   TableBody,
@@ -29,12 +30,16 @@ import {
   Edit,
   UserPlus,
   Loader2,
+  Wand2,
 } from "lucide-react";
 import { format, isPast, isToday } from "date-fns";
 import { useResendSigningLink } from "@/hooks/useResendSigningLink";
 import { RequirementEditForm } from "@/components/requirements/RequirementEditForm";
 import { SendForSignatureDialog } from "@/components/requirements/SendForSignatureDialog";
 import { SentHistoryCell } from "@/components/requirements/SentHistoryCell";
+import { FormBuilder } from "@/components/forms/FormBuilder";
+import { SubmissionsTable } from "@/components/forms/SubmissionsTable";
+import { FormField } from "@/components/forms/FormFieldTypes";
 
 interface Requirement {
   id: string;
@@ -78,6 +83,9 @@ export default function RequirementDetail() {
   const [sendDialogOpen, setSendDialogOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(searchParams.get("edit") === "true");
   const { resend, resending } = useResendSigningLink();
+  const [formTemplate, setFormTemplate] = useState<any>(null);
+  const [showFormBuilder, setShowFormBuilder] = useState(false);
+  const [activeTab, setActiveTab] = useState("recipients");
 
   // Update editing state when URL changes
   useEffect(() => {
@@ -88,8 +96,28 @@ export default function RequirementDetail() {
   useEffect(() => {
     if (id && organization?.id) {
       fetchRequirementDetails();
+      fetchFormTemplate();
     }
   }, [id, organization?.id]);
+
+  const fetchFormTemplate = async () => {
+    if (!id) return;
+    try {
+      const { data, error } = await supabase
+        .from("form_templates")
+        .select("*")
+        .eq("requirement_id", id)
+        .order("version", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+
+      if (!error && data) {
+        setFormTemplate(data);
+      }
+    } catch (error) {
+      console.error("Error fetching form template:", error);
+    }
+  };
 
   const fetchRequirementDetails = async () => {
     if (!id) return;
@@ -395,6 +423,12 @@ export default function RequirementDetail() {
                 Edit
               </Button>
             )}
+            {!isEditing && requirement.attachment_url && requirement.attachment_name?.endsWith(".pdf") && (
+              <Button variant="outline" onClick={() => { setShowFormBuilder(true); setActiveTab("form"); }}>
+                <Wand2 className="h-4 w-4 mr-2" />
+                {formTemplate ? "Edit Form" : "Create Form"}
+              </Button>
+            )}
           </div>
         </div>
       </div>
@@ -503,106 +537,145 @@ export default function RequirementDetail() {
         )}
       </div>
 
-      {/* Recipients Table */}
-      <div className="card-elevated overflow-hidden">
-        <div className="p-6 border-b border-border flex items-center justify-between">
-          <div>
-            <h2 className="text-lg font-semibold text-foreground">Recipients</h2>
-            <p className="text-sm text-muted-foreground">
-              {totalCount} recipient{totalCount !== 1 ? "s" : ""} assigned to this requirement
-            </p>
-          </div>
-          {(requirement.status === "published" || requirement.status === "completed") && (
-            <Button variant="outline" size="sm" onClick={() => setSendDialogOpen(true)}>
-              <UserPlus className="h-4 w-4 mr-2" />
-              Add Recipients
-            </Button>
-          )}
-        </div>
+      {/* Tabbed Content */}
+      <Tabs value={activeTab} onValueChange={setActiveTab}>
+        <TabsList className="mb-4">
+          <TabsTrigger value="recipients">Recipients</TabsTrigger>
+          {(formTemplate || showFormBuilder) && <TabsTrigger value="form">Form Builder</TabsTrigger>}
+          {formTemplate?.status === "published" && <TabsTrigger value="submissions">Submissions</TabsTrigger>}
+        </TabsList>
 
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Recipient</TableHead>
-              <TableHead>Department</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Sent</TableHead>
-              <TableHead>Signed</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {signingRequests.length === 0 ? (
-              <TableRow>
-                <TableCell colSpan={6} className="text-center py-8 text-muted-foreground">
-                  {requirement.status === "published" 
-                    ? "No recipients assigned yet. Click 'Add Recipients' above to send signing requests."
-                    : "This requirement is still a draft. Publish it first to add recipients and send signing requests."}
-                </TableCell>
-              </TableRow>
-            ) : (
-              signingRequests.map((request) => (
-                <TableRow key={request.id} className="group">
-                  <TableCell>
-                    <div>
-                      <p className="font-medium text-foreground">{request.recipient.full_name}</p>
-                      <p className="text-sm text-muted-foreground">{request.recipient.email}</p>
-                    </div>
-                  </TableCell>
-                  <TableCell className="text-muted-foreground">
-                    {request.recipient.department || "—"}
-                  </TableCell>
-                  <TableCell>{getRecipientStatusBadge(request.status)}</TableCell>
-                  <TableCell>
-                    <SentHistoryCell
-                      signingRequestId={request.id}
-                      lastSentAt={request.lastSentAt}
-                      sendCount={request.sendCount}
-                    />
-                  </TableCell>
-                  <TableCell>
-                    {request.completed_at ? (
-                      <div>
-                        <p className="text-sm text-foreground">
-                          {format(new Date(request.completed_at), "MMM d, yyyy")}
-                        </p>
-                        {request.signed_name && (
-                          <p className="text-xs text-muted-foreground">as "{request.signed_name}"</p>
-                        )}
-                      </div>
-                    ) : (
-                      <span className="text-muted-foreground">—</span>
-                    )}
-                  </TableCell>
-                  <TableCell className="text-right">
-                    {request.status === "pending" && (
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => handleResendClick(request)}
-                        disabled={resending === request.id}
-                        className="hover:bg-primary hover:text-primary-foreground"
-                      >
-                        {resending === request.id ? (
-                          <Loader2 className="h-4 w-4 animate-spin" />
-                        ) : (
-                          <Send className="h-4 w-4" />
-                        )}
-                        {resending === request.id ? "Sending..." : "Resend"}
-                      </Button>
-                    )}
-                    {request.status === "completed" && request.ip_address && (
-                      <span className="text-xs text-muted-foreground">
-                        IP: {request.ip_address}
-                      </span>
-                    )}
-                  </TableCell>
+        <TabsContent value="recipients">
+          <div className="card-elevated overflow-hidden">
+            <div className="p-6 border-b border-border flex items-center justify-between">
+              <div>
+                <h2 className="text-lg font-semibold text-foreground">Recipients</h2>
+                <p className="text-sm text-muted-foreground">
+                  {totalCount} recipient{totalCount !== 1 ? "s" : ""} assigned to this requirement
+                </p>
+              </div>
+              {(requirement.status === "published" || requirement.status === "completed") && (
+                <Button variant="outline" size="sm" onClick={() => setSendDialogOpen(true)}>
+                  <UserPlus className="h-4 w-4 mr-2" />
+                  Add Recipients
+                </Button>
+              )}
+            </div>
+
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Recipient</TableHead>
+                  <TableHead>Department</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead>Sent</TableHead>
+                  <TableHead>Signed</TableHead>
+                  <TableHead className="text-right">Actions</TableHead>
                 </TableRow>
-              ))
-            )}
-          </TableBody>
-        </Table>
-      </div>
+              </TableHeader>
+              <TableBody>
+                {signingRequests.length === 0 ? (
+                  <TableRow>
+                    <TableCell colSpan={6} className="text-center py-8 text-muted-foreground">
+                      {requirement.status === "published" 
+                        ? "No recipients assigned yet. Click 'Add Recipients' above to send signing requests."
+                        : "This requirement is still a draft. Publish it first to add recipients and send signing requests."}
+                    </TableCell>
+                  </TableRow>
+                ) : (
+                  signingRequests.map((request) => (
+                    <TableRow key={request.id} className="group">
+                      <TableCell>
+                        <div>
+                          <p className="font-medium text-foreground">{request.recipient.full_name}</p>
+                          <p className="text-sm text-muted-foreground">{request.recipient.email}</p>
+                        </div>
+                      </TableCell>
+                      <TableCell className="text-muted-foreground">
+                        {request.recipient.department || "—"}
+                      </TableCell>
+                      <TableCell>{getRecipientStatusBadge(request.status)}</TableCell>
+                      <TableCell>
+                        <SentHistoryCell
+                          signingRequestId={request.id}
+                          lastSentAt={request.lastSentAt}
+                          sendCount={request.sendCount}
+                        />
+                      </TableCell>
+                      <TableCell>
+                        {request.completed_at ? (
+                          <div>
+                            <p className="text-sm text-foreground">
+                              {format(new Date(request.completed_at), "MMM d, yyyy")}
+                            </p>
+                            {request.signed_name && (
+                              <p className="text-xs text-muted-foreground">as "{request.signed_name}"</p>
+                            )}
+                          </div>
+                        ) : (
+                          <span className="text-muted-foreground">—</span>
+                        )}
+                      </TableCell>
+                      <TableCell className="text-right">
+                        {request.status === "pending" && (
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => handleResendClick(request)}
+                            disabled={resending === request.id}
+                            className="hover:bg-primary hover:text-primary-foreground"
+                          >
+                            {resending === request.id ? (
+                              <Loader2 className="h-4 w-4 animate-spin" />
+                            ) : (
+                              <Send className="h-4 w-4" />
+                            )}
+                            {resending === request.id ? "Sending..." : "Resend"}
+                          </Button>
+                        )}
+                        {request.status === "completed" && request.ip_address && (
+                          <span className="text-xs text-muted-foreground">
+                            IP: {request.ip_address}
+                          </span>
+                        )}
+                      </TableCell>
+                    </TableRow>
+                  ))
+                )}
+              </TableBody>
+            </Table>
+          </div>
+        </TabsContent>
+
+        {(formTemplate || showFormBuilder) && requirement.attachment_url && organization && (
+          <TabsContent value="form">
+            <FormBuilder
+              requirementId={requirement.id}
+              organizationId={organization.id}
+              pdfUrl={requirement.attachment_url}
+              pdfName={requirement.attachment_name}
+              templateId={formTemplate?.id}
+              onPublish={() => fetchFormTemplate()}
+            />
+          </TabsContent>
+        )}
+
+        {formTemplate?.status === "published" && (
+          <TabsContent value="submissions">
+            <div className="card-elevated p-6">
+              <h2 className="text-lg font-semibold text-foreground mb-4">Submissions</h2>
+              <SubmissionsTable
+                templateId={formTemplate.id}
+                fields={
+                  typeof formTemplate.fields_json === "string"
+                    ? JSON.parse(formTemplate.fields_json)
+                    : formTemplate.fields_json
+                }
+              />
+            </div>
+          </TabsContent>
+        )}
+      </Tabs>
 
       {/* Send for Signature Dialog */}
       {organization && (
