@@ -42,13 +42,13 @@ const features: Feature[] = [{
 }];
 
 export function Features() {
-  return <section id="features" className="py-20 lg:py-32 bg-card">
+  return <section id="features" className="pt-12 lg:pt-20 pb-20 lg:pb-32 bg-card">
       <div className="container">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl mb-4">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl font-bold tracking-tight text-foreground sm:text-[2.75rem] mb-3">
             Compliance forms &amp; signatures
           </h2>
-          <p className="mx-auto max-w-2xl text-lg text-muted-foreground">From read-and-acknowledge policies to structured compliance forms and audit-ready exports, Attestly keeps your documentation organized, trackable, and defensible — without enterprise complexity. Works for employees, contractors, and vendors — even if they're not in your HR system.</p>
+          <p className="mx-auto max-w-[46rem] text-lg text-muted-foreground">From read-and-acknowledge policies to structured compliance forms and audit-ready exports, Attestly keeps your documentation organized, trackable, and defensible — without enterprise complexity. Works for employees, contractors, and vendors — even if they're not in your HR system.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
