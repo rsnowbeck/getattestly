@@ -88,13 +88,13 @@ const plans: {
 
 export function Pricing() {
   return (
-    <section id="pricing" className="pt-12 lg:pt-20 pb-20 lg:pb-32 bg-card">
+    <section id="pricing" className="pt-24 pb-24 bg-card">
       <div className="container">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold tracking-tight text-foreground sm:text-[2.75rem] mb-4">
+        <div className="text-center">
+          <h2 className="text-[2.25rem] sm:text-[2.5rem] font-bold text-foreground leading-[1.2] mb-4">
             Simple, transparent pricing
           </h2>
-          <p className="mx-auto max-w-[46rem] text-base text-muted-foreground">
+          <p className="mx-auto max-w-[50rem] text-lg text-muted-foreground font-normal leading-relaxed mb-12">
             Start free for 14 days. No credit card required. Cancel anytime.
           </p>
         </div>
