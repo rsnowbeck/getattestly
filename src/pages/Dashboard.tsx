@@ -298,7 +298,7 @@ export default function Dashboard() {
         <div>
           <h1 className="text-2xl font-bold text-foreground">Dashboard</h1>
           <p className="text-muted-foreground">
-            Welcome back{organization?.name ? ` to ${organization.name}` : ''}! Here's an overview of your compliance status.
+            Welcome back to Attestly! Here's an overview of your compliance status.
           </p>
         </div>
         <div className="flex items-center gap-3">
