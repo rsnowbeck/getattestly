@@ -42,13 +42,13 @@ const features: Feature[] = [{
 }];
 
 export function Features() {
-  return <section id="features" className="pt-12 lg:pt-20 pb-20 lg:pb-32 bg-card">
+  return <section id="features" className="pt-24 pb-24 bg-card">
       <div className="container">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold tracking-tight text-foreground sm:text-[2.75rem] mb-6">
+        <div className="text-center">
+          <h2 className="text-[2.25rem] sm:text-[2.5rem] font-bold text-foreground leading-[1.2] mb-4">
             Everything You Need for Compliance
           </h2>
-          <p className="mx-auto max-w-[47rem] text-lg text-muted-foreground leading-relaxed">
+          <p className="mx-auto max-w-[50rem] text-lg text-muted-foreground font-normal leading-relaxed mb-12">
             From read-and-acknowledge policies to structured compliance forms and audit-ready exports, Attestly keeps your documentation organized, trackable, and defensible — without enterprise complexity.
           </p>
         </div>
