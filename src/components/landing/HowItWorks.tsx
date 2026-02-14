@@ -32,21 +32,21 @@ export function HowItWorks() {
     <section id="how-it-works" className="pt-12 lg:pt-20 pb-20 lg:pb-32">
       <div className="container">
         <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold tracking-tight text-foreground sm:text-[2.75rem] mb-3">
-            How Attestly simplifies compliance
+          <h2 className="text-4xl font-bold text-foreground sm:text-[2.75rem] leading-tight mb-4">
+            How Attestly Simplifies Compliance
           </h2>
-          <p className="mx-auto max-w-[46rem] text-lg text-muted-foreground">
+          <p className="mx-auto max-w-[46rem] text-base text-muted-foreground">
             Get started in minutes. No complex setup. No training required.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-10 max-w-5xl mx-auto">
           {steps.map((step, index) => (
             <div
               key={step.number}
-              className="card-elevated p-8 relative overflow-hidden group"
+              className="card-elevated p-9 rounded-2xl relative overflow-hidden group"
             >
-              <div className="absolute top-6 right-6 text-6xl font-bold text-muted/30 select-none">
+              <div className="absolute top-6 right-6 text-6xl font-bold text-muted/20 select-none">
                 {step.number}
               </div>
               <div className="relative">
