@@ -2,20 +2,20 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, CheckCircle2, Shield, Clock, FileCheck } from "lucide-react";
 export function Hero() {
-  return <section className="section-hero pt-28 lg:pt-40 pb-20 lg:pb-32">
+  return <section className="section-hero pt-20 lg:pt-28 pb-16 lg:pb-24">
       <div className="container">
         <div className="mx-auto max-w-4xl text-center">
           {/* Badge */}
-          <div className="inline-flex -translate-y-2 items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5 text-sm text-muted-foreground mb-11 -mt-8 animate-fade-in">
+          <div className="inline-flex -translate-y-2 items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5 text-sm text-muted-foreground mb-8 -mt-4 animate-fade-in">
             <Shield className="h-4 w-4 text-accent" />
             <span>Audit-ready compliance, without the complexity</span>
           </div>
 
           {/* Headline */}
-          <h1 className="text-[2.1rem] font-extrabold tracking-tight leading-[1.12] text-foreground sm:text-[3.2rem] lg:text-[3.8rem] mb-5 animate-slide-up">Compliance <span className="text-accent font-bold">Simplified.</span></h1>
+          <h1 className="text-[2.1rem] font-extrabold tracking-tight leading-[1.12] text-foreground sm:text-[3.2rem] lg:text-[3.8rem] mb-3 animate-slide-up">Compliance <span className="text-accent font-bold">Simplified</span></h1>
 
           {/* Product Definition — AI-optimized */}
-          <p className="mx-auto max-w-[42rem] text-base text-muted-foreground mb-4 animate-slide-up" style={{
+          <p className="mx-auto max-w-[42rem] text-base text-muted-foreground mb-8 animate-slide-up" style={{
             animationDelay: "0.08s"
           }}>
             Attestly is compliance software designed for small and mid-sized businesses. Distribute policies, collect legally defensible acknowledgments or fillable form data, and maintain audit-ready records — without enterprise complexity.
@@ -58,7 +58,7 @@ export function Hero() {
         </div>
 
         {/* Feature Cards Preview */}
-        <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto animate-slide-up" style={{
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto animate-slide-up" style={{
         animationDelay: "0.4s"
       }}>
           <div className="card-elevated p-6 text-center">
