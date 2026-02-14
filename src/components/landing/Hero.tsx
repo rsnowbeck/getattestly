@@ -18,8 +18,7 @@ export function Hero() {
           <p className="mx-auto max-w-[39rem] text-lg text-muted-foreground mb-10 animate-slide-up" style={{
           animationDelay: "0.1s"
         }}>
-            Collect legally defensible signatures for policies, NDAs, and training. 
-            No logins for signers. Audit-ready proof in seconds.
+            Collect legally defensible signatures and required form data for policies, onboarding, NDAs, and training — with audit-ready proof in seconds.
           </p>
 
           {/* CTAs */}
