@@ -20,7 +20,7 @@ export default function EmployeeAcknowledgments() {
           <div className="mx-auto max-w-3xl">
 
             {/* Hero */}
-            <h1 className="text-3xl font-extrabold tracking-tight text-foreground sm:text-5xl mb-6">
+            <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl mb-6">
               Employee Policy & Acknowledgment Tracking{" "}
               <span className="text-accent">for SMBs</span>
             </h1>
