@@ -31,6 +31,9 @@ import FillablePdfForms from "./pages/seo/FillablePdfForms";
 import DigitalPolicySignature from "./pages/seo/DigitalPolicySignature";
 import DocusignAlternative from "./pages/seo/DocusignAlternative";
 import TrackPolicyAcknowledgments from "./pages/blog/TrackPolicyAcknowledgments";
+import EmployeeAcknowledgments from "./pages/use-cases/EmployeeAcknowledgments";
+import ContractorAgreements from "./pages/use-cases/ContractorAgreements";
+import ClientIntakeForms from "./pages/use-cases/ClientIntakeForms";
 
 const queryClient = new QueryClient();
 
@@ -71,6 +74,9 @@ const App = () => {
           <Route path="/digital-policy-signature-software" element={<DigitalPolicySignature />} />
           <Route path="/docusign-alternative-compliance" element={<DocusignAlternative />} />
           <Route path="/blog/track-employee-policy-acknowledgments" element={<TrackPolicyAcknowledgments />} />
+          <Route path="/employee-acknowledgment-tracking" element={<EmployeeAcknowledgments />} />
+          <Route path="/contractor-vendor-agreement-tracking" element={<ContractorAgreements />} />
+          <Route path="/client-intake-form-tracking" element={<ClientIntakeForms />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

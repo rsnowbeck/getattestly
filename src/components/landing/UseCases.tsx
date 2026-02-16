@@ -7,21 +7,21 @@ const useCases = [
     title: "Track Employee Acknowledgments",
     description:
       "Track employee acknowledgments, recurring policy updates, and proof of completion — without chasing signatures or managing spreadsheets.",
-    link: "/signup",
+    link: "/employee-acknowledgment-tracking",
   },
   {
     icon: Handshake,
     title: "Manage Contractor & Vendor Agreements",
     description:
       "Collect agreements, certifications, and confirmations from contractors and vendors in one organized, trackable system.",
-    link: "/signup",
+    link: "/contractor-vendor-agreement-tracking",
   },
   {
     icon: FileText,
     title: "Simplify Client Intake Forms",
     description:
       "Send intake forms, waivers, and agreements before appointments — and keep structured records with built-in signature proof.",
-    link: "/signup",
+    link: "/client-intake-form-tracking",
   },
 ];
 
