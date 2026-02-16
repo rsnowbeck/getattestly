@@ -21,7 +21,7 @@ const plans: {
       "Up to 10 recipients",
       "5 active requirements",
       "Read-and-acknowledge workflows",
-      "Pre-built document templates",
+      "Pre-built document and policy templates",
       "No-login signing",
       "Secure single-use links",
       "Real-time dashboard",
