@@ -67,7 +67,7 @@ export function Hero() {
             </div>
             <h3 className="font-semibold text-foreground mb-2">Forms & Signatures</h3>
             <p className="text-sm text-muted-foreground">
-              Upload a PDF, auto-detect fields, and collect required information and signatures in one seamless step.
+              Upload a PDF, auto-detect fields, and collect required information and signatures in one structured workflow.
             </p>
           </div>
 
@@ -77,7 +77,7 @@ export function Hero() {
             </div>
             <h3 className="font-semibold text-foreground mb-2">Audit-Ready Proof</h3>
             <p className="text-sm text-muted-foreground">
-              Timestamped records with IP tracking, structured response storage, and instant PDF exports.
+              Timestamped records with IP tracking, organized response storage, and exportable completion reports.
             </p>
           </div>
 
@@ -87,7 +87,7 @@ export function Hero() {
             </div>
             <h3 className="font-semibold text-foreground mb-2">Automated Reminders</h3>
             <p className="text-sm text-muted-foreground">
-              Automatically follow up on incomplete forms and acknowledgments so nothing falls through the cracks.
+              Automatically follow up on incomplete documents so you never chase signatures manually.
             </p>
           </div>
         </div>
