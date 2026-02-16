@@ -3,27 +3,27 @@ import { CheckCircle2 } from "lucide-react";
 const steps = [
   {
     number: "01",
-    title: "Add your recipients",
-    description: "Import employees, contractors, or vendors and keep your compliance list organized from day one.",
+    title: "Add Recipients",
+    description: "Import employees, clients, contractors, or vendors and keep your document list organized from day one.",
     details: ["Add recipients manually or bulk import via CSV", "Organize by groups or roles", "No recipient limits on Pro plan"]
   },
   {
     number: "02",
-    title: "Create a requirement",
-    description: "Create the policy, training, or compliance item recipients need to complete.",
-    details: ["Attach a document for read-and-acknowledge workflows", "Or upload a PDF and add fillable fields", "Add required inputs, dates, or signatures", "Set one-time or recurring requirements", "Preview before publishing"]
+    title: "Create a Document Request",
+    description: "Upload a policy, form, or PDF and define what recipients need to complete.",
+    details: ["Attach a document for review and acknowledgment", "Upload a PDF and add fillable fields", "Add required inputs, dates, or signatures", "Set one-time or recurring requests", "Preview before publishing"]
   },
   {
     number: "03",
-    title: "Publish & send",
-    description: "Generate secure signing links and send them instantly.",
+    title: "Publish & Send",
+    description: "Generate secure signing links and send instantly.",
     details: ["Unique single-use tokens", "Automatic email delivery", "Custom email templates", "No login required for recipients"]
   },
   {
     number: "04",
-    title: "Track & export",
-    description: "Monitor completion status in real time and export everything you need for audits.",
-    details: ["Live compliance dashboard", "Automated reminders", "Download completed PDF copies", "Export structured response data via CSV", "Full audit trail with timestamps and IP tracking"]
+    title: "Track & Export",
+    description: "Monitor completion status in real time and download completed documents and activity history anytime.",
+    details: ["Live dashboard", "Automated reminders", "Download completed PDF copies", "Export structured response data via CSV", "Full audit trail with timestamps and IP tracking"]
   }
 ];
 
@@ -33,7 +33,7 @@ export function HowItWorks() {
       <div className="container">
         <div className="text-center">
           <h2 className="text-[2.25rem] sm:text-[2.5rem] font-bold text-foreground leading-[1.2] mb-4">
-            How Attestly Simplifies Compliance
+            How Attestly Works
           </h2>
           <p className="mx-auto max-w-[50rem] text-lg text-muted-foreground font-normal leading-relaxed mb-12">
             Get started in minutes. No complex setup. No training required.
