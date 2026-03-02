@@ -90,11 +90,11 @@ const handler = async (req: Request): Promise<Response> => {
           <tr>
             <td style="padding: 0 32px 24px 32px;">
               <p style="margin: 0 0 16px 0; font-size: 16px; line-height: 24px; color: #3f3f46;">
-                ${inviterName ? `<strong>${inviterName}</strong> has invited you` : "You've been invited"} to join <strong>${organizationName}</strong> on Attestly as a <strong>${roleLabel}</strong>.
+                ${inviterName ? `<strong>${inviterName}</strong> has invited you` : "You've been invited"} to join <strong>${organizationName}</strong> on LedgerStash as a <strong>${roleLabel}</strong>.
               </p>
               
               <p style="margin: 0 0 24px 0; font-size: 14px; line-height: 22px; color: #71717a;">
-                Attestly helps teams manage compliance acknowledgments and policy signatures. Accept this invitation to collaborate with your team.
+                LedgerStash helps teams manage compliance acknowledgments and policy signatures. Accept this invitation to collaborate with your team.
               </p>
               
               <!-- CTA Button -->
@@ -126,7 +126,7 @@ const handler = async (req: Request): Promise<Response> => {
           <tr>
             <td style="padding: 0 32px 32px 32px;">
               <p style="margin: 0; font-size: 12px; line-height: 18px; color: #a1a1aa;">
-                This invitation will expire in 7 days. If you have questions, contact Support at <a href="mailto:hello@getattestly.com" style="color: #3b82f6;">hello@getattestly.com</a>.
+                This invitation will expire in 7 days. If you have questions, contact Support at <a href="mailto:hello@ledgerstash.com" style="color: #3b82f6;">hello@ledgerstash.com</a>.
               </p>
               <p style="margin: 8px 0 0 0; font-size: 12px; line-height: 18px; color: #a1a1aa;">
                 If you didn't expect this invitation, you can safely ignore this email.
@@ -138,10 +138,10 @@ const handler = async (req: Request): Promise<Response> => {
           <tr>
             <td style="padding: 24px 32px; border-top: 1px solid #e4e4e7; text-align: center;">
               <p style="margin: 0; font-size: 12px; color: #a1a1aa;">
-                Attestly — Compliance signature management
+                LedgerStash — Compliance signature management
               </p>
               <p style="margin: 8px 0 0 0; font-size: 11px; color: #d4d4d8;">
-                Support: <a href="mailto:hello@getattestly.com" style="color: #a1a1aa;">hello@getattestly.com</a>
+                Support: <a href="mailto:hello@ledgerstash.com" style="color: #a1a1aa;">hello@ledgerstash.com</a>
               </p>
             </td>
           </tr>
@@ -154,9 +154,9 @@ const handler = async (req: Request): Promise<Response> => {
     `;
 
     const { error: emailError } = await resend.emails.send({
-      from: "Attestly <noreply@getattestly.com>",
+      from: "LedgerStash <noreply@ledgerstash.com>",
       to: [email],
-      subject: `You're invited to join ${organizationName} on Attestly`,
+      subject: `You're invited to join ${organizationName} on LedgerStash`,
       html: emailHtml,
     });
 

@@ -8,9 +8,9 @@ export default function Security() {
   return (
     <div className="min-h-screen bg-background">
       <PageSEO
-        title="Security | How VaultLedger Protects Your Data"
-        description="Learn about VaultLedger's security practices including data encryption, access controls, backups, and incident response. Your documents are protected by industry-standard safeguards."
-        keywords="vaultledger security, client vault security, data protection, accounting portal encryption"
+        title="Security | How LedgerStash Protects Your Data"
+        description="Learn about LedgerStash's security practices including data encryption, access controls, backups, and incident response. Your documents are protected by industry-standard safeguards."
+        keywords="ledgerstash security, client vault security, data protection, accounting portal encryption"
         canonical="/security"
       />
       <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
@@ -19,7 +19,7 @@ export default function Security() {
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
               <Shield className="h-5 w-5 text-primary-foreground" />
             </div>
-            <span className="text-xl font-bold text-foreground">VaultLedger</span>
+            <span className="text-xl font-bold text-foreground">LedgerStash</span>
           </Link>
           <Button variant="ghost" size="sm" asChild>
             <Link to="/"><ArrowLeft className="h-4 w-4 mr-2" />Back</Link>
@@ -35,7 +35,7 @@ export default function Security() {
             </div>
             <h1 className="text-3xl font-bold text-foreground mb-3">Security</h1>
             <p className="text-muted-foreground max-w-lg mx-auto">
-              At VaultLedger, security is built into how we design and operate the product. This page outlines our current security practices in clear, practical terms.
+              At LedgerStash, security is built into how we design and operate the product. This page outlines our current security practices in clear, practical terms.
             </p>
           </div>
 
@@ -43,7 +43,7 @@ export default function Security() {
             <section className="space-y-4">
               <h2 className="text-xl font-semibold text-foreground">Infrastructure</h2>
               <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
-                <li>VaultLedger is a web-based application</li>
+                <li>LedgerStash is a web-based application</li>
                 <li>Hosted on reputable cloud infrastructure providers</li>
                 <li>Access is restricted to authorized personnel only</li>
               </ul>
@@ -88,9 +88,9 @@ export default function Security() {
             <section className="space-y-4 pt-4 border-t border-border">
               <h2 className="text-xl font-semibold text-foreground">Responsible Disclosure</h2>
               <p className="text-muted-foreground">If you believe you've found a security vulnerability, please report it responsibly to:</p>
-              <a href="mailto:hello@getattestly.com" className="text-primary hover:underline inline-flex items-center gap-2">
+              <a href="mailto:hello@ledgerstash.com" className="text-primary hover:underline inline-flex items-center gap-2">
                 <Mail className="h-4 w-4" />
-                hello@getattestly.com
+                hello@ledgerstash.com
               </a>
             </section>
           </div>

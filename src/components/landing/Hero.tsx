@@ -21,7 +21,7 @@ export function Hero() {
 
           {/* Product Definition */}
           <p className="mx-auto max-w-[42rem] text-base text-muted-foreground mb-8 animate-slide-up" style={{ animationDelay: "0.08s" }}>
-            Stop chasing tax docs over email. Give your clients a secure, white-labeled VaultLedger to exchange sensitive documents, track PBC lists, and build professional trust.
+            Stop chasing tax docs over email. Give your clients a secure, white-labeled LedgerStash to exchange sensitive documents, track PBC lists, and build professional trust.
           </p>
 
           {/* CTAs */}

@@ -8,9 +8,9 @@ import { useEffect } from "react";
 
 const faqs = [
   {
-    question: "What is VaultLedger?",
+    question: "What is LedgerStash?",
     answer:
-      "VaultLedger is a secure client vault built for boutique accounting and tax firms. It lets you exchange sensitive documents, manage PBC task lists, and communicate with clients — all in one organized, white-labeled portal.",
+      "LedgerStash is a secure client vault built for boutique accounting and tax firms. It lets you exchange sensitive documents, manage PBC task lists, and communicate with clients — all in one organized, white-labeled portal.",
   },
   {
     question: "How do my clients access the vault?",
@@ -20,7 +20,7 @@ const faqs = [
   {
     question: "Is it secure enough for tax documents?",
     answer:
-      "Yes. VaultLedger uses bank-grade encrypted storage, role-based access control, and secure infrastructure. Only your firm and the specific client can access their documents — never other clients. Think of it as a private vault, not a shared drive.",
+      "Yes. LedgerStash uses bank-grade encrypted storage, role-based access control, and secure infrastructure. Only your firm and the specific client can access their documents — never other clients. Think of it as a private vault, not a shared drive.",
   },
   {
     question: "Can I use it for engagement letters and agreements?",
@@ -30,7 +30,7 @@ const faqs = [
   {
     question: "How is this different from email or shared drives?",
     answer:
-      "Email is insecure and unorganized. Shared drives lack task tracking and client-specific access. VaultLedger gives you per-client folders, PBC list management, Busy Season auto-reminders, and a professional branded experience that builds client trust.",
+      "Email is insecure and unorganized. Shared drives lack task tracking and client-specific access. LedgerStash gives you per-client folders, PBC list management, Busy Season auto-reminders, and a professional branded experience that builds client trust.",
   },
   {
     question: "Can my team members access the portal too?",
@@ -92,7 +92,7 @@ export function FAQ() {
               Frequently asked questions
             </h2>
             <p className="mx-auto max-w-[50rem] text-lg text-muted-foreground font-normal leading-relaxed mb-12">
-              Everything you need to know about VaultLedger
+              Everything you need to know about LedgerStash
             </p>
           </div>
 

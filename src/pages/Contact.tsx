@@ -95,9 +95,9 @@ export default function Contact() {
   }
   return <div className="min-h-screen bg-background">
       <PageSEO
-        title="Contact Us | Get Help with VaultLedger"
+        title="Contact Us | Get Help with LedgerStash"
         description="Have questions about our secure client vault? Contact our team for support, sales inquiries, or partnership opportunities. We typically respond within 24 hours."
-        keywords="contact vaultledger, client vault support, accounting portal help"
+        keywords="contact ledgerstash, client vault support, accounting portal help"
         canonical="/contact"
       />
       {/* Header */}
@@ -107,7 +107,7 @@ export default function Contact() {
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
               <Shield className="h-5 w-5 text-primary-foreground" />
             </div>
-            <span className="text-xl font-bold text-foreground">VaultLedger</span>
+            <span className="text-xl font-bold text-foreground">LedgerStash</span>
           </Link>
           <Button variant="ghost" size="sm" asChild>
             <Link to="/">
@@ -126,7 +126,7 @@ export default function Contact() {
               <MessageSquare className="h-7 w-7 text-primary" />
             </div>
             <h1 className="text-3xl font-bold text-foreground mb-3">Get in Touch</h1>
-            <p className="text-muted-foreground max-w-md mx-auto">Have a question about VaultLedger or need help getting started? We're here to help.</p>
+            <p className="text-muted-foreground max-w-md mx-auto">Have a question about LedgerStash or need help getting started? We're here to help.</p>
           </div>
 
           <div className="card-elevated p-8">
@@ -164,9 +164,9 @@ export default function Contact() {
           <div className="mt-8 text-center">
             <p className="text-sm text-muted-foreground">
               Prefer email?{" "}
-              <a href="mailto:hello@getattestly.com" className="text-primary hover:underline inline-flex items-center gap-1">
+              <a href="mailto:hello@ledgerstash.com" className="text-primary hover:underline inline-flex items-center gap-1">
                 <Mail className="h-3 w-3" />
-                hello@getattestly.com
+                hello@ledgerstash.com
               </a>
             </p>
           </div>

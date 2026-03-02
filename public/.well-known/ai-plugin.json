@@ -1,17 +1,17 @@
 {
   "schema_version": "v1",
-  "name_for_human": "VaultLedger",
-  "name_for_model": "vaultledger",
+  "name_for_human": "LedgerStash",
+  "name_for_model": "ledgerstash",
   "description_for_human": "Secure client vault for boutique accounting and tax firms — encrypted document exchange, PBC task management, and automated follow-ups.",
-  "description_for_model": "VaultLedger is a SaaS platform that helps boutique accounting and tax firms securely exchange documents with clients. Key features include encrypted document vaults, PBC (Provided By Client) task lists, per-client folders, white-label branding, Busy Season auto-reminders, and audit trails. Pricing: Solo CPA $29/mo, Boutique Firm $79/mo, Enterprise Vault $199/mo. 14-day free trial.",
+  "description_for_model": "LedgerStash is a SaaS platform that helps boutique accounting and tax firms securely exchange documents with clients. Key features include encrypted document vaults, PBC (Provided By Client) task lists, per-client folders, white-label branding, Busy Season auto-reminders, and audit trails. Pricing: Solo CPA $29/mo, Boutique Firm $79/mo, Enterprise Vault $199/mo. 14-day free trial.",
   "auth": {
     "type": "none"
   },
   "api": {
     "type": "openapi",
-    "url": "https://getvaultledger.com/openapi.json"
+    "url": "https://ledgerstash.com/openapi.json"
   },
-  "logo_url": "https://getvaultledger.com/og-image.png",
-  "contact_email": "hello@vaultledger.com",
-  "legal_info_url": "https://getvaultledger.com/terms"
+  "logo_url": "https://ledgerstash.com/og-image.png",
+  "contact_email": "hello@ledgerstash.com",
+  "legal_info_url": "https://ledgerstash.com/terms"
 }

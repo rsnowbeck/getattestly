@@ -8,9 +8,9 @@ export default function Terms() {
   return (
     <div className="min-h-screen bg-background">
       <PageSEO
-        title="Terms of Service | VaultLedger Usage Agreement"
-        description="Read VaultLedger's Terms of Service covering acceptable use, customer data ownership, service availability, and liability limitations."
-        keywords="vaultledger terms of service, client vault terms, accounting portal agreement"
+        title="Terms of Service | LedgerStash Usage Agreement"
+        description="Read LedgerStash's Terms of Service covering acceptable use, customer data ownership, service availability, and liability limitations."
+        keywords="ledgerstash terms of service, client vault terms, accounting portal agreement"
         canonical="/terms"
       />
       <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
@@ -19,7 +19,7 @@ export default function Terms() {
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
               <Shield className="h-5 w-5 text-primary-foreground" />
             </div>
-            <span className="text-xl font-bold text-foreground">VaultLedger</span>
+            <span className="text-xl font-bold text-foreground">LedgerStash</span>
           </Link>
           <Button variant="ghost" size="sm" asChild>
             <Link to="/"><ArrowLeft className="h-4 w-4 mr-2" />Back</Link>
@@ -39,7 +39,7 @@ export default function Terms() {
 
           <div className="card-elevated p-8 space-y-8">
             <p className="text-muted-foreground">
-              These Terms of Service ("Terms") govern your use of VaultLedger's website and web application (the "Service"). By using the Service, you agree to these Terms.
+              These Terms of Service ("Terms") govern your use of LedgerStash's website and web application (the "Service"). By using the Service, you agree to these Terms.
             </p>
 
             <section className="space-y-4">
@@ -65,7 +65,7 @@ export default function Terms() {
             <section className="space-y-4">
               <h2 className="text-xl font-semibold text-foreground">Customer Data</h2>
               <p className="text-muted-foreground">You retain ownership of all data you submit to the Service ("Customer Data").</p>
-              <p className="text-muted-foreground">By using the Service, you grant VaultLedger permission to process Customer Data solely to provide and operate the Service.</p>
+              <p className="text-muted-foreground">By using the Service, you grant LedgerStash permission to process Customer Data solely to provide and operate the Service.</p>
             </section>
 
             <section className="space-y-4">
@@ -83,7 +83,7 @@ export default function Terms() {
 
             <section className="space-y-4">
               <h2 className="text-xl font-semibold text-foreground">Limitation of Liability</h2>
-              <p className="text-muted-foreground">To the maximum extent permitted by law, VaultLedger will not be liable for indirect, incidental, or consequential damages resulting from use of the Service.</p>
+              <p className="text-muted-foreground">To the maximum extent permitted by law, LedgerStash will not be liable for indirect, incidental, or consequential damages resulting from use of the Service.</p>
             </section>
 
             <section className="space-y-4">
@@ -99,9 +99,9 @@ export default function Terms() {
             <section className="space-y-4 pt-4 border-t border-border">
               <h2 className="text-xl font-semibold text-foreground">Contact</h2>
               <p className="text-muted-foreground">Questions about these Terms?</p>
-              <a href="mailto:hello@getattestly.com" className="text-primary hover:underline inline-flex items-center gap-2">
+              <a href="mailto:hello@ledgerstash.com" className="text-primary hover:underline inline-flex items-center gap-2">
                 <Mail className="h-4 w-4" />
-                hello@getattestly.com
+                hello@ledgerstash.com
               </a>
             </section>
           </div>

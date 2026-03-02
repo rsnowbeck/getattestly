@@ -38,10 +38,10 @@ function useBlogSchema() {
       headline: "How to Track Employee Policy Acknowledgments (Without HR Software)",
       description:
         "Learn how to track employee policy acknowledgments with audit-ready records, without investing in complex HR software.",
-      author: { "@type": "Organization", name: "VaultLedger" },
-      publisher: { "@type": "Organization", name: "VaultLedger", url: "https://getvaultledger.com" },
+      author: { "@type": "Organization", name: "LedgerStash" },
+      publisher: { "@type": "Organization", name: "LedgerStash", url: "https://ledgerstash.com" },
       datePublished: "2025-02-14",
-      mainEntityOfPage: "https://getvaultledger.com/blog/track-employee-policy-acknowledgments",
+      mainEntityOfPage: "https://ledgerstash.com/blog/track-employee-policy-acknowledgments",
     };
     const faqSchema = {
       "@context": "https://schema.org",
@@ -212,7 +212,7 @@ export default function TrackPolicyAcknowledgments() {
                 </p>
                 <div className="card-elevated p-6 border-l-4 border-accent">
                   <p className="text-foreground font-medium">
-                    VaultLedger is compliance software designed for small and mid-sized businesses that
+                    LedgerStash is compliance software designed for small and mid-sized businesses that
                     need to distribute policies, collect acknowledgments or fillable form data, and
                     maintain audit-ready records without enterprise complexity.
                   </p>

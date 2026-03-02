@@ -282,7 +282,7 @@ const handler = async (req: Request): Promise<Response> => {
     } else {
       // Default: show Attestly logo with shield
       logoHtml = `
-        <img src="${attestlyLogoUrl}" alt="Attestly" style="height: 48px; width: 48px; object-fit: contain; margin-bottom: 12px; border-radius: 8px;" />
+        <img src="${attestlyLogoUrl}" alt="LedgerStash" style="height: 48px; width: 48px; object-fit: contain; margin-bottom: 12px; border-radius: 8px;" />
       `;
     }
 
@@ -294,7 +294,7 @@ const handler = async (req: Request): Promise<Response> => {
     console.log(`Sending ${emailType} email to ${recipientEmail} for "${requirementTitle}"`);
 
     const emailResponse = await resend.emails.send({
-      from: `Attestly <noreply@getattestly.com>`,
+      from: `LedgerStash <noreply@ledgerstash.com>`,
       reply_to: senderEmail || undefined,
       to: [recipientEmail],
       subject,
@@ -314,7 +314,7 @@ const handler = async (req: Request): Promise<Response> => {
                   <tr>
                     <td style="padding: 32px 32px 24px; text-align: center;">
                       ${logoHtml}
-                      <h1 style="margin: 0; font-size: 24px; font-weight: 600; color: #18181b;">Attestly</h1>
+                      <h1 style="margin: 0; font-size: 24px; font-weight: 600; color: #18181b;">LedgerStash</h1>
                       <hr style="margin-top: 20px; border: none; border-top: 1px solid #e4e4e7;" />
                     </td>
                   </tr>
@@ -371,10 +371,10 @@ const handler = async (req: Request): Promise<Response> => {
                         If you didn't expect this email, you can safely ignore it.
                       </p>
                       <p style="margin: 8px 0 0; font-size: 12px; color: #a1a1aa;">
-                        Need help? Contact <a href="mailto:hello@getattestly.com" style="color: #71717a;">hello@getattestly.com</a>
+                        Need help? Contact <a href="mailto:hello@ledgerstash.com" style="color: #71717a;">hello@ledgerstash.com</a>
                       </p>
                       <p style="margin: 12px 0 0; font-size: 11px; color: #d4d4d8;">
-                        Powered by <a href="https://getattestly.com" style="color: #a1a1aa; text-decoration: none;">Attestly</a>
+                        Powered by <a href="https://ledgerstash.com" style="color: #a1a1aa; text-decoration: none;">LedgerStash</a>
                       </p>
                     </td>
                   </tr>

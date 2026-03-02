@@ -43,7 +43,7 @@ export default function Signup() {
         return;
       }
 
-      toast.success("Account created! Welcome to VaultLedger.");
+      toast.success("Account created! Welcome to LedgerStash.");
       navigate("/dashboard");
     } catch (error) {
       toast.error("An unexpected error occurred");
@@ -55,9 +55,9 @@ export default function Signup() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <PageSEO
-        title="Start Free Trial | VaultLedger Client Vault"
+        title="Start Free Trial | LedgerStash Client Vault"
         description="Sign up for a 14-day free trial. Create a secure client vault for your accounting firm in minutes. No credit card required."
-        keywords="vaultledger free trial, client vault signup, accounting firm portal, CPA client vault"
+        keywords="ledgerstash free trial, client vault signup, accounting firm portal, CPA client vault"
         canonical="/signup"
       />
       {/* Header */}
@@ -78,7 +78,7 @@ export default function Signup() {
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary">
                 <Shield className="h-5 w-5 text-primary-foreground" />
               </div>
-              <span className="text-2xl font-bold text-foreground">VaultLedger</span>
+              <span className="text-2xl font-bold text-foreground">LedgerStash</span>
             </Link>
             <h1 className="text-2xl font-bold text-foreground mb-2">Start your free trial</h1>
             <p className="text-muted-foreground">
