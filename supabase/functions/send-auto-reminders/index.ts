@@ -132,8 +132,8 @@ const handler = async (req: Request): Promise<Response> => {
         // Send the reminder email
         try {
           const isPro = org.plan === "pro";
-          const displayOrg = isPro ? org.name : "Attestly";
-          const displaySenderName = isPro ? (org.sender_name || org.name) : "Attestly";
+          const displayOrg = isPro ? org.name : "LedgerStash";
+          const displaySenderName = isPro ? (org.sender_name || org.name) : "LedgerStash";
           const subject = `Reminder: Please sign "${requirement.title || "Document"}"`;
 
           // Build due date warning HTML - only for escalated (close to due) reminders
@@ -182,7 +182,7 @@ const handler = async (req: Request): Promise<Response> => {
           <tr>
             <td style="padding: 32px 32px 24px; text-align: center;">
               ${logoHtml}
-              <h1 style="margin: 0; font-size: 24px; font-weight: 600; color: #18181b;">Attestly</h1>
+              <h1 style="margin: 0; font-size: 24px; font-weight: 600; color: #18181b;">LedgerStash</h1>
               <hr style="margin-top: 20px; border: none; border-top: 1px solid #e4e4e7;" />
             </td>
           </tr>
@@ -235,7 +235,7 @@ const handler = async (req: Request): Promise<Response> => {
                 If you didn't expect this email, you can safely ignore it.
               </p>
               <p style="margin: 12px 0 0; font-size: 11px; color: #d4d4d8;">
-                Powered by <a href="https://getattestly.com" style="color: #a1a1aa; text-decoration: none;">Attestly</a>
+                Powered by <a href="https://ledgerstash.com" style="color: #a1a1aa; text-decoration: none;">LedgerStash</a>
               </p>
             </td>
           </tr>
@@ -248,7 +248,7 @@ const handler = async (req: Request): Promise<Response> => {
           `;
 
           const { error: emailError } = await resend.emails.send({
-            from: "Attestly <noreply@getattestly.com>",
+            from: "LedgerStash <noreply@ledgerstash.com>",
             reply_to: org.sender_email || undefined,
             to: [recipient.email || ""],
             subject,

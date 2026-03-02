@@ -8,14 +8,14 @@ export function useOrganizationSchema() {
     const schema = {
       "@context": "https://schema.org",
       "@type": "Organization",
-      name: "VaultLedger",
-      url: "https://getvaultledger.com",
-      logo: "https://getvaultledger.com/og-image.png",
+      name: "LedgerStash",
+      url: "https://ledgerstash.com",
+      logo: "https://ledgerstash.com/og-image.png",
       description: "Secure client vault for boutique accounting and tax firms. Exchange documents, manage PBC tasks, and communicate with clients securely.",
       foundingDate: "2025",
       contactPoint: {
         "@type": "ContactPoint",
-        email: "hello@vaultledger.com",
+        email: "hello@ledgerstash.com",
         contactType: "customer support",
         availableLanguage: "English",
       },
@@ -42,7 +42,7 @@ export function useSoftwareApplicationSchema() {
     const schema = {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-      name: "VaultLedger",
+      name: "LedgerStash",
       applicationCategory: "BusinessApplication",
       applicationSubCategory: "Client Vault Software",
       operatingSystem: "Web",
@@ -61,7 +61,7 @@ export function useSoftwareApplicationSchema() {
         "Team collaboration",
         "Audit-ready export",
       ],
-      url: "https://getvaultledger.com",
+      url: "https://ledgerstash.com",
     };
 
     const script = document.createElement("script");

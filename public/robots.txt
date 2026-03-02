@@ -41,7 +41,7 @@ User-agent: *
 Allow: /
 
 # Sitemaps and AI Context
-Sitemap: https://getvaultledger.com/sitemap.xml
+Sitemap: https://ledgerstash.com/sitemap.xml
 
 # AI/LLM Context File
-# See: https://getvaultledger.com/llms.txt
+# See: https://ledgerstash.com/llms.txt

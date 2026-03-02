@@ -26,7 +26,7 @@ async function hashToken(token: string): Promise<string> {
   return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
 }
 
-// Attestly branded email template
+// LedgerStash branded email template
 function generateEmailHtml(resetUrl: string): string {
   return `
     <!DOCTYPE html>
@@ -34,11 +34,11 @@ function generateEmailHtml(resetUrl: string): string {
     <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Reset your Attestly password</title>
+      <title>Reset your LedgerStash password</title>
     </head>
     <body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f6f9fc;">
       <!-- Preview text (hidden) -->
-      <div style="display: none; max-height: 0; overflow: hidden;">Reset your Attestly password</div>
+      <div style="display: none; max-height: 0; overflow: hidden;">Reset your LedgerStash password</div>
       
       <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #f6f9fc;">
         <tr>
@@ -55,7 +55,7 @@ function generateEmailHtml(resetUrl: string): string {
                         </div>
                       </td>
                       <td style="vertical-align: middle;">
-                        <span style="font-size: 24px; font-weight: 700; color: #0f172a;">Attestly</span>
+                        <span style="font-size: 24px; font-weight: 700; color: #0f172a;">LedgerStash</span>
                       </td>
                     </tr>
                   </table>
@@ -94,7 +94,7 @@ function generateEmailHtml(resetUrl: string): string {
             <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width: 560px; margin-top: 24px;">
               <tr>
                 <td align="center">
-                  <p style="margin: 0; font-size: 12px; color: #94a3b8;">© ${new Date().getFullYear()} Attestly. All rights reserved.</p>
+                  <p style="margin: 0; font-size: 12px; color: #94a3b8;">© ${new Date().getFullYear()} LedgerStash. All rights reserved.</p>
                   <p style="margin: 4px 0 0; font-size: 12px; color: #94a3b8;">Compliance acknowledgments, simplified.</p>
                 </td>
               </tr>
@@ -192,9 +192,9 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Send the branded email
     const emailResponse = await resend.emails.send({
-      from: "Attestly <noreply@getattestly.com>",
+      from: "LedgerStash <noreply@ledgerstash.com>",
       to: [email],
-      subject: "Reset your Attestly password",
+      subject: "Reset your LedgerStash password",
       html: generateEmailHtml(resetUrl),
     });
 

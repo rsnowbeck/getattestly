@@ -13,7 +13,7 @@ export default function Landing() {
   return (
     <div className="min-h-screen bg-background">
       <PageSEO
-        title="Secure Client Vault for Accounting Firms | VaultLedger"
+        title="Secure Client Vault for Accounting Firms | LedgerStash"
         description="Give your accounting firm a branded, secure vault where clients upload documents, complete PBC tasks, and stay organized — with end-to-end encryption and automated follow-ups."
         keywords="client vault accounting, secure document exchange CPA, accounting firm client portal, tax document management, PBC list software"
         canonical="/"

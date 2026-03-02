@@ -1,10 +1,10 @@
-# VaultLedger - Secure Client Vault for Accounting Firms
+# LedgerStash - Secure Client Vault for Accounting Firms
 
-> VaultLedger is a secure client vault built for boutique accounting and tax firms. Exchange sensitive documents, manage PBC task lists, and give clients a branded, white-labeled portal with end-to-end encryption and automated follow-ups.
+> LedgerStash is a secure client vault built for boutique accounting and tax firms. Exchange sensitive documents, manage PBC task lists, and give clients a branded, white-labeled portal with end-to-end encryption and automated follow-ups.
 
-## What VaultLedger Does
+## What LedgerStash Does
 
-VaultLedger is a secure document exchange and task management platform purpose-built for CPAs, accountants, and tax professionals. It replaces email attachments and shared drives with one organized, encrypted vault. Firms use it to:
+LedgerStash is a secure document exchange and task management platform purpose-built for CPAs, accountants, and tax professionals. It replaces email attachments and shared drives with one organized, encrypted vault. Firms use it to:
 
 - Create per-client document vaults with organized folders
 - Manage PBC (Provided By Client) task lists with due dates and priorities
@@ -52,8 +52,8 @@ Secure client vault for accounting firms
 
 ## Contact
 
-- Website: https://getvaultledger.com
-- Email: hello@vaultledger.com
+- Website: https://ledgerstash.com
+- Email: hello@ledgerstash.com
 
 ## Technical Details
 

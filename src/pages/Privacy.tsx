@@ -8,9 +8,9 @@ export default function Privacy() {
   return (
     <div className="min-h-screen bg-background">
       <PageSEO
-        title="Privacy Policy | How VaultLedger Handles Your Data"
-        description="Read VaultLedger's Privacy Policy to understand how we collect, use, and protect your information. We never sell your data and use industry-standard security practices."
-        keywords="vaultledger privacy policy, client vault privacy, data protection policy, accounting portal data handling"
+        title="Privacy Policy | How LedgerStash Handles Your Data"
+        description="Read LedgerStash's Privacy Policy to understand how we collect, use, and protect your information. We never sell your data and use industry-standard security practices."
+        keywords="ledgerstash privacy policy, client vault privacy, data protection policy, accounting portal data handling"
         canonical="/privacy"
       />
       <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
@@ -19,7 +19,7 @@ export default function Privacy() {
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
               <Shield className="h-5 w-5 text-primary-foreground" />
             </div>
-            <span className="text-xl font-bold text-foreground">VaultLedger</span>
+            <span className="text-xl font-bold text-foreground">LedgerStash</span>
           </Link>
           <Button variant="ghost" size="sm" asChild>
             <Link to="/"><ArrowLeft className="h-4 w-4 mr-2" />Back</Link>
@@ -39,7 +39,7 @@ export default function Privacy() {
 
           <div className="card-elevated p-8 space-y-8">
             <p className="text-muted-foreground">
-              VaultLedger ("we," "our," or "us") respects your privacy. This Privacy Policy explains how we collect, use, and protect information when you use our website and web application (the "Service").
+              LedgerStash ("we," "our," or "us") respects your privacy. This Privacy Policy explains how we collect, use, and protect information when you use our website and web application (the "Service").
             </p>
 
             <section className="space-y-4">
@@ -106,9 +106,9 @@ export default function Privacy() {
             <section className="space-y-4 pt-4 border-t border-border">
               <h2 className="text-xl font-semibold text-foreground">Contact</h2>
               <p className="text-muted-foreground">Questions about privacy?</p>
-              <a href="mailto:hello@vaultledger.com" className="text-primary hover:underline inline-flex items-center gap-2">
+              <a href="mailto:hello@ledgerstash.com" className="text-primary hover:underline inline-flex items-center gap-2">
                 <Mail className="h-4 w-4" />
-                hello@vaultledger.com
+                hello@ledgerstash.com
               </a>
             </section>
           </div>
