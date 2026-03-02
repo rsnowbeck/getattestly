@@ -13,9 +13,9 @@ export default function Landing() {
   return (
     <div className="min-h-screen bg-background">
       <PageSEO
-        title="Secure Client Portal for Accountants | Attestly"
-        description="Simplify tax season document exchange. Give your accounting firm a branded portal where clients upload documents, complete tasks, and stay organized — securely."
-        keywords="client portal accountants, tax document collection software, secure document exchange CPA, accounting firm client portal, tax season document management"
+        title="Secure Client Vault for Accounting Firms | VaultLedger"
+        description="Give your accounting firm a branded, secure vault where clients upload documents, complete PBC tasks, and stay organized — with end-to-end encryption and automated follow-ups."
+        keywords="client vault accounting, secure document exchange CPA, accounting firm client portal, tax document management, PBC list software"
         canonical="/"
       />
       <StructuredData />

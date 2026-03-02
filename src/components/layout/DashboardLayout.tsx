@@ -53,7 +53,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-sidebar-primary">
             <Shield className="h-4 w-4 text-sidebar-primary-foreground" />
           </div>
-          <span className="text-lg font-bold text-sidebar-foreground">Attestly</span>
+          <span className="text-lg font-bold text-sidebar-foreground">VaultLedger</span>
         </Link>
 
         <nav className="flex-1 p-4 space-y-1">
@@ -100,7 +100,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
             <Shield className="h-4 w-4 text-primary-foreground" />
           </div>
-          <span className="text-lg font-bold text-foreground">Attestly</span>
+          <span className="text-lg font-bold text-foreground">VaultLedger</span>
         </Link>
         <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-2">
           {sidebarOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}

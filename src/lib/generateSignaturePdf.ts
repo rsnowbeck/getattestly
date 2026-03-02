@@ -35,11 +35,11 @@ export async function generateSignaturePdf(data: SignatureData): Promise<void> {
   const doc = new jsPDF();
   const pageWidth = doc.internal.pageSize.getWidth();
   
-  // ===== Attestly Design System Colors (converted from HSL to RGB) =====
-  // Primary - Deep Slate Navy: HSL(215, 50%, 23%) → #1D2F49
-  const primaryColor: [number, number, number] = [29, 47, 73];
-  // Accent - Teal: HSL(173, 58%, 39%) → #2A9D8F
-  const accentColor: [number, number, number] = [42, 157, 143];
+  // ===== VaultLedger Design System Colors (converted from HSL to RGB) =====
+  // Primary - Deep Indigo: HSL(243, 47%, 34%) → #312e81
+  const primaryColor: [number, number, number] = [49, 46, 129];
+  // Accent - Indigo 600: HSL(245, 58%, 52%) → #4f46e5
+  const accentColor: [number, number, number] = [79, 70, 229];
   // Foreground text: HSL(215, 25%, 15%) → #1D232C
   const textColor: [number, number, number] = [29, 35, 44];
   // Muted foreground: HSL(215, 15%, 45%) → #626B7A
@@ -70,11 +70,11 @@ export async function generateSignaturePdf(data: SignatureData): Promise<void> {
     }
   }
 
-  // Organization name or Attestly
+  // Organization name or VaultLedger
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(12);
   doc.setFont("helvetica", "normal");
-  const orgDisplayName = data.organizationName || "Attestly";
+  const orgDisplayName = data.organizationName || "VaultLedger";
   doc.text(orgDisplayName, pageWidth / 2, headerTextY - 5, { align: "center" });
   
   // Certificate title
@@ -221,11 +221,11 @@ export async function generateSignaturePdf(data: SignatureData): Promise<void> {
     { align: "center" }
   );
   
-  // Powered by Attestly (if org-branded)
+  // Powered by VaultLedger (if org-branded)
   if (data.organizationName) {
     doc.setFontSize(7);
     doc.setTextColor(180, 180, 180);
-    doc.text("Powered by Attestly", pageWidth / 2, footerY + 12, { align: "center" });
+    doc.text("Powered by VaultLedger", pageWidth / 2, footerY + 12, { align: "center" });
   }
 
   // Download the PDF

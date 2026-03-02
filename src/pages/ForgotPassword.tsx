@@ -65,7 +65,7 @@ export default function ForgotPassword() {
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary">
                 <Shield className="h-5 w-5 text-primary-foreground" />
               </div>
-              <span className="text-2xl font-bold text-foreground">Attestly</span>
+              <span className="text-2xl font-bold text-foreground">VaultLedger</span>
             </Link>
             <h1 className="text-2xl font-bold text-foreground mb-2">Reset your password</h1>
             <p className="text-muted-foreground">

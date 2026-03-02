@@ -1,9 +1,9 @@
 {
   "schema_version": "v1",
-  "name_for_human": "Attestly",
-  "name_for_model": "attestly",
-  "description_for_human": "Compliance signature management platform for collecting legally defensible digital signatures.",
-  "description_for_model": "Attestly is a SaaS platform that helps organizations collect digital signatures for compliance documents, policies, NDAs, and training acknowledgments. Key features include one-click signing (no accounts needed), audit trails with timestamps and IP addresses, automated reminders, and PDF proof generation. Pricing starts at $29/month after a 14-day free trial.",
+  "name_for_human": "VaultLedger",
+  "name_for_model": "vaultledger",
+  "description_for_human": "Secure client vault for accounting and tax firms — encrypted document exchange, PBC task management, and automated follow-ups.",
+  "description_for_model": "VaultLedger is a SaaS platform that helps accounting and tax firms securely exchange documents with clients. Key features include encrypted document vaults, PBC (Provided By Client) task lists, per-client folders, automated reminders, and audit trails. Pricing starts at $19/month after a 14-day free trial.",
   "auth": {
     "type": "none"
   },
@@ -12,6 +12,6 @@
     "url": "https://getattestly.com/openapi.json"
   },
   "logo_url": "https://getattestly.com/og-image.png",
-  "contact_email": "hello@attestly.com",
+  "contact_email": "hello@getattestly.com",
   "legal_info_url": "https://getattestly.com/terms"
 }

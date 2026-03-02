@@ -8,30 +8,25 @@ export default function Privacy() {
   return (
     <div className="min-h-screen bg-background">
       <PageSEO
-        title="Privacy Policy | How Attestly Handles Your Data"
-        description="Read Attestly's Privacy Policy to understand how we collect, use, and protect your information. We never sell your data and use industry-standard security practices."
-        keywords="attestly privacy policy, digital signature privacy, data protection policy, e-signature data handling"
+        title="Privacy Policy | How VaultLedger Handles Your Data"
+        description="Read VaultLedger's Privacy Policy to understand how we collect, use, and protect your information. We never sell your data and use industry-standard security practices."
+        keywords="vaultledger privacy policy, client vault privacy, data protection policy, accounting portal data handling"
         canonical="/privacy"
       />
-      {/* Header */}
       <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
         <div className="container flex h-16 items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
               <Shield className="h-5 w-5 text-primary-foreground" />
             </div>
-            <span className="text-xl font-bold text-foreground">Attestly</span>
+            <span className="text-xl font-bold text-foreground">VaultLedger</span>
           </Link>
           <Button variant="ghost" size="sm" asChild>
-            <Link to="/">
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back
-            </Link>
+            <Link to="/"><ArrowLeft className="h-4 w-4 mr-2" />Back</Link>
           </Button>
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="container mx-auto px-4 py-16">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12">
@@ -44,23 +39,19 @@ export default function Privacy() {
 
           <div className="card-elevated p-8 space-y-8">
             <p className="text-muted-foreground">
-              Attestly ("we," "our," or "us") respects your privacy. This Privacy Policy explains how we collect, use, and protect information when you use our website and web application (the "Service").
+              VaultLedger ("we," "our," or "us") respects your privacy. This Privacy Policy explains how we collect, use, and protect information when you use our website and web application (the "Service").
             </p>
 
             <section className="space-y-4">
               <h2 className="text-xl font-semibold text-foreground">Information We Collect</h2>
-              <p className="text-muted-foreground">
-                We collect only the information necessary to operate and improve the Service, including:
-              </p>
+              <p className="text-muted-foreground">We collect only the information necessary to operate and improve the Service, including:</p>
               <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
                 <li><strong className="text-foreground">Account information:</strong> name, email address, and login credentials</li>
-                <li><strong className="text-foreground">Usage data:</strong> actions taken within the app (e.g., acknowledgements created or completed)</li>
+                <li><strong className="text-foreground">Usage data:</strong> actions taken within the app (e.g., documents uploaded or tasks completed)</li>
                 <li><strong className="text-foreground">Technical data:</strong> IP address, browser type, and device information</li>
                 <li><strong className="text-foreground">Communications:</strong> messages you send us via forms or email</li>
               </ul>
-              <p className="text-muted-foreground">
-                We do not collect sensitive personal information unless you choose to provide it as part of your use of the Service.
-              </p>
+              <p className="text-muted-foreground">We do not collect sensitive personal information unless you choose to provide it as part of your use of the Service.</p>
             </section>
 
             <section className="space-y-4">
@@ -88,16 +79,12 @@ export default function Privacy() {
 
             <section className="space-y-4">
               <h2 className="text-xl font-semibold text-foreground">Data Retention</h2>
-              <p className="text-muted-foreground">
-                We retain account and usage data for as long as your account is active or as needed to provide the Service. You may request deletion of your account and associated data by contacting us.
-              </p>
+              <p className="text-muted-foreground">We retain account and usage data for as long as your account is active or as needed to provide the Service. You may request deletion of your account and associated data by contacting us.</p>
             </section>
 
             <section className="space-y-4">
               <h2 className="text-xl font-semibold text-foreground">Security</h2>
-              <p className="text-muted-foreground">
-                We use reasonable administrative, technical, and organizational safeguards to protect your information. No system is 100% secure, but we take data protection seriously.
-              </p>
+              <p className="text-muted-foreground">We use reasonable administrative, technical, and organizational safeguards to protect your information. No system is 100% secure, but we take data protection seriously.</p>
             </section>
 
             <section className="space-y-4">
@@ -113,20 +100,13 @@ export default function Privacy() {
 
             <section className="space-y-4">
               <h2 className="text-xl font-semibold text-foreground">Changes to This Policy</h2>
-              <p className="text-muted-foreground">
-                We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated effective date.
-              </p>
+              <p className="text-muted-foreground">We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated effective date.</p>
             </section>
 
             <section className="space-y-4 pt-4 border-t border-border">
               <h2 className="text-xl font-semibold text-foreground">Contact</h2>
-              <p className="text-muted-foreground">
-                Questions about privacy?
-              </p>
-              <a 
-                href="mailto:hello@getattestly.com" 
-                className="text-primary hover:underline inline-flex items-center gap-2"
-              >
+              <p className="text-muted-foreground">Questions about privacy?</p>
+              <a href="mailto:hello@getattestly.com" className="text-primary hover:underline inline-flex items-center gap-2">
                 <Mail className="h-4 w-4" />
                 hello@getattestly.com
               </a>

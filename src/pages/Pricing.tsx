@@ -7,9 +7,9 @@ export default function Pricing() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <PageSEO
-        title="Pricing | Affordable Digital Signature Plans"
-        description="Simple, transparent pricing for digital signature software. Starter plan $29/mo for small teams, Pro $79/mo for growing organizations. 14-day free trial included."
-        keywords="digital signature pricing, e-signature cost, compliance software pricing, signature platform plans, affordable e-signature"
+        title="Pricing | Secure Client Vault Plans | VaultLedger"
+        description="Simple, transparent pricing for your secure client vault. Solo plan $19/mo, Firm $49/mo, Practice $99/mo. 14-day free trial included."
+        keywords="client vault pricing, accounting portal cost, CPA software pricing, secure document exchange plans"
         canonical="/pricing"
       />
       <Header />

@@ -3,7 +3,7 @@ import { useEffect } from "react";
 /**
  * Adds a noindex meta tag when the site is accessed via the lovable.app domain.
  * This prevents search engines from indexing the lovable.app URL while allowing
- * the custom domain (getattestly.com) to be indexed normally.
+ * the custom domain to be indexed normally.
  */
 export function useNoIndexLovable() {
   useEffect(() => {
