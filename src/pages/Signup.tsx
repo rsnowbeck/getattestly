@@ -55,9 +55,9 @@ export default function Signup() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <PageSEO
-        title="Start Free Trial | Create Your Attestly Account"
-        description="Sign up for a 14-day free trial of Attestly. No credit card required. Start collecting digital signatures for compliance policies in minutes."
-        keywords="attestly free trial, digital signature signup, compliance software trial, e-signature account"
+        title="Start Free Trial | Attestly Client Portal"
+        description="Sign up for a 14-day free trial. Create a secure client portal for your accounting firm in minutes. No credit card required."
+        keywords="attestly free trial, client portal signup, accounting firm portal, CPA client portal"
         canonical="/signup"
       />
       {/* Header */}
@@ -89,11 +89,11 @@ export default function Signup() {
           <div className="card-elevated p-8">
             <form onSubmit={handleSignup} className="space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="company">Company Name</Label>
+                <Label htmlFor="company">Firm Name</Label>
                 <Input
                   id="company"
                   type="text"
-                  placeholder="Acme Corp"
+                  placeholder="Smith & Associates CPA"
                   value={companyName}
                   onChange={(e) => setCompanyName(e.target.value)}
                   required
