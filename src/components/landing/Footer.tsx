@@ -1,13 +1,17 @@
 import { Link } from "react-router-dom";
+import { Shield } from "lucide-react";
 
 export function Footer() {
   return (
     <footer className="border-t border-border bg-background py-8">
       <div className="container">
         <div className="flex flex-col md:flex-row justify-center items-center gap-6">
-          <p className="text-sm text-muted-foreground">
-            © 2026 Attestly
-          </p>
+          <div className="flex items-center gap-2 text-muted-foreground">
+            <Shield className="h-4 w-4" />
+            <p className="text-sm font-medium">
+              © 2026 VaultLedger
+            </p>
+          </div>
           <nav className="flex flex-wrap justify-center gap-6 text-sm">
             <Link to="/contact" className="text-muted-foreground hover:text-foreground transition-colors">
               Contact
@@ -20,9 +24,6 @@ export function Footer() {
             </Link>
             <Link to="/security" className="text-muted-foreground hover:text-foreground transition-colors">
               Security
-            </Link>
-            <Link to="/blog/track-employee-policy-acknowledgments" className="text-muted-foreground hover:text-foreground transition-colors">
-              Blog
             </Link>
           </nav>
         </div>

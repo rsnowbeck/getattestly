@@ -308,7 +308,7 @@ export default function Sign() {
 
       <footer className="border-t bg-background px-4 py-4 mt-auto safe-area-inset-bottom">
         <div className="max-w-lg mx-auto text-center">
-          <p className="text-xs text-muted-foreground">Secured by <span className="font-semibold">Attestly</span></p>
+          <p className="text-xs text-muted-foreground">Secured by <span className="font-semibold">VaultLedger</span></p>
         </div>
       </footer>
     </div>

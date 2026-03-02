@@ -8,30 +8,25 @@ export default function Terms() {
   return (
     <div className="min-h-screen bg-background">
       <PageSEO
-        title="Terms of Service | Attestly Usage Agreement"
-        description="Read Attestly's Terms of Service covering acceptable use, customer data ownership, service availability, and liability limitations for our digital signature platform."
-        keywords="attestly terms of service, digital signature terms, e-signature agreement, compliance software terms"
+        title="Terms of Service | VaultLedger Usage Agreement"
+        description="Read VaultLedger's Terms of Service covering acceptable use, customer data ownership, service availability, and liability limitations."
+        keywords="vaultledger terms of service, client vault terms, accounting portal agreement"
         canonical="/terms"
       />
-      {/* Header */}
       <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
         <div className="container flex h-16 items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
               <Shield className="h-5 w-5 text-primary-foreground" />
             </div>
-            <span className="text-xl font-bold text-foreground">Attestly</span>
+            <span className="text-xl font-bold text-foreground">VaultLedger</span>
           </Link>
           <Button variant="ghost" size="sm" asChild>
-            <Link to="/">
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back
-            </Link>
+            <Link to="/"><ArrowLeft className="h-4 w-4 mr-2" />Back</Link>
           </Button>
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="container mx-auto px-4 py-16">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12">
@@ -44,14 +39,12 @@ export default function Terms() {
 
           <div className="card-elevated p-8 space-y-8">
             <p className="text-muted-foreground">
-              These Terms of Service ("Terms") govern your use of Attestly's website and web application (the "Service"). By using the Service, you agree to these Terms.
+              These Terms of Service ("Terms") govern your use of VaultLedger's website and web application (the "Service"). By using the Service, you agree to these Terms.
             </p>
 
             <section className="space-y-4">
               <h2 className="text-xl font-semibold text-foreground">Use of the Service</h2>
-              <p className="text-muted-foreground">
-                You may use the Service only if you are legally able to enter into a binding agreement and are using it for lawful purposes.
-              </p>
+              <p className="text-muted-foreground">You may use the Service only if you are legally able to enter into a binding agreement and are using it for lawful purposes.</p>
               <p className="text-muted-foreground">You are responsible for:</p>
               <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
                 <li>Maintaining the confidentiality of your account credentials</li>
@@ -71,19 +64,13 @@ export default function Terms() {
 
             <section className="space-y-4">
               <h2 className="text-xl font-semibold text-foreground">Customer Data</h2>
-              <p className="text-muted-foreground">
-                You retain ownership of all data you submit to the Service ("Customer Data").
-              </p>
-              <p className="text-muted-foreground">
-                By using the Service, you grant Attestly permission to process Customer Data solely to provide and operate the Service.
-              </p>
+              <p className="text-muted-foreground">You retain ownership of all data you submit to the Service ("Customer Data").</p>
+              <p className="text-muted-foreground">By using the Service, you grant VaultLedger permission to process Customer Data solely to provide and operate the Service.</p>
             </section>
 
             <section className="space-y-4">
               <h2 className="text-xl font-semibold text-foreground">Service Availability</h2>
-              <p className="text-muted-foreground">
-                The Service is provided on an "as-is" and "as-available" basis. We strive for reliability but do not guarantee uninterrupted availability.
-              </p>
+              <p className="text-muted-foreground">The Service is provided on an "as-is" and "as-available" basis. We strive for reliability but do not guarantee uninterrupted availability.</p>
             </section>
 
             <section className="space-y-4">
@@ -96,36 +83,25 @@ export default function Terms() {
 
             <section className="space-y-4">
               <h2 className="text-xl font-semibold text-foreground">Limitation of Liability</h2>
-              <p className="text-muted-foreground">
-                To the maximum extent permitted by law, Attestly will not be liable for indirect, incidental, or consequential damages resulting from use of the Service.
-              </p>
+              <p className="text-muted-foreground">To the maximum extent permitted by law, VaultLedger will not be liable for indirect, incidental, or consequential damages resulting from use of the Service.</p>
             </section>
 
             <section className="space-y-4">
               <h2 className="text-xl font-semibold text-foreground">Changes to These Terms</h2>
-              <p className="text-muted-foreground">
-                We may update these Terms from time to time. Continued use of the Service after changes constitutes acceptance of the updated Terms.
-              </p>
+              <p className="text-muted-foreground">We may update these Terms from time to time. Continued use of the Service after changes constitutes acceptance of the updated Terms.</p>
             </section>
 
             <section className="space-y-4">
               <h2 className="text-xl font-semibold text-foreground">Governing Law</h2>
-              <p className="text-muted-foreground">
-                These Terms are governed by the laws of [Your State/Country].
-              </p>
+              <p className="text-muted-foreground">These Terms are governed by the laws of [Your State/Country].</p>
             </section>
 
             <section className="space-y-4 pt-4 border-t border-border">
               <h2 className="text-xl font-semibold text-foreground">Contact</h2>
-              <p className="text-muted-foreground">
-                Questions about these Terms?
-              </p>
-              <a 
-                href="mailto:hello@attestly.com" 
-                className="text-primary hover:underline inline-flex items-center gap-2"
-              >
+              <p className="text-muted-foreground">Questions about these Terms?</p>
+              <a href="mailto:hello@getattestly.com" className="text-primary hover:underline inline-flex items-center gap-2">
                 <Mail className="h-4 w-4" />
-                hello@attestly.com
+                hello@getattestly.com
               </a>
             </section>
           </div>
