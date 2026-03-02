@@ -2,88 +2,58 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Check } from "lucide-react";
 
-const plans: {
-  name: string;
-  price: string;
-  period: string;
-  description: string;
-  features: string[];
-  proOnlyFeatures?: string[];
-  cta: string;
-  featured: boolean;
-}[] = [
+const plans = [
   {
-    name: "Starter",
-    price: "$9",
-    period: "/month",
-    description: "For individuals and small teams getting started with document collection and signature tracking.",
-    features: [
-      "Up to 10 active recipients",
-      "5 active requirements",
-      "Read-and-acknowledge workflows",
-      "Pre-built document and policy templates",
-      "No-login signing",
-      "Secure single-use links",
-      "Real-time dashboard",
-      "Standard email delivery",
-      "PDF proof downloads"
-    ],
-    cta: "Start Free Trial",
-    featured: false
-  },
-  {
-    name: "Team",
+    name: "Solo",
     price: "$19",
     period: "/month",
-    description: "For growing businesses that need structured document tracking, reporting, and team collaboration.",
+    description: "For solo practitioners managing a small book of clients.",
     features: [
-      "Up to 100 active recipients",
-      "Unlimited requirements",
-      "Read-and-acknowledge workflows",
-      "Fillable PDF forms",
-      "Auto-detect form fields",
-      "Structured response storage",
-      "Completion reports & exports",
-      "No-login signing",
-      "Secure single-use links",
-      "Real-time dashboard",
-      "Automated reminders",
-      "Team collaboration",
-      "Priority email delivery",
-      "Bulk reminders"
+      "Up to 15 clients",
+      "Secure document exchange",
+      "Client task management",
+      "Branded client portal",
+      "Email notifications",
+      "Per-client folders",
+      "Standard support",
     ],
     cta: "Start Free Trial",
-    featured: true
+    featured: false,
   },
   {
-    name: "Pro",
-    price: "$39",
+    name: "Firm",
+    price: "$49",
     period: "/month",
-    description: "For established organizations managing high-volume document workflows at scale.",
+    description: "For growing firms that need team collaboration and more capacity.",
     features: [
-      "Unlimited recipients",
-      "Unlimited requirements",
-      "Read-and-acknowledge workflows",
-      "Fillable PDF forms",
-      "Auto-detect form fields",
-      "Structured response storage",
-      "Advanced CSV & PDF exports",
-      "No-login signing",
-      "Secure single-use links",
-      "Real-time dashboard",
+      "Up to 100 clients",
+      "Everything in Solo",
+      "Team member accounts",
       "Automated reminders",
-      "Team collaboration",
-      "Priority support"
-    ],
-    proOnlyFeatures: [
-      "Custom branding",
-      "Advanced activity logs",
-      "API access",
-      "File attachments for document requests"
+      "In-app comments",
+      "Bulk document upload",
+      "Priority support",
     ],
     cta: "Start Free Trial",
-    featured: false
-  }
+    featured: true,
+  },
+  {
+    name: "Practice",
+    price: "$99",
+    period: "/month",
+    description: "For established practices managing high client volumes at scale.",
+    features: [
+      "Unlimited clients",
+      "Everything in Firm",
+      "Custom branding",
+      "Advanced reporting",
+      "API access",
+      "Dedicated support",
+      "Multi-firm management",
+    ],
+    cta: "Start Free Trial",
+    featured: false,
+  },
 ];
 
 export function Pricing() {
@@ -114,16 +84,12 @@ export function Pricing() {
               )}
 
               <div className="mb-6">
-                <h3 className="text-lg font-semibold text-foreground mb-2">
-                  {plan.name}
-                </h3>
+                <h3 className="text-lg font-semibold text-foreground mb-2">{plan.name}</h3>
                 <div className="flex items-baseline gap-1">
                   <span className="text-4xl font-bold text-foreground">{plan.price}</span>
                   <span className="text-muted-foreground">{plan.period}</span>
                 </div>
-                <p className="mt-3 text-sm text-muted-foreground">
-                  {plan.description}
-                </p>
+                <p className="mt-3 text-sm text-muted-foreground">{plan.description}</p>
               </div>
 
               <ul className="space-y-3 mb-8 flex-1">
@@ -133,19 +99,6 @@ export function Pricing() {
                     <span className="text-foreground">{feature}</span>
                   </li>
                 ))}
-                {plan.proOnlyFeatures && (
-                  <>
-                    <li className="pt-4 mt-2 border-t border-border/50">
-                      <span className="text-sm font-semibold text-accent">Pro-only features:</span>
-                    </li>
-                    {plan.proOnlyFeatures.map((feature) => (
-                      <li key={feature} className="flex items-center gap-3 text-sm pl-2">
-                        <Check className="h-4 w-4 text-accent flex-shrink-0" />
-                        <span className="text-foreground">{feature}</span>
-                      </li>
-                    ))}
-                  </>
-                )}
                 <li className="flex items-center gap-3 text-sm">
                   <Check className="h-4 w-4 text-accent flex-shrink-0" />
                   <span className="text-foreground">14-day free trial</span>
@@ -164,11 +117,8 @@ export function Pricing() {
         </div>
 
         <div className="text-center mt-10">
-          <p className="text-sm text-muted-foreground mb-1">
-            Still have questions?
-          </p>
           <p className="text-sm text-muted-foreground">
-            See our <a href="#faq" className="text-accent hover:underline">FAQ</a> or start your free trial — no commitment required.
+            Questions? See our <a href="#faq" className="text-accent hover:underline">FAQ</a> or start your free trial.
           </p>
         </div>
       </div>

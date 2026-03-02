@@ -3,15 +3,14 @@ import { Link, useLocation } from "react-router-dom";
 import { 
   Shield, 
   Users, 
-  FileText, 
   BarChart3, 
   LogOut,
   Menu,
   X,
-  FileSignature,
   HelpCircle,
   Settings,
-  MessageSquare
+  MessageSquare,
+  FolderOpen,
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
@@ -22,9 +21,8 @@ interface DashboardLayoutProps {
 
 const baseNavItems = [
   { label: "Dashboard", icon: BarChart3, href: "/dashboard" },
-  { label: "Recipients", icon: Users, href: "/recipients" },
-  { label: "Requirements", icon: FileText, href: "/requirements" },
-  { label: "Signatures", icon: FileSignature, href: "/signatures" },
+  { label: "Clients", icon: Users, href: "/clients" },
+  { label: "Documents", icon: FolderOpen, href: "/documents" },
   { label: "Settings", icon: Settings, href: "/settings" },
 ];
 
@@ -41,6 +39,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
   const navItems = isOwner
     ? [...baseNavItems, ...ownerNavItems]
     : baseNavItems;
+
   const handleLogout = async () => {
     await signOut();
     toast.success("Logged out successfully");
@@ -59,7 +58,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
 
         <nav className="flex-1 p-4 space-y-1">
           {navItems.map((item) => {
-            const isActive = location.pathname === item.href;
+            const isActive = location.pathname === item.href || location.pathname.startsWith(item.href + '/');
             return (
               <Link
                 key={item.label}

@@ -10,11 +10,9 @@ import Signup from "./pages/Signup";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import Dashboard from "./pages/Dashboard";
-import Recipients from "./pages/Recipients";
-import Requirements from "./pages/Requirements";
-import RequirementDetail from "./pages/RequirementDetail";
-import Sign from "./pages/Sign";
-import Signatures from "./pages/Signatures";
+import Clients from "./pages/Clients";
+import ClientDetail from "./pages/ClientDetail";
+import Documents from "./pages/Documents";
 import Contact from "./pages/Contact";
 import ContactSubmissions from "./pages/ContactSubmissions";
 import OwnerDashboard from "./pages/OwnerDashboard";
@@ -25,20 +23,10 @@ import Pricing from "./pages/Pricing";
 import Settings from "./pages/Settings";
 import AcceptInvite from "./pages/AcceptInvite";
 import NotFound from "./pages/NotFound";
-import ComplianceSoftware from "./pages/seo/ComplianceSoftware";
-import PolicyAcknowledgment from "./pages/seo/PolicyAcknowledgment";
-import FillablePdfForms from "./pages/seo/FillablePdfForms";
-import DigitalPolicySignature from "./pages/seo/DigitalPolicySignature";
-import DocusignAlternative from "./pages/seo/DocusignAlternative";
-import TrackPolicyAcknowledgments from "./pages/blog/TrackPolicyAcknowledgments";
-import EmployeeAcknowledgments from "./pages/use-cases/EmployeeAcknowledgments";
-import ContractorAgreements from "./pages/use-cases/ContractorAgreements";
-import ClientIntakeForms from "./pages/use-cases/ClientIntakeForms";
 
 const queryClient = new QueryClient();
 
 const App = () => {
-  // Prevent search engines from indexing lovable.app domain
   useNoIndexLovable();
 
   return (
@@ -54,11 +42,9 @@ const App = () => {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/recipients" element={<Recipients />} />
-          <Route path="/requirements" element={<Requirements />} />
-          <Route path="/requirements/:id" element={<RequirementDetail />} />
-          <Route path="/signatures" element={<Signatures />} />
-          <Route path="/sign/:token" element={<Sign />} />
+          <Route path="/clients" element={<Clients />} />
+          <Route path="/clients/:id" element={<ClientDetail />} />
+          <Route path="/documents" element={<Documents />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/owner" element={<OwnerDashboard />} />
           <Route path="/owner/inquiries" element={<ContactSubmissions />} />
@@ -68,15 +54,6 @@ const App = () => {
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/accept-invite" element={<AcceptInvite />} />
-          <Route path="/compliance-software-small-business" element={<ComplianceSoftware />} />
-          <Route path="/policy-acknowledgment-software" element={<PolicyAcknowledgment />} />
-          <Route path="/fillable-pdf-compliance-forms" element={<FillablePdfForms />} />
-          <Route path="/digital-policy-signature-software" element={<DigitalPolicySignature />} />
-          <Route path="/docusign-alternative-compliance" element={<DocusignAlternative />} />
-          <Route path="/blog/track-employee-policy-acknowledgments" element={<TrackPolicyAcknowledgments />} />
-          <Route path="/employee-acknowledgment-tracking" element={<EmployeeAcknowledgments />} />
-          <Route path="/contractor-vendor-agreement-tracking" element={<ContractorAgreements />} />
-          <Route path="/client-intake-form-tracking" element={<ClientIntakeForms />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

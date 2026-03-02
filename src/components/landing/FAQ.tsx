@@ -8,53 +8,47 @@ import { useEffect } from "react";
 
 const faqs = [
   {
-    question: "What is document collection software?",
+    question: "What is Attestly?",
     answer:
-      "Document collection software helps businesses send, track, and manage completed and signed documents in one place. Instead of emailing PDFs and manually tracking responses, you can see who has completed or signed a document, who hasn't, and download organized records anytime.\n\nAttestly combines document sending, electronic signature capture, reminders, and audit-ready proof in one simple workflow.",
+      "Attestly is a secure client portal built for accounting and tax firms. It lets you exchange documents, assign tasks, and communicate with clients — all in one organized, branded portal.",
   },
   {
-    question: "What types of documents can I send with Attestly?",
+    question: "How do my clients access the portal?",
     answer:
-      "You can send a wide range of documents, including:\n\n• Employee policies and handbook acknowledgments\n• Contractor and vendor agreements\n• Internal security or compliance confirmations\n• Client intake forms\n• Waivers and consent forms\n• Read-and-acknowledge documents",
+      "You invite clients by email. They receive a branded invitation, create a simple account, and immediately see their tasks and document folders. No complex onboarding required.",
   },
   {
-    question: "Can I create fillable forms from a PDF?",
+    question: "Is it secure enough for tax documents?",
     answer:
-      "Yes. Upload a PDF and Attestly can auto-detect form fields to quickly convert it into a fillable document. You can add required fields, dates, and signatures in minutes — no complex setup required.\n\nAll responses are stored in a structured format and tied to a secure activity log.",
+      "Yes. Attestly uses encrypted storage, role-based access control, and secure infrastructure. Only your firm and the specific client can access their documents — never other clients.",
   },
   {
-    question: "Is Attestly a replacement for DocuSign?",
+    question: "Can I use it for engagement letters and agreements?",
     answer:
-      "Attestly is designed for businesses that need simple, structured document tracking with built-in proof — without the complexity of enterprise contract platforms.\n\nIf you primarily need lightweight document requests, signature tracking, automated reminders, and organized records, Attestly is often a simpler and more cost-effective option.",
+      "Absolutely. Create tasks for clients to review and sign engagement letters, fee agreements, or authorization forms. Track completion status from your dashboard.",
   },
   {
-    question: "Are digital signatures legally binding?",
+    question: "How is this different from email or shared drives?",
     answer:
-      "Yes. Electronic signatures are legally binding in most jurisdictions under laws such as the ESIGN Act and UETA in the United States.\n\nAttestly includes timestamping, IP tracking, and full activity logs to help provide defensible proof of document completion.",
+      "Email is insecure and unorganized. Shared drives lack task tracking and client-specific access. Attestly gives you per-client folders, task management, automated reminders, and a professional branded experience.",
   },
   {
-    question: "Can I export records and activity logs?",
+    question: "Can my team members access the portal too?",
     answer:
-      "Yes. You can download completed PDF copies, export structured response data via CSV, and access full activity logs with timestamps and IP tracking at any time.\n\nThis makes it easy to provide documentation if proof is ever required.",
+      "Yes. On the Firm and Practice plans, you can invite team members to your firm. They can manage clients, upload documents, and assign tasks alongside you.",
   },
   {
-    question: "Do signers need to create an account?",
+    question: "What types of files can clients upload?",
     answer:
-      "No. Recipients can review documents, complete required fields, and sign securely without creating an account or password.\n\nThis reduces friction and improves completion rates.",
+      "Clients can upload any file type — PDFs, images, spreadsheets, Word documents, and more. There's no restriction on file formats.",
   },
   {
-    question: "Is Attestly secure?",
+    question: "Is there a free trial?",
     answer:
-      "Yes. Attestly uses encrypted data storage and secure infrastructure to protect your documents and recipient information.\n\nSecurity and data protection are built into every step of the workflow.",
-  },
-  {
-    question: "What counts as an active recipient?",
-    answer:
-      "An active recipient is anyone currently stored in your account or with an open document request — including employees, contractors, vendors, clients, or patients. Archived recipients do not count toward your limit.",
+      "Yes. Every plan includes a 14-day free trial with full access. No credit card required to start.",
   },
 ];
 
-// Generate FAQ Schema for AI and search engines
 function useFAQSchema() {
   useEffect(() => {
     const existingScript = document.querySelector('script[data-faq-schema]');
@@ -63,12 +57,12 @@ function useFAQSchema() {
     const schema = {
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      "mainEntity": faqs.map((faq) => ({
+      mainEntity: faqs.map((faq) => ({
         "@type": "Question",
-        "name": faq.question,
-        "acceptedAnswer": {
+        name: faq.question,
+        acceptedAnswer: {
           "@type": "Answer",
-          "text": faq.answer,
+          text: faq.answer,
         },
       })),
     };
@@ -90,7 +84,7 @@ export function FAQ() {
   useFAQSchema();
 
   return (
-    <section className="pt-24 pb-24 bg-background">
+    <section id="faq" className="pt-24 pb-24 bg-background">
       <div className="container">
         <div className="mx-auto max-w-3xl">
           <div className="text-center">
@@ -109,7 +103,7 @@ export function FAQ() {
                   {faq.question}
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground space-y-3">
-                  {faq.answer.split('\n\n').map((paragraph, pIdx) => (
+                  {faq.answer.split("\n\n").map((paragraph, pIdx) => (
                     <p key={pIdx}>{paragraph}</p>
                   ))}
                 </AccordionContent>

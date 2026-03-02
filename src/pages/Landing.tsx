@@ -13,9 +13,9 @@ export default function Landing() {
   return (
     <div className="min-h-screen bg-background">
       <PageSEO
-        title="Compliance Software for Small Businesses | Attestly"
-        description="Manage compliance forms, policy acknowledgments, and audit-ready signatures without enterprise complexity. No logins required. Start free."
-        keywords="compliance software small business, compliance form software, policy acknowledgment software, employee acknowledgment tracking, fillable PDF compliance software, no-login e-signature, audit-ready compliance tracking, DocuSign alternative, employee handbook software, policy tracking software"
+        title="Secure Client Portal for Accountants | Attestly"
+        description="Simplify tax season document exchange. Give your accounting firm a branded portal where clients upload documents, complete tasks, and stay organized — securely."
+        keywords="client portal accountants, tax document collection software, secure document exchange CPA, accounting firm client portal, tax season document management"
         canonical="/"
       />
       <StructuredData />

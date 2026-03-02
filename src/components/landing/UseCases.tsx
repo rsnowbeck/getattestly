@@ -1,27 +1,23 @@
-import { Building2, Handshake, FileText, ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { FileText, Receipt, Briefcase, ArrowRight } from "lucide-react";
 
 const useCases = [
   {
-    icon: Building2,
-    title: "Track Employee Acknowledgments",
+    icon: Receipt,
+    title: "Tax Document Collection",
     description:
-      "Track employee acknowledgments, recurring policy updates, and proof of completion — without chasing signatures or managing spreadsheets.",
-    link: "/employee-acknowledgment-tracking",
-  },
-  {
-    icon: Handshake,
-    title: "Manage Contractor & Vendor Agreements",
-    description:
-      "Collect agreements, certifications, and confirmations from contractors and vendors in one organized, trackable system.",
-    link: "/contractor-vendor-agreement-tracking",
+      "Collect W-2s, 1099s, receipts, and supporting documents from clients in organized folders. No more email attachments.",
   },
   {
     icon: FileText,
-    title: "Simplify Client Intake Forms",
+    title: "Engagement Letters & Agreements",
     description:
-      "Send intake forms, waivers, and agreements before appointments — and keep structured records with built-in signature proof.",
-    link: "/client-intake-form-tracking",
+      "Send engagement letters, fee agreements, and authorization forms. Track who has signed and who needs a reminder.",
+  },
+  {
+    icon: Briefcase,
+    title: "Client Onboarding",
+    description:
+      "Streamline new client setup with task lists, document requests, and a branded portal experience from day one.",
   },
 ];
 
@@ -31,11 +27,11 @@ export function UseCases() {
       <div className="container">
         <div className="text-center mb-12">
           <h2 className="text-[2.25rem] sm:text-[2.5rem] font-bold text-foreground leading-[1.2] mb-4">
-            Built for How You Work
+            Built for Accounting Workflows
           </h2>
           <p className="mx-auto max-w-[50rem] text-lg text-muted-foreground font-normal leading-relaxed">
-            Attestly adapts to your workflow — whether you're managing employee
-            policies, contractor documentation, or client forms.
+            Attestly adapts to how your firm works — from tax season document 
+            collection to year-round client management.
           </p>
         </div>
 
@@ -51,16 +47,9 @@ export function UseCases() {
               <h3 className="font-semibold text-foreground text-lg mb-3">
                 {useCase.title}
               </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-5">
+              <p className="text-sm text-muted-foreground leading-relaxed">
                 {useCase.description}
               </p>
-              <Link
-                to={useCase.link}
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:text-accent/80 transition-colors"
-              >
-                Learn More
-                <ArrowRight className="h-4 w-4" />
-              </Link>
             </div>
           ))}
         </div>
