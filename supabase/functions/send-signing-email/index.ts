@@ -270,8 +270,8 @@ const handler = async (req: Request): Promise<Response> => {
     // Build custom message HTML
     const customMessageHtml = buildCustomMessageHtml(customMessage);
 
-    // Build logo HTML - Pro users get custom logo, everyone gets Attestly logo
-    const attestlyLogoUrl = "https://urpqjnoowsdehvkrqxmy.supabase.co/storage/v1/object/public/email-assets/attestly-logo.png?v=1";
+    // Build logo HTML - Pro users get custom logo, everyone gets LedgerStash logo
+    const ledgerStashLogoUrl = "https://urpqjnoowsdehvkrqxmy.supabase.co/storage/v1/object/public/email-assets/attestly-logo.png?v=1";
     let logoHtml = "";
     if (isPro && logoUrl) {
       // Pro users with custom logo: show their logo
@@ -280,9 +280,9 @@ const handler = async (req: Request): Promise<Response> => {
         <img src="${logoUrl}" alt="${logoAlt}" style="height: 40px; max-width: 160px; object-fit: contain; margin-bottom: 12px;" />
       `;
     } else {
-      // Default: show Attestly logo with shield
+      // Default: show LedgerStash logo with shield
       logoHtml = `
-        <img src="${attestlyLogoUrl}" alt="LedgerStash" style="height: 48px; width: 48px; object-fit: contain; margin-bottom: 12px; border-radius: 8px;" />
+        <img src="${ledgerStashLogoUrl}" alt="LedgerStash" style="height: 48px; width: 48px; object-fit: contain; margin-bottom: 12px; border-radius: 8px;" />
       `;
     }
 
