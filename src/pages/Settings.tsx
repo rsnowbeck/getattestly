@@ -471,7 +471,7 @@ export default function Settings() {
               <CardHeader>
                 <CardTitle>Onboarding Tour</CardTitle>
                 <CardDescription>
-                  Restart the guided tour to learn about Attestly's features
+                  Restart the guided tour to learn about LedgerStash's features
                 </CardDescription>
               </CardHeader>
               <CardContent>

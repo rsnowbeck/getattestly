@@ -103,7 +103,7 @@ const handler = async (req: Request): Promise<Response> => {
         // Generate new token and signing URL
         const token = crypto.randomUUID();
         const tokenHash = await hashToken(token);
-        const baseUrl = Deno.env.get("SITE_URL") || "https://getattestly.lovable.app";
+        const baseUrl = Deno.env.get("SITE_URL") || "https://ledgerstash.com";
         const signingUrl = `${baseUrl}/sign/${token}`;
 
         // Update the signing request with new token

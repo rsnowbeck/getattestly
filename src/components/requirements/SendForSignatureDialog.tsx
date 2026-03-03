@@ -231,7 +231,7 @@ export function SendForSignatureDialog({
       }
 
       // Use production custom domain
-      const baseUrl = "https://getattestly.com";
+      const baseUrl = "https://ledgerstash.com";
       const links: SigningLink[] = signingRequests.map((req) => ({
         recipientName: req._recipient_name,
         email: req._recipient_email,

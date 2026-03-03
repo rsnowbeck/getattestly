@@ -190,7 +190,7 @@ export function EmailSettingsForm({ organization, onUpdate }: EmailSettingsFormP
             Email Types
           </CardTitle>
           <CardDescription>
-            Automatic emails sent by Attestly on your behalf
+            Automatic emails sent by LedgerStash on your behalf
           </CardDescription>
         </CardHeader>
         <CardContent>

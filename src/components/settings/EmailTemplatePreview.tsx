@@ -297,7 +297,7 @@ function EmailPreviewFrame({
         <div className="space-y-1 text-sm">
           <div className="flex">
             <span className="text-muted-foreground w-16">From:</span>
-            <span className="text-foreground">Attestly &lt;noreply@getattestly.com&gt;</span>
+            <span className="text-foreground">LedgerStash &lt;noreply@ledgerstash.com&gt;</span>
           </div>
           <div className="flex">
             <span className="text-muted-foreground w-16">Subject:</span>

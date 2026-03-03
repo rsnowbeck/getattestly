@@ -61,7 +61,7 @@ const handler = async (req: Request): Promise<Response> => {
     }
 
     // Build the invite URL - use published URL if available, otherwise preview
-    const baseUrl = Deno.env.get("SITE_URL") || "https://getattestly.lovable.app";
+    const baseUrl = Deno.env.get("SITE_URL") || "https://ledgerstash.com";
     const inviteUrl = `${baseUrl}/accept-invite?token=${inviteToken}`;
 
     const roleLabel = role === "admin" ? "Administrator" : role === "viewer" ? "Viewer" : "Member";
