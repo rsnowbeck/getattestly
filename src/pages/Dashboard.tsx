@@ -50,13 +50,18 @@ export default function Dashboard() {
         .maybeSingle();
 
       if (!firmMember) {
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('full_name')
-          .eq('id', user.id)
-          .maybeSingle();
-
-        const firmName = profile?.full_name ? `${profile.full_name}'s Firm` : 'My Firm';
+        // Use company_name from signup metadata, fallback to profile name
+        const companyName = user.user_metadata?.company_name;
+        
+        let firmName = companyName || 'My Firm';
+        if (!companyName) {
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('full_name')
+            .eq('id', user.id)
+            .maybeSingle();
+          firmName = profile?.full_name ? `${profile.full_name}'s Firm` : 'My Firm';
+        }
         
         const { data: newFirm } = await supabase
           .from('firms')
