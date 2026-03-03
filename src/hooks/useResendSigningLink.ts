@@ -71,7 +71,7 @@ export function useResendSigningLink() {
       if (error) throw error;
 
       // Use production custom domain
-      const baseUrl = "https://getattestly.com";
+      const baseUrl = "https://ledgerstash.com";
       const signingUrl = `${baseUrl}/sign/${token}`;
 
       // Send email with the new link

@@ -92,7 +92,7 @@ export function ResendLinkDialog({
       if (error) throw error;
 
       // Use production custom domain
-      const baseUrl = "https://getattestly.com";
+      const baseUrl = "https://ledgerstash.com";
       const newSigningUrl = `${baseUrl}/sign/${token}`;
       setSigningUrl(newSigningUrl);
 

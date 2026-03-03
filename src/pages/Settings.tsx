@@ -208,7 +208,7 @@ export default function Settings() {
 
     setDeleting(true);
     try {
-      toast.info("Account deletion request submitted. Please contact support@getattestly.com to complete the process.");
+      toast.info("Account deletion request submitted. Please contact support@ledgerstash.com to complete the process.");
       await signOut();
     } catch (error: any) {
       console.error("Error deleting account:", error);
@@ -471,7 +471,7 @@ export default function Settings() {
               <CardHeader>
                 <CardTitle>Onboarding Tour</CardTitle>
                 <CardDescription>
-                  Restart the guided tour to learn about Attestly's features
+                  Restart the guided tour to learn about LedgerStash's features
                 </CardDescription>
               </CardHeader>
               <CardContent>

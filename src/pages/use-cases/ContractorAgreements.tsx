@@ -70,7 +70,7 @@ export default function ContractorAgreements() {
           </div>
         </section>
 
-        {/* How VaultLedger Helps */}
+        {/* How LedgerStash Helps */}
         <section className="py-16">
           <div className="container">
             <div className="mx-auto max-w-3xl">

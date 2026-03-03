@@ -191,7 +191,7 @@ function EmailHeader({ logoUrl }: { logoUrl?: string | null }) {
           <Shield className="h-6 w-6 text-primary-foreground" />
         </div>
       )}
-      <h2 className="text-xl font-semibold text-foreground">Attestly</h2>
+      <h2 className="text-xl font-semibold text-foreground">LedgerStash</h2>
     </div>
   );
 }
@@ -268,9 +268,9 @@ function EmailFooter() {
   return (
     <div className="pt-4 border-t border-border text-center text-xs text-muted-foreground">
       <p>If you didn't expect this email, you can safely ignore it.</p>
-      <p className="mt-2">Need help? Contact <span className="text-primary">hello@getattestly.com</span></p>
+      <p className="mt-2">Need help? Contact <span className="text-primary">hello@ledgerstash.com</span></p>
       <p className="mt-2 text-[11px] text-muted-foreground/60">
-        Powered by <span className="text-muted-foreground/80">Attestly</span>
+        Powered by <span className="text-muted-foreground/80">LedgerStash</span>
       </p>
     </div>
   );
@@ -297,7 +297,7 @@ function EmailPreviewFrame({
         <div className="space-y-1 text-sm">
           <div className="flex">
             <span className="text-muted-foreground w-16">From:</span>
-            <span className="text-foreground">Attestly &lt;noreply@getattestly.com&gt;</span>
+            <span className="text-foreground">LedgerStash &lt;noreply@ledgerstash.com&gt;</span>
           </div>
           <div className="flex">
             <span className="text-muted-foreground w-16">Subject:</span>

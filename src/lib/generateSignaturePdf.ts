@@ -74,7 +74,7 @@ export async function generateSignaturePdf(data: SignatureData): Promise<void> {
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(12);
   doc.setFont("helvetica", "normal");
-  const orgDisplayName = data.organizationName || "VaultLedger";
+  const orgDisplayName = data.organizationName || "LedgerStash";
   doc.text(orgDisplayName, pageWidth / 2, headerTextY - 5, { align: "center" });
   
   // Certificate title
@@ -225,7 +225,7 @@ export async function generateSignaturePdf(data: SignatureData): Promise<void> {
   if (data.organizationName) {
     doc.setFontSize(7);
     doc.setTextColor(180, 180, 180);
-    doc.text("Powered by VaultLedger", pageWidth / 2, footerY + 12, { align: "center" });
+    doc.text("Powered by LedgerStash", pageWidth / 2, footerY + 12, { align: "center" });
   }
 
   // Download the PDF
