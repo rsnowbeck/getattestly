@@ -278,7 +278,7 @@ export function useOnboardingTour(organizationId: string | undefined) {
 
   const hasCompletedTour = () => {
     if (!organizationId) return true;
-    return localStorage.getItem(`attestly_tour_completed_${organizationId}`) === 'true';
+    return localStorage.getItem(`ledgerstash_tour_completed_${organizationId}`) === 'true';
   };
 
   const shouldForceShow = () => {
