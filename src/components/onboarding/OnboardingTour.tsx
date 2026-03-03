@@ -84,8 +84,8 @@ export function OnboardingTour({ organizationId }: OnboardingTourProps) {
   useEffect(() => {
     if (!organizationId) return;
     
-    const tourKey = `attestly_tour_completed_${organizationId}`;
-    const forceShowKey = `attestly_tour_force_show_${organizationId}`;
+    const tourKey = `ledgerstash_tour_completed_${organizationId}`;
+    const forceShowKey = `ledgerstash_tour_force_show_${organizationId}`;
     const completed = localStorage.getItem(tourKey);
     const forceShow = localStorage.getItem(forceShowKey);
     
@@ -131,7 +131,7 @@ export function OnboardingTour({ organizationId }: OnboardingTourProps) {
 
   const completeTour = () => {
     if (organizationId) {
-      localStorage.setItem(`attestly_tour_completed_${organizationId}`, 'true');
+      localStorage.setItem(`ledgerstash_tour_completed_${organizationId}`, 'true');
     }
     setHasCompletedTour(true);
     setIsVisible(false);
@@ -268,9 +268,9 @@ export function useOnboardingTour(organizationId: string | undefined) {
   const resetTour = () => {
     if (organizationId) {
       // Clear the completion flag
-      localStorage.removeItem(`attestly_tour_completed_${organizationId}`);
+      localStorage.removeItem(`ledgerstash_tour_completed_${organizationId}`);
       // Also set a flag to force show tour even if org has data
-      localStorage.setItem(`attestly_tour_force_show_${organizationId}`, 'true');
+      localStorage.setItem(`ledgerstash_tour_force_show_${organizationId}`, 'true');
       // Navigate to dashboard and reload
       window.location.href = '/dashboard';
     }
@@ -278,17 +278,17 @@ export function useOnboardingTour(organizationId: string | undefined) {
 
   const hasCompletedTour = () => {
     if (!organizationId) return true;
-    return localStorage.getItem(`attestly_tour_completed_${organizationId}`) === 'true';
+    return localStorage.getItem(`ledgerstash_tour_completed_${organizationId}`) === 'true';
   };
 
   const shouldForceShow = () => {
     if (!organizationId) return false;
-    return localStorage.getItem(`attestly_tour_force_show_${organizationId}`) === 'true';
+    return localStorage.getItem(`ledgerstash_tour_force_show_${organizationId}`) === 'true';
   };
 
   const clearForceShow = () => {
     if (organizationId) {
-      localStorage.removeItem(`attestly_tour_force_show_${organizationId}`);
+      localStorage.removeItem(`ledgerstash_tour_force_show_${organizationId}`);
     }
   };
 
