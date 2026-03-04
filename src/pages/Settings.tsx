@@ -61,6 +61,7 @@ interface ProfileData {
 }
 
 export default function Settings() {
+  usePageTitle("Settings");
   const { user, signOut } = useAuth();
   const { organization, loading: orgLoading, refetch: refetchOrg } = useOrganization(user);
   const { resetTour } = useOnboardingTour(organization?.id);

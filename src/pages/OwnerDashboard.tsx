@@ -17,6 +17,7 @@ interface Metrics {
 }
 
 export default function OwnerDashboard() {
+  usePageTitle("Owner Dashboard");
   const [metrics, setMetrics] = useState<Metrics | null>(null);
   const [loading, setLoading] = useState(true);
 

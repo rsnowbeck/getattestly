@@ -22,6 +22,7 @@ import { Plus, Search, Users } from "lucide-react";
 import { toast } from "sonner";
 
 export default function Clients() {
+  usePageTitle("Clients");
   const { user, loading: authLoading } = useAuth();
   const [clients, setClients] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);

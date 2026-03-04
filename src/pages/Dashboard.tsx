@@ -22,6 +22,7 @@ import { useOrganization } from "@/hooks/useOrganization";
 import { OnboardingTour } from "@/components/onboarding/OnboardingTour";
 
 export default function Dashboard() {
+  usePageTitle("Dashboard");
   const { user, loading: authLoading } = useAuth();
   const { organization } = useOrganization(user);
   const navigate = useNavigate();
