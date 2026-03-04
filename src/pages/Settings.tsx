@@ -373,7 +373,7 @@ export default function Settings() {
                   <div className="space-y-0.5">
                     <Label htmlFor="emailNotifications">Email Notifications</Label>
                     <p className="text-sm text-muted-foreground">
-                      Receive emails about signature completions and updates
+                      Receive emails about document submissions and updates
                     </p>
                   </div>
                   <Switch
