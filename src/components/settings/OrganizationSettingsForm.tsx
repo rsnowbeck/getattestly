@@ -406,7 +406,7 @@ export function OrganizationSettingsForm({ organization, onUpdate }: Organizatio
               </p>
             </div>
             <div className="p-4 rounded-lg bg-muted/50">
-              <p className="text-sm text-muted-foreground">Requirement Limit</p>
+              <p className="text-sm text-muted-foreground">PBC List Limit</p>
               <p className="text-xl font-semibold text-foreground">
                 {organization.requirement_limit === -1 ? "Unlimited" : organization.requirement_limit || 5}
               </p>
