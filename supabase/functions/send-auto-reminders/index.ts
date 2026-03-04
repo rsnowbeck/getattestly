@@ -216,7 +216,7 @@ const handler = async (req: Request): Promise<Response> => {
                 <tr>
                   <td align="center">
                     <a href="${signingUrl}" style="display: inline-block; padding: 14px 32px; background-color: #18181b; color: #ffffff; text-decoration: none; font-size: 16px; font-weight: 500; border-radius: 8px;">
-                      Review & Sign Now
+                      Upload Documents
                     </a>
                   </td>
                 </tr>
