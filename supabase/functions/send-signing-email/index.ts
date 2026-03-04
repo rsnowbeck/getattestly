@@ -46,14 +46,13 @@ function buildIntroLine(
   const hasOrg = organizationName && organizationName.trim().length > 0;
 
   if (hasRequester && hasOrg) {
-    return `${senderName} has requested that you review and sign the following document on behalf of ${organizationName}:`;
+    return `${senderName} from ${organizationName} has requested the following documents:`;
   } else if (hasRequester) {
-    return `${senderName} has requested that you review and sign the following document:`;
+    return `${senderName} has requested the following documents:`;
   } else if (hasOrg) {
-    return `${organizationName} has requested that you review and sign the following document:`;
+    return `${organizationName} has requested the following documents:`;
   } else {
-    // Fallback only when nothing is available
-    return `You have been requested to review and sign the following document:`;
+    return `Your accountant has requested the following documents:`;
   }
 }
 
