@@ -196,9 +196,9 @@ export function EmailSettingsForm({ organization, onUpdate }: EmailSettingsFormP
         <CardContent>
           <div className="space-y-4">
             <EmailTypeRow
-              name="Signing Request"
-              description="Sent when you request a signature from a recipient"
-              trigger="Manual - when you send for signature"
+              name="Document Request"
+              description="Sent when you request documents from a client"
+              trigger="Manual - when you send a document request"
             />
             <Separator />
             <EmailTypeRow
