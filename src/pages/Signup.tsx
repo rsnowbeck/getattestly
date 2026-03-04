@@ -10,6 +10,7 @@ import { PageSEO } from "@/components/seo/PageSEO";
 import { usePageTitle } from "@/hooks/usePageTitle";
 
 export default function Signup() {
+  usePageTitle("Sign Up");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);

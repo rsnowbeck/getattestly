@@ -7,6 +7,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { FileText, FolderOpen } from "lucide-react";
 
 export default function Documents() {
+  usePageTitle("Documents");
   const { user, loading: authLoading } = useAuth();
   const [documents, setDocuments] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
