@@ -167,7 +167,7 @@ export function EmailSettingsForm({ organization, onUpdate }: EmailSettingsFormP
           <Alert>
             <Info className="h-4 w-4" />
             <AlertDescription>
-              This message appears as a note between the document details and the sign button. 
+              This message appears as a note between the document details and the upload button. 
               Leave empty to skip.
             </AlertDescription>
           </Alert>
