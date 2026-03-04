@@ -400,7 +400,7 @@ export function OrganizationSettingsForm({ organization, onUpdate }: Organizatio
 
           <div className="grid grid-cols-2 gap-4">
             <div className="p-4 rounded-lg bg-muted/50">
-              <p className="text-sm text-muted-foreground">Recipient Limit</p>
+              <p className="text-sm text-muted-foreground">Client Limit</p>
               <p className="text-xl font-semibold text-foreground">
                 {organization.recipient_limit === -1 ? "Unlimited" : organization.recipient_limit || 10}
               </p>
