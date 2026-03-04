@@ -336,7 +336,7 @@ export function OrganizationSettingsForm({ organization, onUpdate }: Organizatio
               </SelectContent>
             </Select>
             <p className="text-xs text-muted-foreground">
-              Default number of days until requirements are due
+              Default number of days until document requests are due
             </p>
           </div>
 
