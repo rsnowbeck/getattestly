@@ -189,7 +189,7 @@ export function OrganizationSettingsForm({ organization, onUpdate }: Organizatio
                 Company Logo
               </CardTitle>
               <CardDescription>
-                Your logo appears on signing pages for recipients
+                Your logo appears on document request pages for clients
               </CardDescription>
             </div>
             {!isPro && (
