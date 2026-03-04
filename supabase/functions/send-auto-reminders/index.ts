@@ -134,7 +134,7 @@ const handler = async (req: Request): Promise<Response> => {
           const isPro = org.plan === "pro";
           const displayOrg = isPro ? org.name : "LedgerStash";
           const displaySenderName = isPro ? (org.sender_name || org.name) : "LedgerStash";
-          const subject = `Reminder: Please sign "${requirement.title || "Document"}"`;
+          const subject = `Reminder: Your documents are still needed — "${requirement.title || "Document"}"`;
 
           // Build due date warning HTML - only for escalated (close to due) reminders
           let dueWarningHtml = "";
