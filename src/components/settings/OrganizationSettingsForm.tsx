@@ -189,7 +189,7 @@ export function OrganizationSettingsForm({ organization, onUpdate }: Organizatio
                 Company Logo
               </CardTitle>
               <CardDescription>
-                Your logo appears on signing pages for recipients
+                Your logo appears on document request pages for clients
               </CardDescription>
             </div>
             {!isPro && (
@@ -262,7 +262,7 @@ export function OrganizationSettingsForm({ organization, onUpdate }: Organizatio
               {/* Branding Preview */}
               {logoUrl && (
                 <div className="mt-4 p-4 rounded-lg border bg-muted/30">
-                  <p className="text-sm font-medium mb-2">Preview: Signing Page Header</p>
+                  <p className="text-sm font-medium mb-2">Preview: Client Portal Header</p>
                   <div className="flex items-center gap-3 p-3 bg-background rounded border">
                     <img src={logoUrl} alt="Logo" className="h-8 w-8 object-contain" />
                     <span className="font-semibold">{orgName || "Your Organization"}</span>
@@ -315,9 +315,9 @@ export function OrganizationSettingsForm({ organization, onUpdate }: Organizatio
       {/* Compliance Defaults */}
       <Card>
         <CardHeader>
-          <CardTitle>Compliance Defaults</CardTitle>
+          <CardTitle>Document Request Defaults</CardTitle>
           <CardDescription>
-            Set default values for new requirements
+            Set default values for new document requests
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -336,7 +336,7 @@ export function OrganizationSettingsForm({ organization, onUpdate }: Organizatio
               </SelectContent>
             </Select>
             <p className="text-xs text-muted-foreground">
-              Default number of days until requirements are due
+              Default number of days until document requests are due
             </p>
           </div>
 
@@ -346,7 +346,7 @@ export function OrganizationSettingsForm({ organization, onUpdate }: Organizatio
             <div className="space-y-0.5">
               <Label htmlFor="autoReminder">Automatic Reminders</Label>
               <p className="text-sm text-muted-foreground">
-                Automatically send reminder emails for pending signatures
+                Automatically send reminder emails for pending document requests
               </p>
             </div>
             <Switch
@@ -400,13 +400,13 @@ export function OrganizationSettingsForm({ organization, onUpdate }: Organizatio
 
           <div className="grid grid-cols-2 gap-4">
             <div className="p-4 rounded-lg bg-muted/50">
-              <p className="text-sm text-muted-foreground">Recipient Limit</p>
+              <p className="text-sm text-muted-foreground">Client Limit</p>
               <p className="text-xl font-semibold text-foreground">
                 {organization.recipient_limit === -1 ? "Unlimited" : organization.recipient_limit || 10}
               </p>
             </div>
             <div className="p-4 rounded-lg bg-muted/50">
-              <p className="text-sm text-muted-foreground">Requirement Limit</p>
+              <p className="text-sm text-muted-foreground">PBC List Limit</p>
               <p className="text-xl font-semibold text-foreground">
                 {organization.requirement_limit === -1 ? "Unlimited" : organization.requirement_limit || 5}
               </p>
