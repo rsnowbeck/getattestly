@@ -160,11 +160,11 @@ const handler = async (req: Request): Promise<Response> => {
           
           // Build intro line - include org name only for Pro users
           const intro = (isPro && org.sender_name)
-            ? `${org.sender_name} has requested that you review and sign the following document on behalf of ${org.name}:`
-            : `${displayOrg} has requested that you review and sign the following document:`;
+            ? `${org.sender_name} from ${org.name} has requested the following documents:`
+            : `${displayOrg} has requested the following documents:`;
             
-          const closing = `This request is part of a formal document acknowledgment process initiated by ${displayOrg}.`;
-          const footer = `If you have questions, please contact the requester or your primary contact at ${displayOrg}.`;
+          const closing = `This request is part of your document preparation process with ${displayOrg}.`;
+          const footer = `If you have questions, please contact your accountant or your primary contact at ${displayOrg}.`;
 
           const emailHtml = `
 <!DOCTYPE html>
