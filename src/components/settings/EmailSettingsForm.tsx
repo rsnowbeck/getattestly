@@ -141,7 +141,7 @@ export function EmailSettingsForm({ organization, onUpdate }: EmailSettingsFormP
             Optional Message to Recipients
           </CardTitle>
           <CardDescription>
-            Add a personal note that appears in all signing request emails
+            Add a personal note that appears in all document request emails
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
