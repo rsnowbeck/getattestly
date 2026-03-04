@@ -148,7 +148,7 @@ export function EmailTemplatePreview({
 
           <TabsContent value="overdue" className="mt-4">
             <EmailPreviewFrame 
-              subject="Overdue: Annual Compliance Policy signature was due February 23, 2026" 
+              subject="Final notice: Tax documents overdue — were due February 23, 2026" 
               senderName={displaySender}
             >
               <EmailHeader logoUrl={logoUrl} />
@@ -157,17 +157,17 @@ export function EmailTemplatePreview({
                 <p className="text-muted-foreground mb-6">
                   {intro}
                 </p>
-                <DocumentCard title="Annual Compliance Policy" />
+                <DocumentCard title="2025 Tax Return Documents" />
                 <DueDateBanner 
                   text="The due date was February 23, 2026." 
                   variant="error" 
                 />
                 {customMessage && <CustomMessageBanner message={customMessage} />}
-                <ConsequenceText text="This has been marked as incomplete in compliance records." variant="error" />
+                <ConsequenceText text="These documents are now overdue. Please submit them as soon as possible to avoid delays." variant="error" />
                 <p className="text-sm text-muted-foreground mb-6">
-                  This request is part of a formal document acknowledgment process initiated by {organizationName || "the requester"}.
+                  This request is part of your tax preparation process with {organizationName || "your accountant"}.
                 </p>
-                <CTAButton text="Review & Sign Now" />
+                <CTAButton text="Upload Documents" />
                 <ContactFooter senderName={senderName} organizationName={organizationName} />
               </div>
               <EmailFooter />

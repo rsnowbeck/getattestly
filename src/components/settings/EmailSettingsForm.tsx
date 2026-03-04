@@ -203,7 +203,7 @@ export function EmailSettingsForm({ organization, onUpdate }: EmailSettingsFormP
             <Separator />
             <EmailTypeRow
               name="Reminder"
-              description="Follow-up for pending signatures"
+              description="Follow-up for pending document submissions"
               trigger="Automatic - based on your reminder settings"
             />
             <Separator />
