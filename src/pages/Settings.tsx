@@ -31,6 +31,7 @@ import { EmailSettingsForm } from "@/components/settings/EmailSettingsForm";
 import { AutoReminderSettings } from "@/components/settings/AutoReminderSettings";
 import { ReminderLogTable } from "@/components/signatures/ReminderLogTable";
 import { useOnboardingTour } from "@/components/onboarding/OnboardingTour";
+import { BillingSettings } from "@/components/settings/BillingSettings";
 
 // Common timezones
 const TIMEZONES = [
