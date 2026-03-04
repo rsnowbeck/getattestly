@@ -7,6 +7,7 @@ import { Shield, ArrowLeft, Loader2, Eye, EyeOff } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { PageSEO } from "@/components/seo/PageSEO";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 export default function Login() {
   const [email, setEmail] = useState("");
