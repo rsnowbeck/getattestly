@@ -142,8 +142,13 @@ export function MFASettings() {
               Two-Factor Authentication (2FA)
             </CardTitle>
             <CardDescription>
-              Add an extra layer of security using an authenticator app like Google Authenticator or Authy
+              Add an extra layer of security using any TOTP authenticator app:
             </CardDescription>
+            <div className="flex flex-wrap gap-2 mt-2">
+              {["Google Authenticator", "Authy", "Microsoft Authenticator", "1Password", "Duo Mobile"].map((app) => (
+                <span key={app} className="text-xs px-2 py-0.5 rounded-full bg-muted text-muted-foreground">{app}</span>
+              ))}
+            </div>
           </div>
           {isEnabled ? (
             <Badge variant="default" className="bg-success text-success-foreground gap-1">
