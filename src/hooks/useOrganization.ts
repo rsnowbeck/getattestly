@@ -16,6 +16,7 @@ interface Organization {
   auto_reminder_enabled: boolean | null;
   auto_reminder_days: number | null;
   custom_recipient_message: string | null;
+  session_timeout_minutes: number | null;
 }
 
 interface Profile {
