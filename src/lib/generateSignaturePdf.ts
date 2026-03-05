@@ -57,16 +57,15 @@ export async function generateSignaturePdf(data: SignatureData): Promise<void> {
 
   let headerTextY = 20;
 
-  // Try to add organization logo
-  if (data.organizationLogoUrl) {
-    const logoBase64 = await loadImageAsBase64(data.organizationLogoUrl);
-    if (logoBase64) {
-      try {
-        doc.addImage(logoBase64, "PNG", 15, 10, 30, 30);
-        headerTextY = 25;
-      } catch (e) {
-        console.error("Failed to add logo to PDF:", e);
-      }
+  // Try to add organization logo, fallback to LedgerStash shield
+  const logoUrl = data.organizationLogoUrl || `${window.location.origin}/images/ledgerstash-shield.png`;
+  const logoBase64 = await loadImageAsBase64(logoUrl);
+  if (logoBase64) {
+    try {
+      doc.addImage(logoBase64, "PNG", 15, 10, 30, 30);
+      headerTextY = 25;
+    } catch (e) {
+      console.error("Failed to add logo to PDF:", e);
     }
   }
 
