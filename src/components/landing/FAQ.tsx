@@ -20,7 +20,22 @@ const faqs = [
   {
     question: "Is it secure enough for tax documents?",
     answer:
-      "Yes. LedgerStash uses bank-grade encrypted storage, role-based access control, and secure infrastructure. Only your firm and the specific client can access their documents — never other clients. Think of it as a private vault, not a shared drive.",
+      "Yes. LedgerStash uses AES-256 encryption at rest, TLS 1.2+ encryption in transit, role-based access control, and per-client data isolation. Only your firm and the specific client can access their documents — never other clients. Our security practices are designed to help firms meet the requirements of IRS Publication 4557, the FTC Safeguards Rule, and the Gramm-Leach-Bliley Act (GLBA).",
+  },
+  {
+    question: "Does LedgerStash comply with IRS Publication 4557?",
+    answer:
+      "LedgerStash is built to help tax preparers and accounting firms meet the data security requirements outlined in IRS Publication 4557 (Safeguarding Taxpayer Data). This includes encrypted storage, access controls, secure transmission of documents, and data isolation between clients. While compliance ultimately depends on your firm's overall security practices, LedgerStash provides the technical safeguards the IRS expects.",
+  },
+  {
+    question: "What about the FTC Safeguards Rule and GLBA?",
+    answer:
+      "The FTC Safeguards Rule (part of the Gramm-Leach-Bliley Act) requires financial institutions — including tax preparers and accounting firms — to implement safeguards for customer information. LedgerStash supports this with encrypted document storage, role-based access, authentication requirements, and audit-ready records. We're designed to be a core part of your firm's Written Information Security Plan (WISP).",
+  },
+  {
+    question: "Do I need SOC 2 certification to use LedgerStash?",
+    answer:
+      "No. SOC 2 certification is not legally required for CPA or accounting firms. What is required is compliance with IRS Publication 4557, the FTC Safeguards Rule, and GLBA — all of which LedgerStash is designed to support. SOC 2 is a voluntary trust framework typically pursued by technology vendors. LedgerStash's infrastructure provider maintains SOC 2 Type II certification, which means the underlying systems meet rigorous security and availability standards.",
   },
   {
     question: "Can I use it for engagement letters and agreements?",
