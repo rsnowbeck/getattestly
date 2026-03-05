@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Shield } from "lucide-react";
+import { DownloadCTA } from "@/components/landing/DownloadCTA";
 
 export function Footer() {
   return (
