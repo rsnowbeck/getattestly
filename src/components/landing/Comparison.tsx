@@ -4,19 +4,20 @@ import { CheckCircle2, ArrowRight } from "lucide-react";
 
 const rows = [
   {
-    feature: "Solo CPA Pricing (Annual)",
-    ledger: "$348/year",
-    ledgerSub: "$29/month",
-    smart: "$600–900/year",
-    smartSub: "3-user min = $1,800–2,700/yr",
-    tax: "$700–900/year",
-    taxSub: "Per seat, 3-year commitment",
+    feature: "Solo CPA Pricing (Monthly)",
+    ledger: "$29/month",
+    ledgerSub: "$348/year",
+    smart: "$210/month",
+    smartSub: "$70/user/month, 3-user minimum",
+    tax: "$66/month",
+    taxSub: "$800/year contract",
   },
   {
     feature: "User Minimums",
     ledger: "None — Solo CPA Plan",
-    smart: "3-user minimum (Business Pro)",
-    tax: "Minimum 1 seat, designed for teams",
+    smart: "3 users minimum (Business Pro)",
+    smartSub: "2 users minimum (Accounting Pro/Unlimited)",
+    tax: "Minimum 1 seat, but designed for teams",
   },
   {
     feature: "Client Login Required?",
@@ -33,25 +34,25 @@ const rows = [
   {
     feature: "White-Label Branding",
     ledger: "Full White-Labeling (All Plans)",
-    smart: "Custom Branded Portal (All Plans)",
+    smart: "Custom Branded Client Portal (All Plans)",
     tax: "Client Portal Branding Only",
   },
   {
     feature: "Setup Time",
     ledger: "Minutes — No Training",
     smart: "Days to Weeks — Requires Training",
-    tax: "6–8 Weeks — Dedicated Onboarding",
+    tax: "6–8 Weeks — Dedicated Onboarding Required",
   },
   {
     feature: "Busy Season Automation",
     ledger: "Auto-Pilot Reminders",
-    smart: "Manual Document Requests",
-    tax: "Automated (Complex Setup)",
+    smart: "Manual Document Requests (SmartRequestAI available)",
+    tax: "Automated Requests (Requires Complex Setup)",
   },
   {
     feature: "Compliance Focus",
     ledger: "IRS 4557 · FTC Safeguards · GLBA",
-    smart: "SOC 2 · IRS 4557 · FTC · GLBA",
+    smart: "SOC 2 Type 2 · IRS 4557 · FTC Safeguards · GLBA",
     tax: "General Security & Compliance",
   },
   {
@@ -63,7 +64,7 @@ const rows = [
   {
     feature: "Core Focus",
     ledger: "Secure Vault + PBC Management",
-    smart: "Document Mgmt + Workflow + eSig",
+    smart: "Document Management + Workflow + eSignatures",
     tax: "End-to-End Practice Management",
   },
 ];
