@@ -163,6 +163,9 @@ export function Comparison() {
           ))}
         </div>
 
+        {/* Download CTA */}
+        <DownloadCTA variant="comparison" sourceSection="comparison" />
+
         {/* CTA */}
         <div className="text-center mt-12 space-y-4">
           <p className="text-lg font-semibold text-foreground">
