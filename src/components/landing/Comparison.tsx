@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, ArrowRight } from "lucide-react";
-import { DownloadCTA } from "@/components/landing/DownloadCTA";
+import { CheckCircle2, ArrowRight, Download } from "lucide-react";
 
 const rows = [
   {
