@@ -22,6 +22,7 @@ import Security from "./pages/Security";
 import Pricing from "./pages/Pricing";
 import Settings from "./pages/Settings";
 import AcceptInvite from "./pages/AcceptInvite";
+import Welcome from "./pages/Welcome";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
