@@ -14,6 +14,8 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
+import { useSessionTimeout } from "@/hooks/useSessionTimeout";
+import { SessionTimeoutDialog } from "@/components/common/SessionTimeoutDialog";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
