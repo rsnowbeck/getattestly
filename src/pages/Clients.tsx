@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -23,6 +23,7 @@ import { toast } from "sonner";
 
 export default function Clients() {
   usePageTitle("Clients");
+  const navigate = useNavigate();
   const { user, loading: authLoading } = useAuth();
   const [clients, setClients] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -200,16 +201,20 @@ export default function Clients() {
               </thead>
               <tbody>
                 {filtered.map(client => (
-                  <tr key={client.id} className="border-b border-border last:border-0 hover:bg-muted/30 transition-colors">
+                  <tr
+                    key={client.id}
+                    className="border-b border-border last:border-0 hover:bg-muted/30 transition-colors cursor-pointer"
+                    onClick={() => navigate(`/clients/${client.id}`)}
+                  >
                     <td className="px-4 py-3">
-                      <Link to={`/clients/${client.id}`} className="flex items-center gap-3 group">
+                      <div className="flex items-center gap-3">
                         <div className="h-9 w-9 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                           <span className="text-xs font-semibold text-primary">{client.first_name?.[0]}{client.last_name?.[0]}</span>
                         </div>
-                        <span className="font-medium text-foreground group-hover:text-accent transition-colors">
+                        <span className="font-medium text-foreground">
                           {client.first_name} {client.last_name}
                         </span>
-                      </Link>
+                      </div>
                     </td>
                     <td className="px-4 py-3 text-sm text-muted-foreground">{client.email}</td>
                     <td className="px-4 py-3">
