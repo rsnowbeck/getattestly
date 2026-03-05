@@ -36,7 +36,8 @@ const ownerNavItems = [
 export function DashboardLayout({ children }: DashboardLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
-  const { signOut, isOwner } = useAuth();
+  const { signOut, isOwner, user } = useAuth();
+  const { showWarning, remainingSeconds, extendSession } = useSessionTimeout(!!user);
 
   const navItems = isOwner
     ? [...baseNavItems, ...ownerNavItems]
