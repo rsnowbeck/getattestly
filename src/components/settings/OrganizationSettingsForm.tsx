@@ -381,8 +381,6 @@ export function OrganizationSettingsForm({ organization, onUpdate }: Organizatio
         </CardContent>
       </Card>
 
-      </Card>
-
       {/* Session Security */}
       <Card>
         <CardHeader>
