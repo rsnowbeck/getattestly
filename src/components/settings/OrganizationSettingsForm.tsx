@@ -381,6 +381,38 @@ export function OrganizationSettingsForm({ organization, onUpdate }: Organizatio
         </CardContent>
       </Card>
 
+      </Card>
+
+      {/* Session Security */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Session Security</CardTitle>
+          <CardDescription>
+            Control how long users can remain inactive before being automatically signed out
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="sessionTimeout">Inactivity Timeout</Label>
+            <Select value={sessionTimeout} onValueChange={setSessionTimeout}>
+              <SelectTrigger className="w-48">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="15">15 minutes</SelectItem>
+                <SelectItem value="30">30 minutes</SelectItem>
+                <SelectItem value="60">1 hour</SelectItem>
+                <SelectItem value="120">2 hours</SelectItem>
+                <SelectItem value="0">Never (not recommended)</SelectItem>
+              </SelectContent>
+            </Select>
+            <p className="text-xs text-muted-foreground">
+              Users will see a warning 2 minutes before timeout. IRS Publication 4557 recommends 15–30 minutes for firms handling taxpayer data.
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Plan & Billing (Read-only) */}
       <Card>
         <CardHeader>
