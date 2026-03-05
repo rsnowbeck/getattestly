@@ -85,6 +85,18 @@ export default function Security() {
               </ul>
             </section>
 
+            <section className="space-y-4">
+              <h2 className="text-xl font-semibold text-foreground">Regulatory Compliance</h2>
+              <p className="text-muted-foreground">LedgerStash is designed to help accounting and tax firms meet key regulatory requirements:</p>
+              <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
+                <li><strong>IRS Publication 4557</strong> — Safeguarding Taxpayer Data: encrypted storage, access controls, and secure document transmission</li>
+                <li><strong>FTC Safeguards Rule</strong> — Required safeguards for customer financial information under GLBA</li>
+                <li><strong>Gramm-Leach-Bliley Act (GLBA)</strong> — Privacy and security of consumer financial data</li>
+                <li><strong>WISP Support</strong> — LedgerStash can serve as a core component of your firm's Written Information Security Plan</li>
+              </ul>
+              <p className="text-muted-foreground text-sm">Our infrastructure provider maintains SOC 2 Type II certification. While compliance ultimately depends on your firm's overall security program, LedgerStash provides the technical safeguards these regulations require.</p>
+            </section>
+
             <section className="space-y-4 pt-4 border-t border-border">
               <h2 className="text-xl font-semibold text-foreground">Responsible Disclosure</h2>
               <p className="text-muted-foreground">If you believe you've found a security vulnerability, please report it responsibly to:</p>
