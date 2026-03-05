@@ -44,6 +44,9 @@ export function Header() {
           <a href="#how-it-works" className="nav-link text-sm font-medium">
             How It Works
           </a>
+          <a href="#comparison" className="nav-link text-sm font-medium">
+            Compare
+          </a>
           <Link to="/contact" className="nav-link text-sm font-medium">
             Contact
           </Link>
