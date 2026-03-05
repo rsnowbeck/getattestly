@@ -14,6 +14,8 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
+import { useSessionTimeout } from "@/hooks/useSessionTimeout";
+import { SessionTimeoutDialog } from "@/components/common/SessionTimeoutDialog";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -34,7 +36,8 @@ const ownerNavItems = [
 export function DashboardLayout({ children }: DashboardLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
-  const { signOut, isOwner } = useAuth();
+  const { signOut, isOwner, user } = useAuth();
+  const { showWarning, remainingSeconds, extendSession } = useSessionTimeout(!!user);
 
   const navItems = isOwner
     ? [...baseNavItems, ...ownerNavItems]
@@ -159,6 +162,13 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
           {children}
         </div>
       </main>
+
+      {/* Session Timeout Warning */}
+      <SessionTimeoutDialog
+        open={showWarning}
+        remainingSeconds={remainingSeconds}
+        onExtend={extendSession}
+      />
     </div>
   );
 }
