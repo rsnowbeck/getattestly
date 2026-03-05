@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, ArrowRight } from "lucide-react";
-import { DownloadCTA } from "@/components/landing/DownloadCTA";
+import { CheckCircle2, ArrowRight, Download } from "lucide-react";
 
 const rows = [
   {
@@ -163,8 +162,36 @@ export function Comparison() {
           ))}
         </div>
 
-        {/* Download CTA */}
-        <DownloadCTA variant="comparison" sourceSection="comparison" />
+        {/* PDF Download — No Gate */}
+        <div className="rounded-xl border border-border bg-muted/30 p-6 sm:p-8 text-center mt-10">
+          <div className="flex items-center justify-center gap-3 mb-2">
+            <img
+              src="/images/ledgerstash-shield.png"
+              alt="LedgerStash"
+              className="h-7 w-7"
+            />
+            <span className="text-lg font-bold text-foreground tracking-tight">
+              LedgerStash
+            </span>
+          </div>
+          <h3 className="text-lg font-semibold text-foreground mb-1">
+            Want to review the numbers later?
+          </h3>
+          <p className="text-sm text-muted-foreground max-w-xl mx-auto mb-5">
+            Download our comprehensive Solo CPA Cost Savings Guide and see exactly how much you can save by switching to LedgerStash.
+          </p>
+          <a
+            href="/assets/LedgerStash_The_Blue_Ocean_for_Solo_CPAs.pdf"
+            download
+            className="inline-flex items-center gap-2 rounded-md bg-accent px-6 py-3 text-sm font-semibold text-accent-foreground hover:bg-accent/90 transition-colors"
+          >
+            <Download className="h-5 w-5" />
+            Download PDF Guide
+          </a>
+          <p className="mt-3 text-xs text-muted-foreground italic">
+            No email required. Free resource for solo CPAs.
+          </p>
+        </div>
 
         {/* CTA */}
         <div className="text-center mt-12 space-y-4">
