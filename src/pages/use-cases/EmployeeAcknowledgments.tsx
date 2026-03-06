@@ -90,7 +90,7 @@ export default function EmployeeAcknowledgments() {
             {/* Use Cases */}
             <section className="mb-14">
               <h2 className="text-2xl font-bold text-foreground mb-4">Designed for Real-World Internal Use Cases</h2>
-              <p className="text-muted-foreground mb-4">LedgerStash is commonly used to manage:</p>
+              <p className="text-muted-foreground mb-4">Ledger Stash is commonly used to manage:</p>
               <ul className="space-y-3 mb-4">
                 {[
                   "Employee handbook acknowledgments",
