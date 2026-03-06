@@ -82,7 +82,7 @@ export async function generateBlueOceanPdf(): Promise<void> {
   doc.setFontSize(13);
   doc.setFont("helvetica", "normal");
   const subtitle = "Stop chasing tax docs over email. Give your clients a secure,\nwhite-labeled vault to exchange sensitive documents, track\nPBC lists, and build professional trust.";
-  doc.text(subtitle, pw / 2, 130, { align: "center", lineHeightFactor: 1.5 });
+  doc.text(subtitle, pw / 2, 135, { align: "center", lineHeightFactor: 1.5 });
 
   doc.setFillColor(...ACCENT);
   doc.roundedRect(pw / 2 - 50, ph * 0.7, 100, 14, 3, 3, "F");
