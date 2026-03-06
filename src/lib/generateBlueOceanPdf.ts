@@ -164,7 +164,7 @@ export async function generateBlueOceanPdf(): Promise<void> {
   doc.setTextColor(...WHITE);
   doc.setFontSize(20);
   doc.setFont("helvetica", "bold");
-  doc.text("LedgerStash vs. The Competition", pw / 2, 25, { align: "center" });
+  doc.text("Ledger Stash vs. The Competition", pw / 2, 25, { align: "center" });
 
   y = 55;
   const colW = (pw - 40) / 3;
