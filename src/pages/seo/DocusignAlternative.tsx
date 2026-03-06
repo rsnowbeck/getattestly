@@ -92,11 +92,11 @@ export default function DocusignAlternative() {
               <h2 className="text-2xl font-bold text-foreground mb-6">Why switch from DocuSign?</h2>
               <ul className="space-y-4">
                 {[
-                  "DocuSign charges per envelope — LedgerStash offers unlimited signatures within your plan",
-                  "DocuSign requires signers to create accounts — LedgerStash uses secure one-click links",
-                  "DocuSign is designed for legal contracts — LedgerStash is designed for compliance workflows",
+                  "DocuSign charges per envelope — Ledger Stash offers unlimited signatures within your plan",
+                  "DocuSign requires signers to create accounts — Ledger Stash uses secure one-click links",
+                  "DocuSign is designed for legal contracts — Ledger Stash is designed for compliance workflows",
                   "DocuSign's complexity is overkill for policy acknowledgments and training sign-offs",
-                  "LedgerStash starts at $29/month vs DocuSign's $10/month per user minimum",
+                  "Ledger Stash starts at $29/month vs DocuSign's $10/month per user minimum",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-3">
                     <CheckCircle2 className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
