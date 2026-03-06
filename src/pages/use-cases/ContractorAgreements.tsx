@@ -24,7 +24,7 @@ export default function ContractorAgreements() {
                 Manage Contractor & Vendor Agreements <span className="text-accent">in One Organized System</span>
               </h1>
               <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Keeping track of contractor agreements, vendor documentation, and required confirmations can quickly become messy. LedgerStash centralizes your external documentation and gives you structured visibility — without chasing signatures.
+                Keeping track of contractor agreements, vendor documentation, and required confirmations can quickly become messy. Ledger Stash centralizes your external documentation and gives you structured visibility — without chasing signatures.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button variant="hero" size="xl" asChild>
