@@ -94,7 +94,7 @@ export async function generateBlueOceanPdf(): Promise<void> {
   doc.setFontSize(10);
   doc.setFont("helvetica", "normal");
   doc.setTextColor(200, 200, 220);
-  doc.text("The Private Vault for Your Boutique Accounting Firm", pw / 2, ph - 30, { align: "center" });
+  doc.text("The Private Vault for Your Accounting Firm", pw / 2, ph - 30, { align: "center" });
 
   // ===== PAGE 2: The Problem =====
   doc.addPage();
