@@ -107,7 +107,7 @@ export default function EmployeeAcknowledgments() {
                 ))}
               </ul>
               <p className="text-muted-foreground">
-                If it requires a signature and proof of completion, LedgerStash keeps it structured and visible.
+                If it requires a signature and proof of completion, Ledger Stash keeps it structured and visible.
               </p>
             </section>
 
