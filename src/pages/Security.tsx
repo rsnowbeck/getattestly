@@ -8,8 +8,8 @@ export default function Security() {
   return (
     <div className="min-h-screen bg-background">
       <PageSEO
-        title="Security | How LedgerStash Protects Your Data"
-        description="Learn about LedgerStash's security practices including data encryption, access controls, backups, and incident response. Your documents are protected by industry-standard safeguards."
+        title="Security | How Ledger Stash Protects Your Data"
+        description="Learn about Ledger Stash's security practices including data encryption, access controls, backups, and incident response. Your documents are protected by industry-standard safeguards."
         keywords="ledgerstash security, client vault security, data protection, accounting portal encryption"
         canonical="/security"
       />
