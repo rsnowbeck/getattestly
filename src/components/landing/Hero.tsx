@@ -4,22 +4,22 @@ import { ArrowRight, ShieldCheck, Shield, Clock, Lock, CheckCircle2 } from "luci
 
 const featureCards = [
   {
-    icon: ShieldCheck,
-    title: "Secure PBC List Management",
-    description:
-      "Track \"Provided By Client\" checklists so clients know exactly what to upload — and your team sees what's missing at a glance.",
-  },
-  {
     icon: Shield,
     title: "No-Login Client Vault",
     description:
-      "Clients upload through a secure link — no accounts or passwords. Files stay organized in per-client folders with audit history.",
+      "Clients upload in seconds via secure magic links. No accounts to manage.",
   },
   {
     icon: Clock,
-    title: "Busy Season Auto-Pilot",
+    title: "No Per-User Fees",
     description:
-      "Automatically follow up on missing documents with reminders, so you don't spend tax season chasing clients.",
+      "Pricing scales by active clients, not seats. Solo CPAs avoid 3-user minimums.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Secure PBC Management",
+    description:
+      "Track \"Provided By Client\" lists so you never chase a document again.",
   },
 ];
 
