@@ -68,7 +68,7 @@ export async function generateSignaturePdf(data: SignatureData): Promise<void> {
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(12);
     doc.setFont("helvetica", "normal");
-    doc.text(data.organizationName || "LedgerStash", pageWidth / 2, 20, { align: "center" });
+    doc.text(data.organizationName || "Ledger Stash", pageWidth / 2, 20, { align: "center" });
   } else {
     // Default LedgerStash branding: shield + wordmark side by side, centered
     const shieldUrl = `${window.location.origin}/images/ledgerstash-shield.png`;
