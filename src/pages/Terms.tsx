@@ -39,7 +39,7 @@ export default function Terms() {
 
           <div className="card-elevated p-8 space-y-8">
             <p className="text-muted-foreground">
-              These Terms of Service ("Terms") govern your use of LedgerStash's website and web application (the "Service"). By using the Service, you agree to these Terms.
+              These Terms of Service ("Terms") govern your use of Ledger Stash's website and web application (the "Service"). By using the Service, you agree to these Terms.
             </p>
 
             <section className="space-y-4">
