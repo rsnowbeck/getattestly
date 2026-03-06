@@ -87,7 +87,7 @@ export default function Security() {
 
             <section className="space-y-4">
               <h2 className="text-xl font-semibold text-foreground">Regulatory Compliance</h2>
-              <p className="text-muted-foreground">LedgerStash is designed to help accounting and tax firms meet key regulatory requirements:</p>
+              <p className="text-muted-foreground">Ledger Stash is designed to help accounting and tax firms meet key regulatory requirements:</p>
               <ul className="list-disc list-inside text-muted-foreground space-y-2 ml-4">
                 <li><strong>IRS Publication 4557</strong> — Safeguarding Taxpayer Data: encrypted storage, access controls, and secure document transmission</li>
                 <li><strong>FTC Safeguards Rule</strong> — Required safeguards for customer financial information under GLBA</li>
