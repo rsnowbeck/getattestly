@@ -35,7 +35,7 @@ export default function Security() {
             </div>
             <h1 className="text-3xl font-bold text-foreground mb-3">Security</h1>
             <p className="text-muted-foreground max-w-lg mx-auto">
-              At LedgerStash, security is built into how we design and operate the product. This page outlines our current security practices in clear, practical terms.
+              At Ledger Stash, security is built into how we design and operate the product. This page outlines our current security practices in clear, practical terms.
             </p>
           </div>
 
