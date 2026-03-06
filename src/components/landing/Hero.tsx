@@ -25,8 +25,8 @@ const featureCards = [
 
 const trustItems = [
   "IRS 4557 · FTC Safeguards · GLBA Ready",
-  "No client accounts required",
-  "Priced by clients, not users (unlimited team members)",
+  "Bank-Grade Data Isolation",
+  "White-Label Ready",
 ];
 
 export function Hero() {
