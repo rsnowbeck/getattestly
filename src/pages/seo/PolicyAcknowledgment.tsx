@@ -23,7 +23,7 @@ export default function PolicyAcknowledgment() {
                 Policy Acknowledgment <span className="text-accent">Software</span>
               </h1>
               <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                LedgerStash is policy acknowledgment software that allows businesses to send digital policies to employees or contractors and track legally defensible acknowledgment. Eliminate manual tracking and get timestamped proof with exportable records.
+                Ledger Stash is policy acknowledgment software that allows businesses to send digital policies to employees or contractors and track legally defensible acknowledgment. Eliminate manual tracking and get timestamped proof with exportable records.
               </p>
               <Button variant="hero" size="xl" asChild>
                 <Link to="/signup" className="gap-2">
