@@ -8,10 +8,13 @@ const rows = [
     feature: "Solo CPA Pricing",
     ledger: "$29/month",
     ledgerSub: "$290/year (save 16%)",
+    ledgerSub2: "Unlimited Users",
     smart: "$210/month",
     smartSub: "$1,800/year — 3-user minimum",
+    smartSub2: "Price per user",
     tax: "$800/year per seat",
     taxSub: "Annual contract only — no monthly option",
+    taxSub2: "Price per user",
   },
   {
     feature: "User Minimums",
@@ -110,9 +113,14 @@ export function Comparison() {
                       <CheckCircle2 className="h-4 w-4 mt-0.5 shrink-0" />
                       <div>
                         {row.ledger}
-                        {row.ledgerSub && (
+                         {row.ledgerSub && (
                           <span className="block text-xs font-normal text-muted-foreground mt-0.5">
                             {row.ledgerSub}
+                          </span>
+                        )}
+                        {row.ledgerSub2 && (
+                          <span className="block text-xs font-normal text-success mt-0.5">
+                            {row.ledgerSub2}
                           </span>
                         )}
                       </div>
@@ -123,11 +131,17 @@ export function Comparison() {
                     {row.smartSub && (
                       <span className="block text-xs mt-0.5">{row.smartSub}</span>
                     )}
+                    {row.smartSub2 && (
+                      <span className="block text-xs mt-0.5 text-destructive">{row.smartSub2}</span>
+                    )}
                   </td>
                   <td className="px-5 py-4 text-sm text-muted-foreground">
                     {row.tax}
                     {row.taxSub && (
                       <span className="block text-xs mt-0.5">{row.taxSub}</span>
+                    )}
+                    {row.taxSub2 && (
+                      <span className="block text-xs mt-0.5 text-destructive">{row.taxSub2}</span>
                     )}
                   </td>
                 </tr>
@@ -148,15 +162,18 @@ export function Comparison() {
                     <span className="text-xs text-muted-foreground font-normal block">LedgerStash</span>
                     {row.ledger}
                     {row.ledgerSub && <span className="block text-xs font-normal text-muted-foreground">{row.ledgerSub}</span>}
+                    {row.ledgerSub2 && <span className="block text-xs font-normal text-success">{row.ledgerSub2}</span>}
                   </div>
                 </div>
                 <div className="text-muted-foreground p-2">
                   <span className="text-xs block font-medium text-foreground/60">SmartVault</span>
                   {row.smart}
+                  {row.smartSub2 && <span className="block text-xs text-destructive">{row.smartSub2}</span>}
                 </div>
                 <div className="text-muted-foreground p-2">
                   <span className="text-xs block font-medium text-foreground/60">TaxDome</span>
                   {row.tax}
+                  {row.taxSub2 && <span className="block text-xs text-destructive">{row.taxSub2}</span>}
                 </div>
               </div>
             </div>
