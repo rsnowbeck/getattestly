@@ -140,6 +140,9 @@ export function Comparison() {
                     {row.taxSub && (
                       <span className="block text-xs mt-0.5">{row.taxSub}</span>
                     )}
+                    {row.taxSub2 && (
+                      <span className="block text-xs mt-0.5 text-destructive">{row.taxSub2}</span>
+                    )}
                   </td>
                 </tr>
               ))}
