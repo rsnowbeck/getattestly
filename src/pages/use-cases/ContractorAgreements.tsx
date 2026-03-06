@@ -128,7 +128,7 @@ export default function ContractorAgreements() {
             <div className="mx-auto max-w-3xl">
               <h2 className="text-2xl font-bold text-foreground mb-4">Why It Works for Growing Businesses</h2>
               <p className="text-muted-foreground">
-                Unlike contract lifecycle platforms built for legal teams, LedgerStash is designed for simple, ongoing document tracking — perfect for operations teams managing external relationships.
+                Unlike contract lifecycle platforms built for legal teams, Ledger Stash is designed for simple, ongoing document tracking — perfect for operations teams managing external relationships.
               </p>
             </div>
           </div>

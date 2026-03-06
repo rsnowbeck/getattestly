@@ -80,7 +80,7 @@ export default function EmployeeAcknowledgments() {
                 Many internal documents aren't one-time events. Security policies, codes of conduct, and compliance confirmations often require annual or periodic acknowledgment.
               </p>
               <p className="text-muted-foreground mb-4">
-                LedgerStash allows you to schedule recurring cycles so acknowledgments renew automatically. Employees are notified when action is required, and historical completion records are preserved across cycles.
+                Ledger Stash allows you to schedule recurring cycles so acknowledgments renew automatically. Employees are notified when action is required, and historical completion records are preserved across cycles.
               </p>
               <p className="text-muted-foreground font-medium">
                 No resets. No duplicate tracking systems.
