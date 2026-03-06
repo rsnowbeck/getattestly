@@ -7,7 +7,7 @@ const rows = [
   {
     feature: "Solo CPA Pricing",
     ledger: "$29/month",
-    ledgerSub: "Unlimited Users — All Plans",
+    ledgerSub: "$290/year (save 16%)",
     smart: "$210/month",
     smartSub: "$1,800/year — 3-user minimum",
     tax: "$800/year per seat",
