@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { ArrowRight, ShieldCheck, UserX, Users } from "lucide-react";
+import { ArrowRight, ShieldCheck, Shield, Clock, Lock, CheckCircle2 } from "lucide-react";
 
 const featureCards = [
   {
@@ -10,17 +10,23 @@ const featureCards = [
       "Track \"Provided By Client\" checklists so clients know exactly what to upload — and your team sees what's missing at a glance.",
   },
   {
-    icon: UserX,
+    icon: Shield,
     title: "No-Login Client Vault",
     description:
       "Clients upload through a secure link — no accounts or passwords. Files stay organized in per-client folders with audit history.",
   },
   {
-    icon: Users,
+    icon: Clock,
     title: "Busy Season Auto-Pilot",
     description:
       "Automatically follow up on missing documents with reminders, so you don't spend tax season chasing clients.",
   },
+];
+
+const trustItems = [
+  "IRS 4557 · FTC Safeguards · GLBA Ready",
+  "No client accounts required",
+  "Priced by clients, not users (unlimited team members)",
 ];
 
 export function Hero() {
@@ -29,7 +35,8 @@ export function Hero() {
       <div className="container">
         <div className="mx-auto max-w-4xl text-center">
           {/* Pill */}
-          <div className="inline-flex items-center rounded-full border border-accent/30 bg-accent/10 px-4 py-1.5 text-sm font-medium text-accent mb-6 animate-slide-up">
+          <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-5 py-2 text-sm text-muted-foreground mb-8 shadow-sm animate-slide-up">
+            <Lock className="h-3.5 w-3.5 text-accent" />
             Built for accounting firms &amp; CPAs — simple, secure, and priced by clients
           </div>
 
@@ -41,12 +48,12 @@ export function Hero() {
           </h1>
 
           {/* Subheader */}
-          <p className="mx-auto max-w-[44rem] text-lg text-muted-foreground mb-8 animate-slide-up" style={{ animationDelay: "0.1s" }}>
+          <p className="mx-auto max-w-[38rem] text-base text-muted-foreground mb-10 animate-slide-up" style={{ animationDelay: "0.1s" }}>
             Clients upload through a secure link — no accounts or passwords. Track PBC lists, automate reminders, and keep every client's documents organized.
           </p>
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6 animate-slide-up" style={{ animationDelay: "0.16s" }}>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8 animate-slide-up" style={{ animationDelay: "0.16s" }}>
             <Button variant="hero" size="xl" asChild>
               <Link to="/signup" className="gap-2">
                 Start 14-Day Free Trial
@@ -61,10 +68,13 @@ export function Hero() {
           </div>
 
           {/* Trust Row */}
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 justify-center text-xs text-muted-foreground mb-16 animate-slide-up" style={{ animationDelay: "0.22s" }}>
-            <span className="font-semibold text-foreground">IRS 4557 · FTC Safeguards · GLBA Ready</span>
-            <span>No client accounts required</span>
-            <span>Priced by clients, not users (unlimited team members)</span>
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 justify-center text-sm text-muted-foreground mb-16 animate-slide-up" style={{ animationDelay: "0.22s" }}>
+            {trustItems.map((item) => (
+              <div key={item} className="inline-flex items-center gap-1.5">
+                <CheckCircle2 className="h-4 w-4 text-success shrink-0" />
+                <span>{item}</span>
+              </div>
+            ))}
           </div>
 
           {/* Feature Cards */}
@@ -72,9 +82,9 @@ export function Hero() {
             {featureCards.map((card) => (
               <div
                 key={card.title}
-                className="group p-7 rounded-xl bg-card border border-border hover:border-accent/50 transition-all duration-300 text-left"
+                className="group p-8 rounded-2xl bg-card border border-border shadow-sm hover:shadow-md hover:border-accent/30 transition-all duration-300 text-center"
               >
-                <div className="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-accent/10 text-accent mb-4 group-hover:bg-accent group-hover:text-accent-foreground transition-colors duration-300">
+                <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-accent/10 text-accent mb-5">
                   <card.icon className="h-5 w-5" />
                 </div>
                 <h3 className="font-semibold text-foreground mb-2">{card.title}</h3>
