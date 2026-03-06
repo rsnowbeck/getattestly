@@ -9,8 +9,8 @@ export default function DocusignAlternative() {
   return (
     <div className="min-h-screen bg-background">
       <PageSEO
-        title="DocuSign Alternative for Small Business Compliance | LedgerStash"
-        description="Looking for a cheaper DocuSign alternative? LedgerStash is purpose-built for internal compliance — policy acknowledgments, fillable forms, and audit-ready tracking at a fraction of the cost."
+        title="DocuSign Alternative for Small Business Compliance | Ledger Stash"
+        description="Looking for a cheaper DocuSign alternative? Ledger Stash is purpose-built for internal compliance — policy acknowledgments, fillable forms, and audit-ready tracking at a fraction of the cost."
         keywords="DocuSign alternative small business, cheaper alternative to DocuSign, internal signature alternative, DocuSign competitor, DocuSign alternative compliance, affordable e-signature"
         canonical="/docusign-alternative-compliance"
       />
