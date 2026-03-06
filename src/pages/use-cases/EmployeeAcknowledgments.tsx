@@ -121,7 +121,7 @@ export default function EmployeeAcknowledgments() {
                 Internal document tracking is different. It requires recurring workflows, visibility across teams, automated reminders, and easy access to historical records.
               </p>
               <p className="text-muted-foreground">
-                LedgerStash is built specifically for that ongoing internal process — without enterprise software complexity.
+                Ledger Stash is built specifically for that ongoing internal process — without enterprise software complexity.
               </p>
             </section>
 
