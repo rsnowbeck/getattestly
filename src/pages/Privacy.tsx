@@ -39,7 +39,7 @@ export default function Privacy() {
 
           <div className="card-elevated p-8 space-y-8">
             <p className="text-muted-foreground">
-              LedgerStash ("we," "our," or "us") respects your privacy. This Privacy Policy explains how we collect, use, and protect information when you use our website and web application (the "Service").
+              Ledger Stash ("we," "our," or "us") respects your privacy. This Privacy Policy explains how we collect, use, and protect information when you use our website and web application (the "Service").
             </p>
 
             <section className="space-y-4">
