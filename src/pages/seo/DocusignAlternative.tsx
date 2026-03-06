@@ -107,7 +107,7 @@ export default function DocusignAlternative() {
 
               <h2 className="text-2xl font-bold text-foreground mb-6 mt-12">When DocuSign is the better choice</h2>
               <p className="text-muted-foreground">
-                If you need multi-party contract negotiation, legal workflows, or advanced document routing with multiple signers in sequence — DocuSign is the right tool. LedgerStash is not a contract management platform. It's purpose-built for internal compliance: policy acknowledgments, onboarding forms, training confirmations, and audit documentation.
+                If you need multi-party contract negotiation, legal workflows, or advanced document routing with multiple signers in sequence — DocuSign is the right tool. Ledger Stash is not a contract management platform. It's purpose-built for internal compliance: policy acknowledgments, onboarding forms, training confirmations, and audit documentation.
               </p>
             </div>
           </div>

@@ -43,10 +43,10 @@ export default function PolicyAcknowledgment() {
                 Policy acknowledgment software digitizes the process of distributing policies and collecting confirmations from employees, contractors, and vendors. Instead of paper sign-off sheets or email chains, organizations send secure digital links and track completion in real time.
               </p>
               <p className="text-muted-foreground mb-8">
-                LedgerStash makes this effortless with one-click signing links, automated reminders, and audit-ready exports — all without requiring recipients to create accounts.
+                Ledger Stash makes this effortless with one-click signing links, automated reminders, and audit-ready exports — all without requiring recipients to create accounts.
               </p>
 
-              <h2 className="text-2xl font-bold text-foreground mb-6">How LedgerStash tracks acknowledgments</h2>
+              <h2 className="text-2xl font-bold text-foreground mb-6">How Ledger Stash tracks acknowledgments</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {[
                   { icon: Send, title: "Send secure links", desc: "Generate unique, single-use signing links delivered via email. Recipients click, review, and acknowledge." },
