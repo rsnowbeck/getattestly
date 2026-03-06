@@ -237,7 +237,7 @@ export async function generateSignaturePdf(data: SignatureData): Promise<void> {
   if (data.organizationName) {
     doc.setFontSize(7);
     doc.setTextColor(180, 180, 180);
-    doc.text("Powered by LedgerStash", pageWidth / 2, footerY + 12, { align: "center" });
+    doc.text("Powered by Ledger Stash", pageWidth / 2, footerY + 12, { align: "center" });
   }
 
   // Download the PDF
