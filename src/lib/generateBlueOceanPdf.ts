@@ -347,7 +347,7 @@ export async function generateBlueOceanPdf(): Promise<void> {
   doc.setTextColor(...TEXT_DARK);
   doc.setFontSize(11);
   doc.setFont("helvetica", "normal");
-  const secIntro = "Fully compliant with IRS requirements for safeguarding taxpayer data. LedgerStash meets or exceeds every security standard your solo practice needs.";
+  const secIntro = "Fully compliant with IRS requirements for safeguarding taxpayer data. Ledger Stash meets or exceeds every security standard your solo practice needs.";
   const secLines = doc.splitTextToSize(secIntro, pw - 50);
   doc.text(secLines, 25, y);
   y += secLines.length * 7 + 15;
