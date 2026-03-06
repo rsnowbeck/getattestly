@@ -33,7 +33,7 @@ function addPageFooter(doc: jsPDF, pageNum: number, totalPages: number) {
   doc.line(20, ph - 20, pw - 20, ph - 20);
   doc.setFontSize(8);
   doc.setTextColor(...TEXT_MUTED);
-  doc.text("LedgerStash — The Private Vault for Your Accounting Firm", 20, ph - 12);
+  doc.text("Ledger Stash — The Private Vault for Your Accounting Firm", 20, ph - 12);
   doc.text(`${pageNum} / ${totalPages}`, pw - 20, ph - 12, { align: "right" });
 }
 
@@ -164,7 +164,7 @@ export async function generateBlueOceanPdf(): Promise<void> {
   doc.setTextColor(...WHITE);
   doc.setFontSize(20);
   doc.setFont("helvetica", "bold");
-  doc.text("LedgerStash vs. The Competition", pw / 2, 25, { align: "center" });
+  doc.text("Ledger Stash vs. The Competition", pw / 2, 25, { align: "center" });
 
   y = 55;
   const colW = (pw - 40) / 3;
@@ -175,7 +175,7 @@ export async function generateBlueOceanPdf(): Promise<void> {
   doc.setTextColor(...WHITE);
   doc.setFontSize(10);
   doc.setFont("helvetica", "bold");
-  doc.text("LedgerStash", 20 + colW * 0.5, y + 8, { align: "center" });
+  doc.text("Ledger Stash", 20 + colW * 0.5, y + 8, { align: "center" });
   doc.text("SmartVault", 20 + colW * 1.5, y + 8, { align: "center" });
   doc.text("TaxDome", 20 + colW * 2.5, y + 8, { align: "center" });
   y += 12;
@@ -306,7 +306,7 @@ export async function generateBlueOceanPdf(): Promise<void> {
     },
     {
       title: "Automated Reminders",
-      desc: "Auto-pilot reminders chase your clients so you don't have to. Set frequency, customize messaging, and let LedgerStash handle the follow-ups during busy season.",
+      desc: "Auto-pilot reminders chase your clients so you don't have to. Set frequency, customize messaging, and let Ledger Stash handle the follow-ups during busy season.",
     },
     {
       title: "Audit-Ready Export",
@@ -347,7 +347,7 @@ export async function generateBlueOceanPdf(): Promise<void> {
   doc.setTextColor(...TEXT_DARK);
   doc.setFontSize(11);
   doc.setFont("helvetica", "normal");
-  const secIntro = "Fully compliant with IRS requirements for safeguarding taxpayer data. LedgerStash meets or exceeds every security standard your solo practice needs.";
+  const secIntro = "Fully compliant with IRS requirements for safeguarding taxpayer data. Ledger Stash meets or exceeds every security standard your solo practice needs.";
   const secLines = doc.splitTextToSize(secIntro, pw - 50);
   doc.text(secLines, 25, y);
   y += secLines.length * 7 + 15;
