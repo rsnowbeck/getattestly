@@ -42,6 +42,7 @@ export default function ClientDetail() {
   const [tasks, setTasks] = useState<any[]>([]);
   const [folders, setFolders] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [contactCount, setContactCount] = useState(0);
 
   // Task dialog
   const [taskDialogOpen, setTaskDialogOpen] = useState(false);
@@ -383,7 +384,7 @@ export default function ClientDetail() {
           <TabsTrigger value="documents">Documents ({documents.length})</TabsTrigger>
           <TabsTrigger value="tasks">Tasks ({tasks.length})</TabsTrigger>
           {client.client_type === 'business' && (
-            <TabsTrigger value="contacts">Contacts</TabsTrigger>
+            <TabsTrigger value="contacts">Contacts ({contactCount})</TabsTrigger>
           )}
         </TabsList>
 
@@ -608,6 +609,7 @@ export default function ClientDetail() {
               organizationId={organization.id}
               clientEmail={client.email}
               clientName={client.company_name || `${client.first_name} ${client.last_name}`}
+              onCountChange={setContactCount}
             />
           </TabsContent>
         )}

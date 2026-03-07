@@ -41,9 +41,10 @@ interface ClientContactsProps {
   organizationId: string;
   clientEmail: string;
   clientName: string;
+  onCountChange?: (count: number) => void;
 }
 
-export function ClientContacts({ clientId, organizationId, clientEmail, clientName }: ClientContactsProps) {
+export function ClientContacts({ clientId, organizationId, clientEmail, clientName, onCountChange }: ClientContactsProps) {
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -72,7 +73,7 @@ export function ClientContacts({ clientId, organizationId, clientEmail, clientNa
 
       if (error) throw error;
       setContacts(data || []);
-    } catch (error) {
+      onCountChange?.(data?.length || 0);
       console.error('Error fetching contacts:', error);
       toast.error('Failed to load contacts');
     } finally {
