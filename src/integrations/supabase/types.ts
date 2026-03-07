@@ -603,6 +603,7 @@ export type Database = {
       }
       organizations: {
         Row: {
+          accent_color: string | null
           auto_reminder_days: number | null
           auto_reminder_enabled: boolean | null
           created_at: string
@@ -623,6 +624,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          accent_color?: string | null
           auto_reminder_days?: number | null
           auto_reminder_enabled?: boolean | null
           created_at?: string
@@ -643,6 +645,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          accent_color?: string | null
           auto_reminder_days?: number | null
           auto_reminder_enabled?: boolean | null
           created_at?: string
