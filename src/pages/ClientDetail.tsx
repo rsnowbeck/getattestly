@@ -532,17 +532,23 @@ export default function ClientDetail() {
               <ListChecks className="h-4 w-4" />
               Use Template
             </Button>
-            <Dialog open={taskDialogOpen} onOpenChange={setTaskDialogOpen}>
+            <Dialog open={taskDialogOpen} onOpenChange={(open) => {
+              setTaskDialogOpen(open);
+              if (!open) {
+                setEditingTask(null);
+                setTaskForm({ title: "", description: "", due_date: "", priority: "medium" });
+              }
+            }}>
               <DialogTrigger asChild>
-                <Button variant="hero" size="sm">
+                <Button variant="hero" size="sm" onClick={() => { setEditingTask(null); setTaskForm({ title: "", description: "", due_date: "", priority: "medium" }); }}>
                   <Plus className="h-4 w-4" />
                   New Task
                 </Button>
               </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Create Task</DialogTitle>
-                <DialogDescription>Assign a task to this client.</DialogDescription>
+                <DialogTitle>{editingTask ? "Edit Task" : "Create Task"}</DialogTitle>
+                <DialogDescription>{editingTask ? "Update this task's details." : "Assign a task to this client."}</DialogDescription>
               </DialogHeader>
               <div className="space-y-4 py-4">
                 <div className="space-y-2">
@@ -573,8 +579,8 @@ export default function ClientDetail() {
               </div>
               <DialogFooter>
                 <Button variant="outline" onClick={() => setTaskDialogOpen(false)}>Cancel</Button>
-                <Button variant="hero" onClick={handleCreateTask} disabled={taskSaving}>
-                  {taskSaving ? "Creating..." : "Create Task"}
+                <Button variant="hero" onClick={handleSaveTask} disabled={taskSaving}>
+                  {taskSaving ? "Saving..." : editingTask ? "Save Changes" : "Create Task"}
                 </Button>
               </DialogFooter>
             </DialogContent>
