@@ -30,8 +30,14 @@ import { DropZone } from "@/components/documents/DropZone";
 import { AuditExportButton } from "@/components/clients/AuditExportButton";
 import { PBCTemplatePicker } from "@/components/clients/PBCTemplatePicker";
 import { useAuth } from "@/hooks/useAuth";
-import { ArrowLeft, Plus, Upload, FileText, CheckSquare, Clock, FolderPlus, Send, Loader2, Copy, ListChecks, Download, Trash2, Eye } from "lucide-react";
+import { ArrowLeft, Plus, Upload, FileText, CheckSquare, Clock, FolderPlus, Send, Loader2, Copy, ListChecks, Download, Trash2, Eye, MoreHorizontal, Pencil } from "lucide-react";
 import { toast } from "sonner";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function ClientDetail() {
   const { id } = useParams<{ id: string }>();
@@ -48,6 +54,7 @@ export default function ClientDetail() {
   const [taskDialogOpen, setTaskDialogOpen] = useState(false);
   const [taskForm, setTaskForm] = useState({ title: "", description: "", due_date: "", priority: "medium" });
   const [taskSaving, setTaskSaving] = useState(false);
+  const [editingTask, setEditingTask] = useState<any>(null);
 
   // Folder dialog
   const [folderDialogOpen, setFolderDialogOpen] = useState(false);
@@ -86,32 +93,7 @@ export default function ClientDetail() {
     }
   };
 
-  const handleCreateTask = async () => {
-    if (!id || !user?.id || !taskForm.title) {
-      toast.error("Please enter a task title");
-      return;
-    }
-    setTaskSaving(true);
-    try {
-      const { error } = await supabase.from('tasks').insert({
-        client_id: id,
-        assigned_by: user.id,
-        title: taskForm.title,
-        description: taskForm.description || null,
-        due_date: taskForm.due_date || null,
-        priority: taskForm.priority,
-      });
-      if (error) throw error;
-      toast.success("Task created");
-      setTaskForm({ title: "", description: "", due_date: "", priority: "medium" });
-      setTaskDialogOpen(false);
-      loadClientData();
-    } catch (error: any) {
-      toast.error(error.message || "Failed to create task");
-    } finally {
-      setTaskSaving(false);
-    }
-  };
+  // handleCreateTask is now merged into handleSaveTask below
 
   const handleCreateFolder = async () => {
     if (!id || !folderName) return;
@@ -293,6 +275,71 @@ export default function ClientDetail() {
       loadClientData();
     } catch (error: any) {
       toast.error(error.message || "Failed to update task");
+    }
+  };
+
+  const handleEditTask = (task: any) => {
+    setEditingTask(task);
+    setTaskForm({
+      title: task.title,
+      description: task.description || "",
+      due_date: task.due_date || "",
+      priority: task.priority,
+    });
+    setTaskDialogOpen(true);
+  };
+
+  const handleSaveTask = async () => {
+    if (!taskForm.title) {
+      toast.error("Please enter a task title");
+      return;
+    }
+    setTaskSaving(true);
+    try {
+      if (editingTask) {
+        // Update existing task
+        const { error } = await supabase.from('tasks').update({
+          title: taskForm.title,
+          description: taskForm.description || null,
+          due_date: taskForm.due_date || null,
+          priority: taskForm.priority,
+        }).eq('id', editingTask.id);
+        if (error) throw error;
+        toast.success("Task updated");
+      } else {
+        // Create new task
+        if (!id || !user?.id) return;
+        const { error } = await supabase.from('tasks').insert({
+          client_id: id,
+          assigned_by: user.id,
+          title: taskForm.title,
+          description: taskForm.description || null,
+          due_date: taskForm.due_date || null,
+          priority: taskForm.priority,
+        });
+        if (error) throw error;
+        toast.success("Task created");
+      }
+      setTaskForm({ title: "", description: "", due_date: "", priority: "medium" });
+      setEditingTask(null);
+      setTaskDialogOpen(false);
+      loadClientData();
+    } catch (error: any) {
+      toast.error(error.message || "Failed to save task");
+    } finally {
+      setTaskSaving(false);
+    }
+  };
+
+  const handleDeleteTask = async (taskId: string, taskTitle: string) => {
+    if (!confirm(`Delete "${taskTitle}"? This cannot be undone.`)) return;
+    try {
+      const { error } = await supabase.from('tasks').delete().eq('id', taskId);
+      if (error) throw error;
+      toast.success("Task deleted");
+      loadClientData();
+    } catch (error: any) {
+      toast.error(error.message || "Failed to delete task");
     }
   };
 
@@ -485,17 +532,23 @@ export default function ClientDetail() {
               <ListChecks className="h-4 w-4" />
               Use Template
             </Button>
-            <Dialog open={taskDialogOpen} onOpenChange={setTaskDialogOpen}>
+            <Dialog open={taskDialogOpen} onOpenChange={(open) => {
+              setTaskDialogOpen(open);
+              if (!open) {
+                setEditingTask(null);
+                setTaskForm({ title: "", description: "", due_date: "", priority: "medium" });
+              }
+            }}>
               <DialogTrigger asChild>
-                <Button variant="hero" size="sm">
+                <Button variant="hero" size="sm" onClick={() => { setEditingTask(null); setTaskForm({ title: "", description: "", due_date: "", priority: "medium" }); }}>
                   <Plus className="h-4 w-4" />
                   New Task
                 </Button>
               </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Create Task</DialogTitle>
-                <DialogDescription>Assign a task to this client.</DialogDescription>
+                <DialogTitle>{editingTask ? "Edit Task" : "Create Task"}</DialogTitle>
+                <DialogDescription>{editingTask ? "Update this task's details." : "Assign a task to this client."}</DialogDescription>
               </DialogHeader>
               <div className="space-y-4 py-4">
                 <div className="space-y-2">
@@ -526,8 +579,8 @@ export default function ClientDetail() {
               </div>
               <DialogFooter>
                 <Button variant="outline" onClick={() => setTaskDialogOpen(false)}>Cancel</Button>
-                <Button variant="hero" onClick={handleCreateTask} disabled={taskSaving}>
-                  {taskSaving ? "Creating..." : "Create Task"}
+                <Button variant="hero" onClick={handleSaveTask} disabled={taskSaving}>
+                  {taskSaving ? "Saving..." : editingTask ? "Save Changes" : "Create Task"}
                 </Button>
               </DialogFooter>
             </DialogContent>
@@ -586,16 +639,38 @@ export default function ClientDetail() {
                       )}
                     </div>
                   </div>
-                  <Select value={task.status} onValueChange={v => handleUpdateTaskStatus(task.id, v)}>
-                    <SelectTrigger className="w-[130px]">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="pending">Pending</SelectItem>
-                      <SelectItem value="in_progress">In Progress</SelectItem>
-                      <SelectItem value="completed">Completed</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <div className="flex items-center gap-2">
+                    <Select value={task.status} onValueChange={v => handleUpdateTaskStatus(task.id, v)}>
+                      <SelectTrigger className="w-[130px]">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="pending">Pending</SelectItem>
+                        <SelectItem value="in_progress">In Progress</SelectItem>
+                        <SelectItem value="completed">Completed</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                          <MoreHorizontal className="h-4 w-4" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        <DropdownMenuItem onClick={() => handleEditTask(task)}>
+                          <Pencil className="h-4 w-4 mr-2" />
+                          Edit
+                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                          className="text-destructive"
+                          onClick={() => handleDeleteTask(task.id, task.title)}
+                        >
+                          <Trash2 className="h-4 w-4 mr-2" />
+                          Delete
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
                 </div>
               ))}
             </div>
