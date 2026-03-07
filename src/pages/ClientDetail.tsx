@@ -285,11 +285,17 @@ export default function ClientDetail() {
               <p className="text-muted-foreground">{client.email}</p>
             </div>
           </div>
-          <span className={`self-start text-xs px-3 py-1 rounded-full ${
-            client.status === 'active' ? 'bg-success/10 text-success' : 'bg-muted text-muted-foreground'
-          }`}>
-            {client.status}
-          </span>
+          <div className="flex items-center gap-2 self-start">
+            <span className={`text-xs px-3 py-1 rounded-full ${
+              client.status === 'active' ? 'bg-success/10 text-success' : 'bg-muted text-muted-foreground'
+            }`}>
+              {client.status}
+            </span>
+            <Button variant="hero" size="sm" onClick={handleSendInvite} disabled={inviting}>
+              {inviting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
+              {inviting ? "Sending..." : "Send Invite"}
+            </Button>
+          </div>
         </div>
         {client.notes && (
           <p className="mt-3 text-sm text-muted-foreground bg-muted/50 rounded-lg p-3">{client.notes}</p>
