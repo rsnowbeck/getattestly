@@ -25,6 +25,7 @@ import AcceptInvite from "./pages/AcceptInvite";
 import Welcome from "./pages/Welcome";
 import ClientPortal from "./pages/ClientPortal";
 import NotFound from "./pages/NotFound";
+import AvatarPreview from "./pages/AvatarPreview";
 import Recipients from "./pages/Recipients";
 import Requirements from "./pages/Requirements";
 import RequirementDetail from "./pages/RequirementDetail";
