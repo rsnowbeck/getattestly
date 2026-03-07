@@ -386,7 +386,7 @@ export default function Recipients() {
           {!searchQuery && planLimits.canAddRecipient && (
             <Button variant="hero" onClick={() => setDialogOpen(true)}>
               <Plus className="h-4 w-4" />
-              Add Your First Recipient
+              Add Your First Contact
             </Button>
           )}
         </div>
