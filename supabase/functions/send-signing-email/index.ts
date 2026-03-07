@@ -212,14 +212,27 @@ const handler = async (req: Request): Promise<Response> => {
     const internalSecret = req.headers.get('x-internal-secret');
     const expectedSecret = Deno.env.get('INTERNAL_FUNCTION_SECRET');
 
-    const hasValidJwt = authHeader?.startsWith('Bearer ');
     const hasValidSecret = expectedSecret && internalSecret === expectedSecret;
 
-    if (!hasValidJwt && !hasValidSecret) {
-      return new Response(
-        JSON.stringify({ error: 'Unauthorized' }),
-        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
+    let hasValidJwt = false;
+    if (!hasValidSecret) {
+      // Verify JWT properly using Supabase auth
+      if (authHeader?.startsWith('Bearer ')) {
+        const supabase = createClient(
+          Deno.env.get('SUPABASE_URL')!,
+          Deno.env.get('SUPABASE_ANON_KEY')!,
+          { global: { headers: { Authorization: authHeader } } }
+        );
+        const { data, error } = await supabase.auth.getUser();
+        hasValidJwt = !error && !!data?.user;
+      }
+
+      if (!hasValidJwt) {
+        return new Response(
+          JSON.stringify({ error: 'Unauthorized' }),
+          { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
     }
 
     const { 
