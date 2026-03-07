@@ -776,6 +776,7 @@ export type Database = {
       }
       recipients: {
         Row: {
+          client_id: string | null
           created_at: string
           department: string | null
           email: string
@@ -787,6 +788,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          client_id?: string | null
           created_at?: string
           department?: string | null
           email: string
@@ -798,6 +800,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          client_id?: string | null
           created_at?: string
           department?: string | null
           email?: string
@@ -809,6 +812,13 @@ export type Database = {
           updated_at?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "recipients_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "recipients_organization_id_fkey"
             columns: ["organization_id"]
