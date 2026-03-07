@@ -289,6 +289,10 @@ export default function ClientDetail() {
             </div>
           </div>
           <div className="flex items-center gap-2 self-start">
+            <AuditExportButton
+              clientId={client.id}
+              clientName={`${client.first_name} ${client.last_name}`}
+            />
             <span className={`text-xs px-3 py-1 rounded-full ${
               client.status === 'active' ? 'bg-success/10 text-success' : 'bg-muted text-muted-foreground'
             }`}>
