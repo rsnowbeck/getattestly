@@ -38,6 +38,11 @@ const essentialFaqs = [
 
 const secondaryFaqs = [
   {
+    question: "Are document acknowledgments legally binding?",
+    answer:
+      "Yes. Every acknowledgment in Ledger Stash captures IP address, timestamp, browser fingerprint, and the signer's typed name — fully compliant with the ESIGN Act and UETA. You can download a PDF certificate for each acknowledgment as legally defensible proof of completion.",
+  },
+  {
     question: "What types of files can clients upload?",
     answer:
       "Clients can securely upload any file type, including PDFs, spreadsheets, images, and more, directly from their computer or mobile device.",

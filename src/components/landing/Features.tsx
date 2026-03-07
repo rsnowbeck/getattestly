@@ -35,6 +35,10 @@ const features: Feature[] = [{
   title: "Audit-Ready Export",
   description: "Download organized document packages with timestamps, IP tracking, and full activity history for any client or engagement."
 }, {
+  icon: Scale,
+  title: "ESIGN & UETA Compliant Audit Trail",
+  description: "Every document acknowledgment captures IP address, timestamp, browser fingerprint, and signed name — with downloadable PDF certificates for legally defensible proof."
+}, {
   icon: FileText,
   title: "Engagement Letter Tracking",
   description: "Send engagement letters, fee agreements, and authorization forms. Track who has signed and automate follow-ups for the rest."

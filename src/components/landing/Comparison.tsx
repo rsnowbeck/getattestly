@@ -61,6 +61,13 @@ const rows = [
     tax: "General Security & Compliance",
   },
   {
+    feature: "Audit Trail & Legal Proof",
+    ledger: "ESIGN/UETA Compliant",
+    ledgerSub: "IP, timestamp, browser + PDF certificate",
+    smart: "Basic Audit Trail",
+    tax: "Built-in eSignature Logs",
+  },
+  {
     feature: "Target Audience",
     ledger: "Solo CPAs, Boutique Firms, Growing Practices, & Corporate Controllers",
     smart: "Small to Large Firms",
