@@ -336,7 +336,14 @@ export default function ClientDetail() {
               <span className="text-lg font-bold text-primary">{client.first_name?.[0]}{client.last_name?.[0]}</span>
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-foreground">{client.first_name} {client.last_name}</h1>
+              <h1 className="text-2xl font-bold text-foreground">
+                {client.client_type === 'business' && client.company_name
+                  ? client.company_name
+                  : `${client.first_name} ${client.last_name}`}
+              </h1>
+              {client.client_type === 'business' && (
+                <p className="text-sm text-foreground/80">{client.first_name} {client.last_name} · Primary Contact</p>
+              )}
               <p className="text-muted-foreground">{client.email}</p>
             </div>
           </div>
