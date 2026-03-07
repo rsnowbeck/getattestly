@@ -66,9 +66,11 @@ export const STRIPE_PLANS = {
       "Unlimited clients",
       "Everything in Boutique",
       "Advanced audit logs",
+      "Dedicated support",
+    ],
+    comingSoonFeatures: [
       "Multi-firm management",
       "API access for CRM",
-      "Dedicated support",
       "Custom integrations",
     ],
     clientLimit: -1,

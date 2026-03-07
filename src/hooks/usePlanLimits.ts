@@ -23,12 +23,17 @@ interface PlanLimits {
   trialDaysRemaining: number | null;
 }
 
-// Plan configurations
+// Plan configurations aligned with Stripe plan keys
 const PLAN_LIMITS = {
   trial: { recipients: 10, requirements: 5 },
+  solo: { recipients: 25, requirements: -1 },
+  boutique: { recipients: 100, requirements: -1 },
+  enterprise: { recipients: -1, requirements: -1 },
+  // Legacy keys (fallback)
   starter: { recipients: 10, requirements: 5 },
-  team: { recipients: 100, requirements: -1 }, // -1 means unlimited
+  team: { recipients: 100, requirements: -1 },
   pro: { recipients: -1, requirements: -1 },
+  paid: { recipients: 25, requirements: -1 }, // fallback for generic "paid"
 } as const;
 
 export function usePlanLimits(
@@ -93,9 +98,13 @@ export function usePlanLimits(
 
     const planDisplayNames: Record<string, string> = {
       trial: "Trial",
+      solo: "Solo CPA",
+      boutique: "Boutique Firm",
+      enterprise: "Enterprise Vault",
       starter: "Starter",
       team: "Team",
       pro: "Pro",
+      paid: "Paid",
     };
 
     return {

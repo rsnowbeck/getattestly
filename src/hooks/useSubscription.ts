@@ -32,7 +32,7 @@ export function useSubscription(user: User | null) {
       const { data, error } = await supabase.functions.invoke("check-subscription");
       if (error) throw error;
 
-      const planKey = data?.product_id ? (PRODUCT_TO_PLAN[data.product_id] || null) : null;
+      const planKey = data?.plan_key as PlanKey || (data?.product_id ? (PRODUCT_TO_PLAN[data.product_id] || null) : null);
 
       setState({
         subscribed: data?.subscribed || false,
