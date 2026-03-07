@@ -32,8 +32,10 @@ export default function Clients() {
   const [search, setSearch] = useState("");
   const [firmId, setFirmId] = useState<string | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [csvImportOpen, setCsvImportOpen] = useState(false);
   const [saving, setSaving] = useState(false);
   const [form, setForm] = useState({ first_name: "", last_name: "", email: "", notes: "" });
+  const { clientLimit } = usePlanLimits(user);
 
   useEffect(() => {
     if (user?.id) loadClients();
