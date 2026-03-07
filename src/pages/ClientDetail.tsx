@@ -375,6 +375,9 @@ export default function ClientDetail() {
         <TabsList>
           <TabsTrigger value="documents">Documents ({documents.length})</TabsTrigger>
           <TabsTrigger value="tasks">Tasks ({tasks.length})</TabsTrigger>
+          {client.client_type === 'business' && (
+            <TabsTrigger value="contacts">Contacts</TabsTrigger>
+          )}
         </TabsList>
 
         {/* Documents Tab */}
