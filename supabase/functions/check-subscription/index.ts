@@ -7,6 +7,18 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
+// Map Stripe product IDs to plan keys
+const PRODUCT_TO_PLAN: Record<string, string> = {
+  // Monthly products
+  "prod_U5Wn9ZDZbzbZKc": "solo",
+  "prod_U5WnwTxMzxXkDt": "boutique",
+  "prod_U5aFwai0TGN2S0": "enterprise",
+  // Annual products
+  "prod_U5Wne3AbyHlVAb": "solo",
+  "prod_U5WnDWPwkTlVH3": "boutique",
+  "prod_U5aRGby7IgSY8R": "enterprise",
+};
+
 const logStep = (step: string, details?: any) => {
   const detailsStr = details ? ` - ${JSON.stringify(details)}` : '';
   console.log(`[CHECK-SUBSCRIPTION] ${step}${detailsStr}`);
@@ -63,15 +75,17 @@ serve(async (req) => {
     let productId = null;
     let subscriptionEnd = null;
     let priceId = null;
+    let planKey = null;
 
     if (hasActiveSub) {
       const subscription = subscriptions.data[0];
       subscriptionEnd = new Date(subscription.current_period_end * 1000).toISOString();
-      productId = subscription.items.data[0].price.product;
+      productId = subscription.items.data[0].price.product as string;
       priceId = subscription.items.data[0].price.id;
-      logStep("Active subscription found", { subscriptionId: subscription.id, productId, priceId });
+      planKey = PRODUCT_TO_PLAN[productId] || "solo";
+      logStep("Active subscription found", { subscriptionId: subscription.id, productId, priceId, planKey });
 
-      // Update organization plan in Supabase
+      // Update organization plan with actual tier name
       const { data: profile } = await supabaseClient
         .from("profiles")
         .select("organization_id")
@@ -79,15 +93,25 @@ serve(async (req) => {
         .single();
 
       if (profile?.organization_id) {
+        // Update plan to actual tier and set appropriate client limits
+        const planLimits: Record<string, { recipient_limit: number | null; requirement_limit: number | null }> = {
+          solo: { recipient_limit: 25, requirement_limit: null },
+          boutique: { recipient_limit: 100, requirement_limit: null },
+          enterprise: { recipient_limit: null, requirement_limit: null },
+        };
+        const limits = planLimits[planKey] || planLimits.solo;
+
         await supabaseClient
           .from("organizations")
           .update({
-            plan: "paid",
+            plan: planKey,
             stripe_customer_id: customerId,
             stripe_subscription_id: subscription.id,
+            recipient_limit: limits.recipient_limit,
+            requirement_limit: limits.requirement_limit,
           })
           .eq("id", profile.organization_id);
-        logStep("Organization plan updated to paid");
+        logStep("Organization plan updated", { planKey, limits });
       }
     } else {
       logStep("No active subscription found");
@@ -97,6 +121,7 @@ serve(async (req) => {
       subscribed: hasActiveSub,
       product_id: productId,
       price_id: priceId,
+      plan_key: planKey,
       subscription_end: subscriptionEnd,
     }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
