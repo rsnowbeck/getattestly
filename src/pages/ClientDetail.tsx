@@ -320,16 +320,7 @@ export default function ClientDetail() {
 
         {/* Documents Tab */}
         <TabsContent value="documents" className="space-y-4">
-          <div className="flex items-center gap-3">
-            <label className="cursor-pointer">
-              <input type="file" multiple className="hidden" onChange={handleFileUpload} disabled={uploading} />
-              <Button variant="hero" size="sm" asChild disabled={uploading}>
-                <span>
-                  <Upload className="h-4 w-4" />
-                  {uploading ? "Uploading..." : "Upload Files"}
-                </span>
-              </Button>
-            </label>
+          <div className="flex items-center gap-3 mb-4">
             <Dialog open={folderDialogOpen} onOpenChange={setFolderDialogOpen}>
               <DialogTrigger asChild>
                 <Button variant="outline" size="sm">
