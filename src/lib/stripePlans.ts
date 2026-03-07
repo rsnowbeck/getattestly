@@ -18,7 +18,7 @@ export const STRIPE_PLANS = {
       "Secure document vault",
       "PBC task lists",
       "Audit logs",
-      "Standard branding",
+      "Firm logo + name branding",
       "Email notifications",
       "Per-client folders",
       "Standard support",
