@@ -45,7 +45,11 @@ interface ContactDetailSheetProps {
   onOpenChange: (open: boolean) => void;
   contact: Contact | null;
   organizationId: string;
+  clientId: string;
   onUpdated: () => void;
+  onSendPortalInvite?: () => void;
+  portalInviteLoading?: boolean;
+  portalLink?: string | null;
 }
 
 export function ContactDetailSheet({
