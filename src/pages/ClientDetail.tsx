@@ -609,6 +609,7 @@ export default function ClientDetail() {
               organizationId={organization.id}
               clientEmail={client.email}
               clientName={client.company_name || `${client.first_name} ${client.last_name}`}
+              onCountChange={setContactCount}
             />
           </TabsContent>
         )}
