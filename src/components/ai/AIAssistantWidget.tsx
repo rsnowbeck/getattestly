@@ -128,7 +128,7 @@ export function AIAssistantWidget() {
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-muted/50">
             <div className="flex items-center gap-2">
-              <Bot className="h-5 w-5 text-accent" />
+              <img src={aiChatAvatar} alt="AI Assistant" className="h-7 w-7 object-contain rounded-full" />
               <span className="font-semibold text-sm text-foreground">Ledger Stash Assistant</span>
             </div>
             <Button variant="ghost" size="sm" onClick={() => setOpen(false)} className="h-7 w-7 p-0">
