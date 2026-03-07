@@ -237,9 +237,9 @@ export default function Recipients() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-foreground">Recipients</h1>
+          <h1 className="text-2xl font-bold text-foreground">Contacts</h1>
           <p className="text-muted-foreground">
-            Manage the people who need to acknowledge your requirements.
+            Manage the people who need to receive document requests from your clients.
             {planLimits.recipientLimit !== -1 && (
               <span className="ml-2 text-xs">
                 ({recipients.length}/{planLimits.recipientLimit} used)
