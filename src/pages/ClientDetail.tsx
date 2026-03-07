@@ -36,6 +36,7 @@ import { toast } from "sonner";
 export default function ClientDetail() {
   const { id } = useParams<{ id: string }>();
   const { user, loading: authLoading } = useAuth();
+  const { organization } = useOrganization(user);
   const [client, setClient] = useState<any>(null);
   const [documents, setDocuments] = useState<any[]>([]);
   const [tasks, setTasks] = useState<any[]>([]);
