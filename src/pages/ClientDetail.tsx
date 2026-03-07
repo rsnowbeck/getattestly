@@ -54,6 +54,7 @@ export default function ClientDetail() {
   const [taskDialogOpen, setTaskDialogOpen] = useState(false);
   const [taskForm, setTaskForm] = useState({ title: "", description: "", due_date: "", priority: "medium" });
   const [taskSaving, setTaskSaving] = useState(false);
+  const [editingTask, setEditingTask] = useState<any>(null);
 
   // Folder dialog
   const [folderDialogOpen, setFolderDialogOpen] = useState(false);
