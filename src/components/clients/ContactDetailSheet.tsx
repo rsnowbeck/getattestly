@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { DepartmentSelect } from "./DepartmentSelect";
 import {
   Sheet,
   SheetContent,
@@ -225,11 +226,10 @@ export function ContactDetailSheet({
                 </Select>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="detail-dept">Department / Group</Label>
-                <Input
-                  id="detail-dept"
+                <Label>Department / Group</Label>
+                <DepartmentSelect
                   value={department}
-                  onChange={(e) => { setDepartment(e.target.value); setDirty(true); }}
+                  onChange={(v) => { setDepartment(v); setDirty(true); }}
                 />
               </div>
 

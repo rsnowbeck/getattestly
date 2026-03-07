@@ -27,6 +27,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Plus, Loader2, MoreHorizontal, Trash2, UserPlus, Search } from "lucide-react";
 import { toast } from "sonner";
+import { DepartmentSelect } from "./DepartmentSelect";
 import { ContactDetailSheet } from "./ContactDetailSheet";
 
 interface Contact {
@@ -249,11 +250,9 @@ export function ClientContacts({ clientId, organizationId, clientEmail, clientNa
               </div>
               <div className="space-y-2">
                 <Label htmlFor="contact-dept">Department / Group</Label>
-                <Input
-                  id="contact-dept"
-                  placeholder="Accounting, HR, etc."
+                <DepartmentSelect
                   value={department}
-                  onChange={(e) => setDepartment(e.target.value)}
+                  onChange={setDepartment}
                 />
               </div>
               <div className="flex gap-3 pt-4">
