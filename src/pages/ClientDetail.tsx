@@ -303,6 +303,71 @@ export default function ClientDetail() {
     }
   };
 
+  const handleEditTask = (task: any) => {
+    setEditingTask(task);
+    setTaskForm({
+      title: task.title,
+      description: task.description || "",
+      due_date: task.due_date || "",
+      priority: task.priority,
+    });
+    setTaskDialogOpen(true);
+  };
+
+  const handleSaveTask = async () => {
+    if (!taskForm.title) {
+      toast.error("Please enter a task title");
+      return;
+    }
+    setTaskSaving(true);
+    try {
+      if (editingTask) {
+        // Update existing task
+        const { error } = await supabase.from('tasks').update({
+          title: taskForm.title,
+          description: taskForm.description || null,
+          due_date: taskForm.due_date || null,
+          priority: taskForm.priority,
+        }).eq('id', editingTask.id);
+        if (error) throw error;
+        toast.success("Task updated");
+      } else {
+        // Create new task
+        if (!id || !user?.id) return;
+        const { error } = await supabase.from('tasks').insert({
+          client_id: id,
+          assigned_by: user.id,
+          title: taskForm.title,
+          description: taskForm.description || null,
+          due_date: taskForm.due_date || null,
+          priority: taskForm.priority,
+        });
+        if (error) throw error;
+        toast.success("Task created");
+      }
+      setTaskForm({ title: "", description: "", due_date: "", priority: "medium" });
+      setEditingTask(null);
+      setTaskDialogOpen(false);
+      loadClientData();
+    } catch (error: any) {
+      toast.error(error.message || "Failed to save task");
+    } finally {
+      setTaskSaving(false);
+    }
+  };
+
+  const handleDeleteTask = async (taskId: string, taskTitle: string) => {
+    if (!confirm(`Delete "${taskTitle}"? This cannot be undone.`)) return;
+    try {
+      const { error } = await supabase.from('tasks').delete().eq('id', taskId);
+      if (error) throw error;
+      toast.success("Task deleted");
+      loadClientData();
+    } catch (error: any) {
+      toast.error(error.message || "Failed to delete task");
+    }
+  };
+
   if (authLoading || loading) {
     return (
       <DashboardLayout>
