@@ -18,7 +18,7 @@ export const STRIPE_PLANS = {
       "Secure document vault",
       "PBC task lists",
       "Audit logs",
-      "Standard branding",
+      "Firm logo + name branding",
       "Email notifications",
       "Per-client folders",
       "Standard support",
@@ -41,7 +41,7 @@ export const STRIPE_PLANS = {
     features: [
       "Up to 100 active clients",
       "Everything in Solo CPA",
-      "Full white-labeling",
+      "Full white-labeling (no Ledger Stash branding)",
       "Busy Season auto-reminders",
       "Team member accounts",
       "In-app comments",

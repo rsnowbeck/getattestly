@@ -18,20 +18,27 @@ import {
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { usePageTitle } from "@/hooks/usePageTitle";
 import { useAuth } from "@/hooks/useAuth";
-import { Plus, Search, Users } from "lucide-react";
+import { ClientCSVImportDialog } from "@/components/clients/ClientCSVImportDialog";
+
+import { Plus, Search, Users, Upload } from "lucide-react";
 import { toast } from "sonner";
+import { useOrganization } from "@/hooks/useOrganization";
 
 export default function Clients() {
   usePageTitle("Clients");
   const navigate = useNavigate();
   const { user, loading: authLoading } = useAuth();
+  const { organization } = useOrganization(user);
   const [clients, setClients] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [firmId, setFirmId] = useState<string | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [csvImportOpen, setCsvImportOpen] = useState(false);
   const [saving, setSaving] = useState(false);
   const [form, setForm] = useState({ first_name: "", last_name: "", email: "", notes: "" });
+
+  const clientLimit = organization?.recipient_limit ?? 10;
 
   useEffect(() => {
     if (user?.id) loadClients();
@@ -112,13 +119,18 @@ export default function Clients() {
           <h1 className="text-2xl font-bold text-foreground">Clients</h1>
           <p className="text-muted-foreground">Manage your firm's clients</p>
         </div>
-        <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-          <DialogTrigger asChild>
-            <Button variant="hero" size="sm">
-              <Plus className="h-4 w-4" />
-              Add Client
-            </Button>
-          </DialogTrigger>
+        <div className="flex items-center gap-2">
+          <Button variant="outline" size="sm" onClick={() => setCsvImportOpen(true)}>
+            <Upload className="h-4 w-4" />
+            Import CSV
+          </Button>
+          <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+            <DialogTrigger asChild>
+              <Button variant="hero" size="sm">
+                <Plus className="h-4 w-4" />
+                Add Client
+              </Button>
+            </DialogTrigger>
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Add New Client</DialogTitle>
@@ -151,8 +163,21 @@ export default function Clients() {
               </Button>
             </DialogFooter>
           </DialogContent>
-        </Dialog>
+          </Dialog>
+        </div>
       </div>
+
+      {firmId && (
+        <ClientCSVImportDialog
+          open={csvImportOpen}
+          onOpenChange={setCsvImportOpen}
+          firmId={firmId}
+          existingEmails={new Set(clients.map((c: any) => c.email?.toLowerCase()))}
+          onSuccess={loadClients}
+          clientLimit={clientLimit}
+          currentCount={clients.length}
+        />
+      )}
 
       {/* Search */}
       <div className="relative mb-6 max-w-sm">

@@ -25,8 +25,10 @@ import {
 } from "@/components/ui/select";
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { DropZone } from "@/components/documents/DropZone";
+import { AuditExportButton } from "@/components/clients/AuditExportButton";
+import { PBCTemplatePicker } from "@/components/clients/PBCTemplatePicker";
 import { useAuth } from "@/hooks/useAuth";
-import { ArrowLeft, Plus, Upload, FileText, CheckSquare, Clock, FolderPlus, Send, Loader2, Copy } from "lucide-react";
+import { ArrowLeft, Plus, Upload, FileText, CheckSquare, Clock, FolderPlus, Send, Loader2, Copy, ListChecks } from "lucide-react";
 import { toast } from "sonner";
 
 export default function ClientDetail() {
@@ -46,6 +48,7 @@ export default function ClientDetail() {
   // Folder dialog
   const [folderDialogOpen, setFolderDialogOpen] = useState(false);
   const [folderName, setFolderName] = useState("");
+  const [templatePickerOpen, setTemplatePickerOpen] = useState(false);
 
   // Upload
   const [uploading, setUploading] = useState(false);
@@ -286,6 +289,10 @@ export default function ClientDetail() {
             </div>
           </div>
           <div className="flex items-center gap-2 self-start">
+            <AuditExportButton
+              clientId={client.id}
+              clientName={`${client.first_name} ${client.last_name}`}
+            />
             <span className={`text-xs px-3 py-1 rounded-full ${
               client.status === 'active' ? 'bg-success/10 text-success' : 'bg-muted text-muted-foreground'
             }`}>
@@ -396,13 +403,18 @@ export default function ClientDetail() {
 
         {/* Tasks Tab */}
         <TabsContent value="tasks" className="space-y-4">
-          <Dialog open={taskDialogOpen} onOpenChange={setTaskDialogOpen}>
-            <DialogTrigger asChild>
-              <Button variant="hero" size="sm">
-                <Plus className="h-4 w-4" />
-                New Task
-              </Button>
-            </DialogTrigger>
+          <div className="flex items-center gap-2">
+            <Button variant="outline" size="sm" onClick={() => setTemplatePickerOpen(true)}>
+              <ListChecks className="h-4 w-4" />
+              Use Template
+            </Button>
+            <Dialog open={taskDialogOpen} onOpenChange={setTaskDialogOpen}>
+              <DialogTrigger asChild>
+                <Button variant="hero" size="sm">
+                  <Plus className="h-4 w-4" />
+                  New Task
+                </Button>
+              </DialogTrigger>
             <DialogContent>
               <DialogHeader>
                 <DialogTitle>Create Task</DialogTitle>
@@ -443,7 +455,30 @@ export default function ClientDetail() {
               </DialogFooter>
             </DialogContent>
           </Dialog>
+          </div>
 
+          <PBCTemplatePicker
+            open={templatePickerOpen}
+            onOpenChange={setTemplatePickerOpen}
+            onSelect={async (templateTasks) => {
+              if (!id || !user?.id) return;
+              try {
+                const inserts = templateTasks.map((t) => ({
+                  client_id: id,
+                  assigned_by: user.id,
+                  title: t.title,
+                  description: t.description,
+                  priority: t.priority,
+                }));
+                const { error } = await supabase.from("tasks").insert(inserts);
+                if (error) throw error;
+                toast.success(`${templateTasks.length} tasks created from template`);
+                loadClientData();
+              } catch (error: any) {
+                toast.error(error.message || "Failed to create tasks from template");
+              }
+            }}
+          />
           {tasks.length === 0 ? (
             <div className="text-center py-12 border border-dashed border-border rounded-xl">
               <CheckSquare className="h-10 w-10 text-muted-foreground mx-auto mb-3" />

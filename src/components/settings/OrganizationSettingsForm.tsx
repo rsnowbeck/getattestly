@@ -41,6 +41,7 @@ export function OrganizationSettingsForm({ organization, onUpdate }: Organizatio
   // Form state
   const [orgName, setOrgName] = useState(organization.name || "");
   const [logoUrl, setLogoUrl] = useState(organization.logo_url || "");
+  const [accentColor, setAccentColor] = useState((organization as any).accent_color || "#3B82F6");
   const [senderName, setSenderName] = useState(organization.sender_name || "");
   const [senderEmail, setSenderEmail] = useState(organization.sender_email || "");
   const [defaultDueDays, setDefaultDueDays] = useState(organization.default_due_days?.toString() || "30");
@@ -48,7 +49,10 @@ export function OrganizationSettingsForm({ organization, onUpdate }: Organizatio
   const [autoReminderDays, setAutoReminderDays] = useState(organization.auto_reminder_days?.toString() || "7");
   const [sessionTimeout, setSessionTimeout] = useState((organization.session_timeout_minutes ?? 30).toString());
 
-  const isPro = organization.plan === "pro";
+  const plan = organization.plan || "trial";
+  const isBoutiqueOrAbove = ["boutique", "enterprise", "pro", "team"].includes(plan);
+  const canUploadLogo = true; // All plans get logo
+  const canCustomizeColors = isBoutiqueOrAbove; // Boutique+ only
 
   const handleLogoUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -116,9 +120,7 @@ export function OrganizationSettingsForm({ organization, onUpdate }: Organizatio
   const handleSave = async () => {
     setSaving(true);
     try {
-      const { error } = await supabase
-        .from("organizations")
-        .update({
+      const updateData: Record<string, any> = {
           name: orgName,
           logo_url: logoUrl || null,
           sender_name: senderName || null,
@@ -127,8 +129,12 @@ export function OrganizationSettingsForm({ organization, onUpdate }: Organizatio
           auto_reminder_enabled: autoReminderEnabled,
           auto_reminder_days: parseInt(autoReminderDays) || 7,
           session_timeout_minutes: parseInt(sessionTimeout) || 30,
+          accent_color: canCustomizeColors ? accentColor : null,
           updated_at: new Date().toISOString(),
-        })
+        };
+      const { error } = await supabase
+        .from("organizations")
+        .update(updateData as any)
         .eq("id", organization.id);
 
       if (error) throw error;
@@ -182,8 +188,8 @@ export function OrganizationSettingsForm({ organization, onUpdate }: Organizatio
         </CardContent>
       </Card>
 
-      {/* Logo Upload - Pro Only */}
-      <Card className={!isPro ? "opacity-60" : ""}>
+      {/* Logo Upload — All Plans */}
+      <Card>
         <CardHeader>
           <div className="flex items-center justify-between">
             <div>
@@ -192,87 +198,112 @@ export function OrganizationSettingsForm({ organization, onUpdate }: Organizatio
                 Company Logo
               </CardTitle>
               <CardDescription>
-                Your logo appears on document request pages for clients
+                Your logo appears on the client portal and email notifications
               </CardDescription>
             </div>
-            {!isPro && (
-              <Badge variant="outline">Pro Plan</Badge>
-            )}
           </div>
         </CardHeader>
         <CardContent className="space-y-4">
-          {!isPro ? (
-            <div className="text-sm text-muted-foreground">
-              <p>Upgrade to Pro to add your company logo to signing pages.</p>
-              <Button variant="outline" size="sm" className="mt-2" asChild>
-                <Link to="/pricing">Upgrade to Pro</Link>
+          <div className="flex items-center gap-4">
+            {logoUrl ? (
+              <div className="relative">
+                <img
+                  src={logoUrl}
+                  alt="Organization logo"
+                  className="h-16 w-16 object-contain rounded-lg border bg-background"
+                />
+                <button
+                  onClick={handleRemoveLogo}
+                  className="absolute -top-2 -right-2 p-1 bg-destructive text-destructive-foreground rounded-full hover:bg-destructive/90"
+                >
+                  <X className="h-3 w-3" />
+                </button>
+              </div>
+            ) : (
+              <div className="h-16 w-16 rounded-lg border-2 border-dashed border-muted-foreground/25 flex items-center justify-center">
+                <Image className="h-6 w-6 text-muted-foreground/50" />
+              </div>
+            )}
+
+            <div>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                onChange={handleLogoUpload}
+                className="hidden"
+              />
+              <Button
+                variant="outline"
+                onClick={() => fileInputRef.current?.click()}
+                disabled={uploading}
+              >
+                {uploading ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    Uploading...
+                  </>
+                ) : (
+                  <>
+                    <Upload className="h-4 w-4" />
+                    Upload Logo
+                  </>
+                )}
               </Button>
+              <p className="text-xs text-muted-foreground mt-1">
+                PNG, JPG up to 2MB. Recommended: 200x200px
+              </p>
+            </div>
+          </div>
+
+          {/* Accent Color — Boutique+ only */}
+          {canCustomizeColors ? (
+            <div className="space-y-2 mt-4">
+              <Label htmlFor="accentColor">Brand Accent Color</Label>
+              <div className="flex items-center gap-3">
+                <input
+                  id="accentColor"
+                  type="color"
+                  value={accentColor}
+                  onChange={(e) => setAccentColor(e.target.value)}
+                  className="h-10 w-14 rounded border border-border cursor-pointer"
+                />
+                <Input
+                  value={accentColor}
+                  onChange={(e) => setAccentColor(e.target.value)}
+                  placeholder="#3B82F6"
+                  className="w-32 font-mono text-sm"
+                />
+              </div>
+              <p className="text-xs text-muted-foreground">
+                Used as the accent color in your client portal
+              </p>
             </div>
           ) : (
-            <>
-              <div className="flex items-center gap-4">
-                {logoUrl ? (
-                  <div className="relative">
-                    <img
-                      src={logoUrl}
-                      alt="Organization logo"
-                      className="h-16 w-16 object-contain rounded-lg border bg-background"
-                    />
-                    <button
-                      onClick={handleRemoveLogo}
-                      className="absolute -top-2 -right-2 p-1 bg-destructive text-destructive-foreground rounded-full hover:bg-destructive/90"
-                    >
-                      <X className="h-3 w-3" />
-                    </button>
-                  </div>
-                ) : (
-                  <div className="h-16 w-16 rounded-lg border-2 border-dashed border-muted-foreground/25 flex items-center justify-center">
-                    <Image className="h-6 w-6 text-muted-foreground/50" />
-                  </div>
-                )}
+            <div className="mt-4 p-3 rounded-lg bg-muted/50 border border-border">
+              <p className="text-sm text-muted-foreground">
+                Upgrade to <strong>Boutique</strong> or higher to customize portal colors and remove "Powered by Ledger Stash" branding.
+              </p>
+              <Button variant="outline" size="sm" className="mt-2" asChild>
+                <Link to="/pricing">View Plans</Link>
+              </Button>
+            </div>
+          )}
 
-                <div>
-                  <input
-                    ref={fileInputRef}
-                    type="file"
-                    accept="image/*"
-                    onChange={handleLogoUpload}
-                    className="hidden"
-                  />
-                  <Button
-                    variant="outline"
-                    onClick={() => fileInputRef.current?.click()}
-                    disabled={uploading}
-                  >
-                    {uploading ? (
-                      <>
-                        <Loader2 className="h-4 w-4 animate-spin" />
-                        Uploading...
-                      </>
-                    ) : (
-                      <>
-                        <Upload className="h-4 w-4" />
-                        Upload Logo
-                      </>
-                    )}
-                  </Button>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    PNG, JPG up to 2MB. Recommended: 200x200px
-                  </p>
-                </div>
+          {/* Branding Preview */}
+          {logoUrl && (
+            <div className="mt-4 p-4 rounded-lg border bg-muted/30">
+              <p className="text-sm font-medium mb-2">Preview: Client Portal Header</p>
+              <div className="flex items-center gap-3 p-3 bg-background rounded border">
+                <img src={logoUrl} alt="Logo" className="h-8 w-8 object-contain" />
+                <span className="font-semibold">{orgName || "Your Organization"}</span>
               </div>
-
-              {/* Branding Preview */}
-              {logoUrl && (
-                <div className="mt-4 p-4 rounded-lg border bg-muted/30">
-                  <p className="text-sm font-medium mb-2">Preview: Client Portal Header</p>
-                  <div className="flex items-center gap-3 p-3 bg-background rounded border">
-                    <img src={logoUrl} alt="Logo" className="h-8 w-8 object-contain" />
-                    <span className="font-semibold">{orgName || "Your Organization"}</span>
-                  </div>
-                </div>
+              {!isBoutiqueOrAbove && (
+                <p className="text-xs text-muted-foreground mt-2 italic">
+                  "Powered by Ledger Stash" footer will appear on Solo plans
+                </p>
               )}
-            </>
+            </div>
           )}
         </CardContent>
       </Card>
