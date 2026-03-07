@@ -24,7 +24,8 @@ const TEXT_MUTED: [number, number, number] = [98, 107, 122];
 const WHITE: [number, number, number] = [255, 255, 255];
 const LIGHT_BG: [number, number, number] = [241, 243, 245];
 const SUCCESS: [number, number, number] = [22, 163, 74];
-const DANGER: [number, number, number] = [220, 38, 38];
+
+const TRIAL_URL = "https://ledgerstash.com/signup";
 
 function addPageFooter(doc: jsPDF, pageNum: number, totalPages: number) {
   const pw = doc.internal.pageSize.getWidth();
@@ -51,7 +52,6 @@ export async function generateBlueOceanPdf(): Promise<void> {
     if (shieldBase64) {
       try {
         if (inverted) {
-          // Draw a white rounded rect behind the shield to make it visible on dark backgrounds
           doc.setFillColor(...WHITE);
           doc.roundedRect(pw / 2 - 10, y, 20, 20, 3, 3, "F");
         }
@@ -67,7 +67,6 @@ export async function generateBlueOceanPdf(): Promise<void> {
   // ===== PAGE 1: Title Page =====
   doc.setFillColor(...PRIMARY);
   doc.rect(0, 0, pw, ph, "F");
-  // Accent stripe
   doc.setFillColor(...ACCENT);
   doc.rect(0, ph * 0.65, pw, 4, "F");
 
@@ -84,12 +83,15 @@ export async function generateBlueOceanPdf(): Promise<void> {
   const subtitle = "Stop chasing tax docs over email. Give your clients a secure,\nwhite-labeled vault to exchange sensitive documents, track\nPBC lists, and build professional trust.";
   doc.text(subtitle, pw / 2, 135, { align: "center", lineHeightFactor: 1.5 });
 
+  // CTA button with clickable link
+  const ctaBtnY1 = ph * 0.7;
   doc.setFillColor(...ACCENT);
-  doc.roundedRect(pw / 2 - 50, ph * 0.7, 100, 14, 3, 3, "F");
+  doc.roundedRect(pw / 2 - 50, ctaBtnY1, 100, 14, 3, 3, "F");
   doc.setFontSize(12);
   doc.setFont("helvetica", "bold");
   doc.setTextColor(...WHITE);
-  doc.text("Start Your 14-Day Free Trial", pw / 2, ph * 0.7 + 9.5, { align: "center" });
+  doc.text("Start Your 14-Day Free Trial", pw / 2, ctaBtnY1 + 9.5, { align: "center" });
+  doc.link(pw / 2 - 50, ctaBtnY1, 100, 14, { url: TRIAL_URL });
 
   doc.setFontSize(10);
   doc.setFont("helvetica", "normal");
@@ -101,7 +103,6 @@ export async function generateBlueOceanPdf(): Promise<void> {
   doc.setFillColor(...WHITE);
   doc.rect(0, 0, pw, ph, "F");
 
-  // Header bar
   doc.setFillColor(...PRIMARY);
   doc.rect(0, 0, pw, 40, "F");
   doc.setTextColor(...WHITE);
@@ -154,7 +155,7 @@ export async function generateBlueOceanPdf(): Promise<void> {
 
   addPageFooter(doc, 2, totalPages);
 
-  // ===== PAGE 3: Comparison Table =====
+  // ===== PAGE 3: Comparison Table (matches website exactly) =====
   doc.addPage();
   doc.setFillColor(...WHITE);
   doc.rect(0, 0, pw, ph, "F");
@@ -167,66 +168,198 @@ export async function generateBlueOceanPdf(): Promise<void> {
   doc.text("Ledger Stash vs. The Competition", pw / 2, 25, { align: "center" });
 
   y = 55;
-  const colW = (pw - 40) / 3;
+  const margin = 15;
+  const tableW = pw - margin * 2;
+  const featureColW = tableW * 0.22;
+  const dataColW = (tableW - featureColW) / 3;
 
-  // Table header
+  // Table header row
+  const headerH = 14;
   doc.setFillColor(...PRIMARY);
-  doc.rect(20, y, pw - 40, 12, "F");
+  doc.rect(margin, y, tableW, headerH, "F");
   doc.setTextColor(...WHITE);
-  doc.setFontSize(10);
+  doc.setFontSize(9);
   doc.setFont("helvetica", "bold");
-  doc.text("Ledger Stash", 20 + colW * 0.5, y + 8, { align: "center" });
-  doc.text("SmartVault", 20 + colW * 1.5, y + 8, { align: "center" });
-  doc.text("TaxDome", 20 + colW * 2.5, y + 8, { align: "center" });
-  y += 12;
+  doc.text("Feature", margin + 4, y + 9);
+  doc.text("Ledger Stash", margin + featureColW + dataColW * 0.5, y + 9, { align: "center" });
+  doc.text("SmartVault", margin + featureColW + dataColW * 1.5, y + 9, { align: "center" });
+  doc.text("TaxDome", margin + featureColW + dataColW * 2.5, y + 9, { align: "center" });
+  y += headerH;
 
+  // Comparison rows — identical to website Comparison.tsx
   const compRows = [
-    { label: "Solo CPA Price", ls: "$29/mo", sv: "$210/mo", td: "$800/yr per seat" },
-    { label: "Annual Savings", ls: "$290/yr (save 16%)", sv: "$1,800/yr (3-user min)", td: "Annual only" },
-    { label: "User Minimums", ls: "None — Unlimited Users", sv: "3-user minimum", td: "1 seat min (team-oriented)" },
-    { label: "Client Login?", ls: "No — Frictionless", sv: "Yes — Account required", td: "Yes — App + account" },
-    { label: "PBC Management", ls: "Accounting-Specific", sv: 'Generic "File Request"', td: 'Generic "File Request"' },
-    { label: "White-Label", ls: "Full (All Plans)", sv: "Custom Portal (All Plans)", td: "Portal Branding Only" },
-    { label: "Setup Time", ls: "Minutes", sv: "Days to Weeks", td: "6–8 Weeks" },
-    { label: "Busy Season Auto", ls: "Auto-Pilot Reminders", sv: "Manual Requests", td: "Complex Setup Required" },
-    { label: "Compliance", ls: "IRS 4557 · FTC · GLBA", sv: "SOC 2 · IRS 4557 · FTC", td: "General Security" },
+    {
+      feature: "Solo CPA Pricing",
+      ls: "$29/month",
+      lsSub: "$290/year (save 16%)",
+      lsSub2: "All Plans Unlimited Users",
+      sv: "$210/month",
+      svSub: "$1,800/year — 3-user minimum",
+      svSub2: "Price per user",
+      td: "$800/year per seat",
+      tdSub: "Annual contract only",
+      tdSub2: "Price per user",
+    },
+    {
+      feature: "User Minimums",
+      ls: "None — Solo CPA Plan",
+      sv: "3 users minimum (Business Pro)",
+      svSub: "2 users minimum (Accounting Pro/Unlimited)",
+      td: "Minimum 1 seat, but designed for teams",
+    },
+    {
+      feature: "Client Login Required?",
+      ls: "No — Frictionless Access",
+      sv: "Yes — Clients must create account",
+      td: "Yes — Account & mobile app required",
+    },
+    {
+      feature: "PBC List Management",
+      ls: "Accounting-Specific Terminology",
+      sv: 'Generic "File Request" Tool',
+      td: 'Generic "File Request" Tool',
+    },
+    {
+      feature: "White-Label Branding",
+      ls: "Full White-Labeling (All Plans)",
+      sv: "Custom Branded Client Portal (All Plans)",
+      td: "Client Portal Branding Only",
+    },
+    {
+      feature: "Setup Time",
+      ls: "Minutes — No Training",
+      sv: "Days to Weeks — Requires Training",
+      td: "6–8 Weeks — Dedicated Onboarding Required",
+    },
+    {
+      feature: "Busy Season Automation",
+      ls: "Auto-Pilot Reminders",
+      sv: "Manual Document Requests (SmartRequestAI available)",
+      td: "Automated Requests (Requires Complex Setup)",
+    },
+    {
+      feature: "Compliance Focus",
+      ls: "IRS 4557 · FTC Safeguards · GLBA",
+      sv: "SOC 2 Type 2 · IRS 4557 · FTC Safeguards · GLBA",
+      td: "General Security & Compliance",
+    },
+    {
+      feature: "Target Audience",
+      ls: "Solo CPAs, Boutique Firms, Growing Practices, & Corporate Controllers",
+      sv: "Small to Large Firms",
+      td: "Small to Enterprise Firms",
+    },
+    {
+      feature: "Core Focus",
+      ls: "Secure Vault + PBC Management",
+      sv: "Document Management + Workflow + eSignatures",
+      td: "End-to-End Practice Management",
+    },
   ];
 
   for (let r = 0; r < compRows.length; r++) {
     const row = compRows[r];
-    const rowH = 14;
+
+    // Calculate row height based on content wrapping
+    const colContentW = dataColW - 8;
+    const featureLines = doc.splitTextToSize(row.feature, featureColW - 8);
+    const lsLines = doc.splitTextToSize(row.ls, colContentW);
+    const svLines = doc.splitTextToSize(row.sv, colContentW);
+    const tdLines = doc.splitTextToSize(row.td, colContentW);
+
+    let subLinesCount = 0;
+    if (row.lsSub) subLinesCount = Math.max(subLinesCount, 1);
+    if (row.lsSub2) subLinesCount = Math.max(subLinesCount, 2);
+    if ((row as any).svSub) subLinesCount = Math.max(subLinesCount, 1);
+    if ((row as any).svSub2) subLinesCount = Math.max(subLinesCount, 2);
+    if ((row as any).tdSub) subLinesCount = Math.max(subLinesCount, 1);
+    if ((row as any).tdSub2) subLinesCount = Math.max(subLinesCount, 2);
+
+    const mainMaxLines = Math.max(featureLines.length, lsLines.length, svLines.length, tdLines.length);
+    const rowH = Math.max(14, mainMaxLines * 4.5 + subLinesCount * 4 + 8);
+
+    // Alternating row background
     if (r % 2 === 0) {
       doc.setFillColor(...LIGHT_BG);
-      doc.rect(20, y, pw - 40, rowH, "F");
+      doc.rect(margin, y, tableW, rowH, "F");
     }
-    doc.setFontSize(8);
+
+    // Draw column dividers
+    doc.setDrawColor(220, 220, 220);
+    doc.line(margin + featureColW, y, margin + featureColW, y + rowH);
+    doc.line(margin + featureColW + dataColW, y, margin + featureColW + dataColW, y + rowH);
+    doc.line(margin + featureColW + dataColW * 2, y, margin + featureColW + dataColW * 2, y + rowH);
+
+    const textY = y + 6;
+
+    // Feature label
+    doc.setFontSize(7.5);
     doc.setFont("helvetica", "bold");
     doc.setTextColor(...TEXT_DARK);
+    doc.text(featureLines, margin + 4, textY);
 
-    // LedgerStash column (green)
+    // Ledger Stash column (green/success)
+    doc.setFontSize(7.5);
+    doc.setFont("helvetica", "bold");
     doc.setTextColor(...SUCCESS);
-    doc.text(row.ls, 20 + colW * 0.5, y + 5, { align: "center" });
-    doc.setFontSize(6.5);
-    doc.setTextColor(...TEXT_MUTED);
-    doc.text(row.label, 20 + colW * 0.5, y + 10, { align: "center" });
+    doc.text(lsLines, margin + featureColW + 4, textY);
+    let lsSubY = textY + lsLines.length * 4;
+    if (row.lsSub) {
+      doc.setFontSize(6);
+      doc.setFont("helvetica", "normal");
+      doc.setTextColor(...TEXT_MUTED);
+      doc.text(row.lsSub, margin + featureColW + 4, lsSubY + 1);
+      lsSubY += 4;
+    }
+    if (row.lsSub2) {
+      doc.setFontSize(6);
+      doc.setFont("helvetica", "normal");
+      doc.setTextColor(...SUCCESS);
+      doc.text(row.lsSub2, margin + featureColW + 4, lsSubY + 1);
+    }
 
     // SmartVault column
-    doc.setFontSize(8);
+    doc.setFontSize(7.5);
     doc.setFont("helvetica", "normal");
     doc.setTextColor(...TEXT_MUTED);
-    doc.text(row.sv, 20 + colW * 1.5, y + 5, { align: "center" });
-    doc.setFontSize(6.5);
-    doc.text(row.label, 20 + colW * 1.5, y + 10, { align: "center" });
+    doc.text(svLines, margin + featureColW + dataColW + 4, textY);
+    let svSubY = textY + svLines.length * 4;
+    if ((row as any).svSub) {
+      doc.setFontSize(6);
+      doc.text((row as any).svSub, margin + featureColW + dataColW + 4, svSubY + 1);
+      svSubY += 4;
+    }
+    if ((row as any).svSub2) {
+      doc.setFontSize(6);
+      doc.setTextColor(220, 38, 38);
+      doc.text((row as any).svSub2, margin + featureColW + dataColW + 4, svSubY + 1);
+    }
 
     // TaxDome column
-    doc.setFontSize(8);
-    doc.text(row.td, 20 + colW * 2.5, y + 5, { align: "center" });
-    doc.setFontSize(6.5);
-    doc.text(row.label, 20 + colW * 2.5, y + 10, { align: "center" });
+    doc.setFontSize(7.5);
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(...TEXT_MUTED);
+    doc.text(tdLines, margin + featureColW + dataColW * 2 + 4, textY);
+    let tdSubY = textY + tdLines.length * 4;
+    if ((row as any).tdSub) {
+      doc.setFontSize(6);
+      doc.text((row as any).tdSub, margin + featureColW + dataColW * 2 + 4, tdSubY + 1);
+      tdSubY += 4;
+    }
+    if ((row as any).tdSub2) {
+      doc.setFontSize(6);
+      doc.setTextColor(220, 38, 38);
+      doc.text((row as any).tdSub2, margin + featureColW + dataColW * 2 + 4, tdSubY + 1);
+    }
+
+    // Bottom row border
+    doc.setDrawColor(220, 220, 220);
+    doc.line(margin, y + rowH, margin + tableW, y + rowH);
 
     y += rowH;
   }
 
+  // Savings callout
   y += 10;
   doc.setFillColor(...SUCCESS);
   doc.roundedRect(pw / 2 - 45, y, 90, 18, 3, 3, "F");
@@ -381,12 +514,12 @@ export async function generateBlueOceanPdf(): Promise<void> {
   doc.setFillColor(...PRIMARY);
   doc.rect(0, 0, pw, ph, "F");
 
-  drawLogoHeader(doc, 30, WHITE, true);
+  drawLogoHeader(doc, 35, WHITE, true);
 
   doc.setTextColor(...WHITE);
   doc.setFontSize(26);
   doc.setFont("helvetica", "bold");
-  doc.text("Your Winning Hand", pw / 2, 90, { align: "center" });
+  doc.text("Your Winning Hand", pw / 2, 95, { align: "center" });
 
   // Three pillars
   const pillars = ["Simplicity", "Affordability", "Purpose-Built"];
@@ -394,14 +527,14 @@ export async function generateBlueOceanPdf(): Promise<void> {
   for (let i = 0; i < pillars.length; i++) {
     const x = pillarX * (i + 1);
     doc.setFillColor(...ACCENT);
-    doc.roundedRect(x - 28, 100, 56, 28, 3, 3, "F");
+    doc.roundedRect(x - 30, 110, 60, 26, 3, 3, "F");
     doc.setTextColor(...WHITE);
     doc.setFontSize(11);
     doc.setFont("helvetica", "bold");
-    doc.text(pillars[i], x, 117, { align: "center" });
+    doc.text(pillars[i], x, 126, { align: "center" });
   }
 
-  y = 150;
+  y = 155;
   doc.setTextColor(200, 200, 220);
   doc.setFontSize(11);
   doc.setFont("helvetica", "normal");
@@ -416,26 +549,32 @@ export async function generateBlueOceanPdf(): Promise<void> {
   ];
   for (const line of closingLines) {
     doc.text(line, pw / 2, y, { align: "center" });
-    y += 10;
+    y += 12;
   }
 
+  // CTA button with clickable link
   y += 15;
+  const ctaBtnW = 120;
+  const ctaBtnH = 18;
+  const ctaBtnX = pw / 2 - ctaBtnW / 2;
   doc.setFillColor(...ACCENT);
-  doc.roundedRect(pw / 2 - 55, y, 110, 16, 4, 4, "F");
+  doc.roundedRect(ctaBtnX, y, ctaBtnW, ctaBtnH, 4, 4, "F");
   doc.setTextColor(...WHITE);
   doc.setFontSize(13);
   doc.setFont("helvetica", "bold");
-  doc.text("Start Your 14-Day Free Trial", pw / 2, y + 11, { align: "center" });
+  doc.text("Start Your 14-Day Free Trial", pw / 2, y + 12, { align: "center" });
+  doc.link(ctaBtnX, y, ctaBtnW, ctaBtnH, { url: TRIAL_URL });
 
-  y += 28;
-  doc.setFontSize(12);
+  y += 30;
+  doc.setFontSize(11);
   doc.setFont("helvetica", "normal");
   doc.setTextColor(200, 200, 220);
-  doc.text("Visit LedgerStash.com today", pw / 2, y, { align: "center" });
+  doc.text("ledgerstash.com", pw / 2, y, { align: "center" });
+  doc.link(pw / 2 - 25, y - 5, 50, 10, { url: "https://ledgerstash.com" });
 
   doc.setFontSize(8);
   doc.setTextColor(150, 150, 170);
-  doc.text("No email required to download this guide. Free resource for solo CPAs.", pw / 2, ph - 20, { align: "center" });
+  doc.text("No email required to download this guide. Free resource for solo CPAs.", pw / 2, ph - 25, { align: "center" });
 
   // Save
   doc.save("LedgerStash_Comparison.pdf");
