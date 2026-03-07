@@ -343,7 +343,7 @@ export default function Recipients() {
                         Adding...
                       </>
                     ) : (
-                      "Add Recipient"
+                      "Add Contact"
                     )}
                   </Button>
                 </div>
