@@ -116,13 +116,18 @@ export default function Clients() {
           <h1 className="text-2xl font-bold text-foreground">Clients</h1>
           <p className="text-muted-foreground">Manage your firm's clients</p>
         </div>
-        <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-          <DialogTrigger asChild>
-            <Button variant="hero" size="sm">
-              <Plus className="h-4 w-4" />
-              Add Client
-            </Button>
-          </DialogTrigger>
+        <div className="flex items-center gap-2">
+          <Button variant="outline" size="sm" onClick={() => setCsvImportOpen(true)}>
+            <Upload className="h-4 w-4" />
+            Import CSV
+          </Button>
+          <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+            <DialogTrigger asChild>
+              <Button variant="hero" size="sm">
+                <Plus className="h-4 w-4" />
+                Add Client
+              </Button>
+            </DialogTrigger>
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Add New Client</DialogTitle>
