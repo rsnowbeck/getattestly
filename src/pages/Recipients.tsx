@@ -268,7 +268,7 @@ export default function Recipients() {
             <DialogTrigger asChild>
               <Button variant="hero" disabled={!planLimits.canAddRecipient}>
                 <Plus className="h-4 w-4" />
-                Add Recipient
+                Add Contact
               </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-md">
