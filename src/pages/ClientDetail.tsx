@@ -300,6 +300,15 @@ export default function ClientDetail() {
         {client.notes && (
           <p className="mt-3 text-sm text-muted-foreground bg-muted/50 rounded-lg p-3">{client.notes}</p>
         )}
+        {portalLink && (
+          <div className="mt-3 flex items-center gap-2 bg-success/5 border border-success/20 rounded-lg p-3">
+            <p className="text-sm text-foreground flex-1 truncate">{portalLink}</p>
+            <Button variant="outline" size="sm" onClick={copyPortalLink}>
+              <Copy className="h-3.5 w-3.5" />
+              Copy
+            </Button>
+          </div>
+        )}
       </div>
 
       {/* Tabs */}
