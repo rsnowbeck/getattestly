@@ -266,7 +266,7 @@ export function ContactDetailSheet({
                             : `Created ${format(new Date(item.created_at), "MMM d, yyyy")}`}
                         </p>
                         {item.completed_at && (
-                          <p className="text-xs text-green-600">
+                          <p className="text-xs text-primary">
                             Signed {format(new Date(item.completed_at), "MMM d, yyyy")}
                           </p>
                         )}
