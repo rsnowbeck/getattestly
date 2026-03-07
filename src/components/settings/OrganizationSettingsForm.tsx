@@ -41,6 +41,7 @@ export function OrganizationSettingsForm({ organization, onUpdate }: Organizatio
   // Form state
   const [orgName, setOrgName] = useState(organization.name || "");
   const [logoUrl, setLogoUrl] = useState(organization.logo_url || "");
+  const [accentColor, setAccentColor] = useState((organization as any).accent_color || "#3B82F6");
   const [senderName, setSenderName] = useState(organization.sender_name || "");
   const [senderEmail, setSenderEmail] = useState(organization.sender_email || "");
   const [defaultDueDays, setDefaultDueDays] = useState(organization.default_due_days?.toString() || "30");
