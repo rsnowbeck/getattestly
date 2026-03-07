@@ -120,9 +120,7 @@ export function OrganizationSettingsForm({ organization, onUpdate }: Organizatio
   const handleSave = async () => {
     setSaving(true);
     try {
-      const { error } = await supabase
-        .from("organizations")
-        .update({
+      const updateData: Record<string, any> = {
           name: orgName,
           logo_url: logoUrl || null,
           sender_name: senderName || null,
@@ -131,8 +129,12 @@ export function OrganizationSettingsForm({ organization, onUpdate }: Organizatio
           auto_reminder_enabled: autoReminderEnabled,
           auto_reminder_days: parseInt(autoReminderDays) || 7,
           session_timeout_minutes: parseInt(sessionTimeout) || 30,
+          accent_color: canCustomizeColors ? accentColor : null,
           updated_at: new Date().toISOString(),
-        })
+        };
+      const { error } = await supabase
+        .from("organizations")
+        .update(updateData as any)
         .eq("id", organization.id);
 
       if (error) throw error;
