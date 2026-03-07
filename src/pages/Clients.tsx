@@ -22,11 +22,13 @@ import { ClientCSVImportDialog } from "@/components/clients/ClientCSVImportDialo
 import { usePlanLimits } from "@/hooks/usePlanLimits";
 import { Plus, Search, Users, Upload } from "lucide-react";
 import { toast } from "sonner";
+import { useOrganization } from "@/hooks/useOrganization";
 
 export default function Clients() {
   usePageTitle("Clients");
   const navigate = useNavigate();
   const { user, loading: authLoading } = useAuth();
+  const { organization } = useOrganization(user);
   const [clients, setClients] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
@@ -35,7 +37,8 @@ export default function Clients() {
   const [csvImportOpen, setCsvImportOpen] = useState(false);
   const [saving, setSaving] = useState(false);
   const [form, setForm] = useState({ first_name: "", last_name: "", email: "", notes: "" });
-  const { clientLimit } = usePlanLimits(user);
+
+  const clientLimit = organization?.recipient_limit ?? 10;
 
   useEffect(() => {
     if (user?.id) loadClients();
