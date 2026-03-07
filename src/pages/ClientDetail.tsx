@@ -403,13 +403,18 @@ export default function ClientDetail() {
 
         {/* Tasks Tab */}
         <TabsContent value="tasks" className="space-y-4">
-          <Dialog open={taskDialogOpen} onOpenChange={setTaskDialogOpen}>
-            <DialogTrigger asChild>
-              <Button variant="hero" size="sm">
-                <Plus className="h-4 w-4" />
-                New Task
-              </Button>
-            </DialogTrigger>
+          <div className="flex items-center gap-2">
+            <Button variant="outline" size="sm" onClick={() => setTemplatePickerOpen(true)}>
+              <ListChecks className="h-4 w-4" />
+              Use Template
+            </Button>
+            <Dialog open={taskDialogOpen} onOpenChange={setTaskDialogOpen}>
+              <DialogTrigger asChild>
+                <Button variant="hero" size="sm">
+                  <Plus className="h-4 w-4" />
+                  New Task
+                </Button>
+              </DialogTrigger>
             <DialogContent>
               <DialogHeader>
                 <DialogTitle>Create Task</DialogTitle>
