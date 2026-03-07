@@ -42,6 +42,7 @@ export default function ClientDetail() {
   const [tasks, setTasks] = useState<any[]>([]);
   const [folders, setFolders] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [contactCount, setContactCount] = useState(0);
 
   // Task dialog
   const [taskDialogOpen, setTaskDialogOpen] = useState(false);
