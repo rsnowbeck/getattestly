@@ -93,32 +93,7 @@ export default function ClientDetail() {
     }
   };
 
-  const handleCreateTask = async () => {
-    if (!id || !user?.id || !taskForm.title) {
-      toast.error("Please enter a task title");
-      return;
-    }
-    setTaskSaving(true);
-    try {
-      const { error } = await supabase.from('tasks').insert({
-        client_id: id,
-        assigned_by: user.id,
-        title: taskForm.title,
-        description: taskForm.description || null,
-        due_date: taskForm.due_date || null,
-        priority: taskForm.priority,
-      });
-      if (error) throw error;
-      toast.success("Task created");
-      setTaskForm({ title: "", description: "", due_date: "", priority: "medium" });
-      setTaskDialogOpen(false);
-      loadClientData();
-    } catch (error: any) {
-      toast.error(error.message || "Failed to create task");
-    } finally {
-      setTaskSaving(false);
-    }
-  };
+  // handleCreateTask is now merged into handleSaveTask below
 
   const handleCreateFolder = async () => {
     if (!id || !folderName) return;
