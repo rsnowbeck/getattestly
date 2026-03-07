@@ -17,6 +17,7 @@ export const STRIPE_PLANS = {
       "Up to 25 active clients",
       "Secure document vault",
       "PBC task lists",
+      "Audit logs",
       "Standard branding",
       "Email notifications",
       "Per-client folders",
