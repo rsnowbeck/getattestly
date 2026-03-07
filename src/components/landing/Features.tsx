@@ -1,4 +1,4 @@
-import { Users, FileText, Send, BarChart3, Download, Shield, Clock, Bell } from "lucide-react";
+import { Users, FileText, Send, BarChart3, Download, Shield, Clock, Bell, Scale } from "lucide-react";
 
 interface Feature {
   icon: any;
@@ -34,6 +34,10 @@ const features: Feature[] = [{
   icon: Download,
   title: "Audit-Ready Export",
   description: "Download organized document packages with timestamps, IP tracking, and full activity history for any client or engagement."
+}, {
+  icon: Scale,
+  title: "ESIGN & UETA Compliant Audit Trail",
+  description: "Every document acknowledgment captures IP address, timestamp, browser fingerprint, and signed name — with downloadable PDF certificates for legally defensible proof."
 }, {
   icon: FileText,
   title: "Engagement Letter Tracking",
