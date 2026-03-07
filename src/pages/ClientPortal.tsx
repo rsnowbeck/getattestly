@@ -197,13 +197,18 @@ export default function ClientPortal() {
   if (!client) return null;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background" style={accentColor ? { "--portal-accent": accentColor } as React.CSSProperties : undefined}>
       {/* Header */}
       <header className="border-b border-border bg-card">
         <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
-          <div>
-            <h1 className="text-lg font-bold text-foreground">LedgerStash</h1>
-            {firmName && <p className="text-sm text-muted-foreground">{firmName}</p>}
+          <div className="flex items-center gap-3">
+            {firmLogoUrl && (
+              <img src={firmLogoUrl} alt={firmName} className="h-8 w-8 object-contain rounded" />
+            )}
+            <div>
+              <h1 className="text-lg font-bold text-foreground">{firmName || "LedgerStash"}</h1>
+              {firmName && <p className="text-xs text-muted-foreground">Secure Client Portal</p>}
+            </div>
           </div>
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
             <Shield className="h-3.5 w-3.5" />
