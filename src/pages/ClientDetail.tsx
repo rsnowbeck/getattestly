@@ -593,6 +593,17 @@ export default function ClientDetail() {
             </div>
           )}
         </TabsContent>
+        {/* Contacts Tab - Business clients only */}
+        {client.client_type === 'business' && organization?.id && (
+          <TabsContent value="contacts">
+            <ClientContacts
+              clientId={client.id}
+              organizationId={organization.id}
+              clientEmail={client.email}
+              clientName={client.company_name || `${client.first_name} ${client.last_name}`}
+            />
+          </TabsContent>
+        )}
       </Tabs>
     </DashboardLayout>
   );
