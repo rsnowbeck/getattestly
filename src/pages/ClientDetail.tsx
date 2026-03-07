@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
+import { ClientContacts } from "@/components/clients/ClientContacts";
+import { useOrganization } from "@/hooks/useOrganization";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -34,6 +36,7 @@ import { toast } from "sonner";
 export default function ClientDetail() {
   const { id } = useParams<{ id: string }>();
   const { user, loading: authLoading } = useAuth();
+  const { organization } = useOrganization(user);
   const [client, setClient] = useState<any>(null);
   const [documents, setDocuments] = useState<any[]>([]);
   const [tasks, setTasks] = useState<any[]>([]);
@@ -333,7 +336,14 @@ export default function ClientDetail() {
               <span className="text-lg font-bold text-primary">{client.first_name?.[0]}{client.last_name?.[0]}</span>
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-foreground">{client.first_name} {client.last_name}</h1>
+              <h1 className="text-2xl font-bold text-foreground">
+                {client.client_type === 'business' && client.company_name
+                  ? client.company_name
+                  : `${client.first_name} ${client.last_name}`}
+              </h1>
+              {client.client_type === 'business' && (
+                <p className="text-sm text-foreground/80">{client.first_name} {client.last_name} · Primary Contact</p>
+              )}
               <p className="text-muted-foreground">{client.email}</p>
             </div>
           </div>
@@ -372,6 +382,9 @@ export default function ClientDetail() {
         <TabsList>
           <TabsTrigger value="documents">Documents ({documents.length})</TabsTrigger>
           <TabsTrigger value="tasks">Tasks ({tasks.length})</TabsTrigger>
+          {client.client_type === 'business' && (
+            <TabsTrigger value="contacts">Contacts</TabsTrigger>
+          )}
         </TabsList>
 
         {/* Documents Tab */}
@@ -587,6 +600,17 @@ export default function ClientDetail() {
             </div>
           )}
         </TabsContent>
+        {/* Contacts Tab - Business clients only */}
+        {client.client_type === 'business' && organization?.id && (
+          <TabsContent value="contacts">
+            <ClientContacts
+              clientId={client.id}
+              organizationId={organization.id}
+              clientEmail={client.email}
+              clientName={client.company_name || `${client.first_name} ${client.last_name}`}
+            />
+          </TabsContent>
+        )}
       </Tabs>
     </DashboardLayout>
   );

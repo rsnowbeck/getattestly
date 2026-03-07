@@ -29,7 +29,6 @@ interface DashboardLayoutProps {
 const baseNavItems = [
   { label: "Dashboard", icon: BarChart3, href: "/dashboard" },
   { label: "Clients", icon: Users, href: "/clients" },
-  { label: "Contacts", icon: UserCheck, href: "/recipients" },
   { label: "Requirements", icon: ClipboardList, href: "/requirements" },
   { label: "Signatures", icon: FileSignature, href: "/signatures" },
   { label: "Documents", icon: FolderOpen, href: "/documents" },
