@@ -71,6 +71,7 @@ const App = () => {
           <Route path="/settings" element={<Settings />} />
           <Route path="/accept-invite" element={<AcceptInvite />} />
           <Route path="/welcome" element={<Welcome />} />
+          <Route path="/portal/:token" element={<ClientPortal />} />
           <Route path="/recipients" element={<Recipients />} />
           <Route path="/requirements" element={<Requirements />} />
           <Route path="/requirements/:id" element={<RequirementDetail />} />

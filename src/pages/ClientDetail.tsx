@@ -357,13 +357,11 @@ export default function ClientDetail() {
             </div>
           )}
 
+          {/* Drop Zone */}
+          <DropZone onFiles={handleDropFiles} uploading={uploading} />
+
           {/* Documents List */}
-          {documents.length === 0 ? (
-            <div className="text-center py-12 border border-dashed border-border rounded-xl">
-              <FileText className="h-10 w-10 text-muted-foreground mx-auto mb-3" />
-              <p className="text-muted-foreground">No documents yet. Upload files to get started.</p>
-            </div>
-          ) : (
+          {documents.length > 0 && (
             <div className="card-elevated overflow-hidden">
               <table className="w-full">
                 <thead>
