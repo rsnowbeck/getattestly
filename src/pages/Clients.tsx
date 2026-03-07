@@ -160,8 +160,21 @@ export default function Clients() {
               </Button>
             </DialogFooter>
           </DialogContent>
-        </Dialog>
+          </Dialog>
+        </div>
       </div>
+
+      {firmId && (
+        <ClientCSVImportDialog
+          open={csvImportOpen}
+          onOpenChange={setCsvImportOpen}
+          firmId={firmId}
+          existingEmails={new Set(clients.map((c: any) => c.email?.toLowerCase()))}
+          onSuccess={loadClients}
+          clientLimit={clientLimit}
+          currentCount={clients.length}
+        />
+      )}
 
       {/* Search */}
       <div className="relative mb-6 max-w-sm">
