@@ -464,7 +464,7 @@ export default function Requirements() {
         </div>
         <Button variant="hero" onClick={handleNewRequirementClick} disabled={!planLimits.canAddRequirement}>
           <Plus className="h-4 w-4" />
-          New Requirement
+          New Document Request
         </Button>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogContent className="sm:max-w-lg">
