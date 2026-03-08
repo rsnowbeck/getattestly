@@ -27,6 +27,7 @@ export default function Dashboard() {
   usePageTitle("Dashboard");
   const { user, loading: authLoading } = useAuth();
   const { organization } = useOrganization(user);
+  const { planKey } = useSubscription(user);
   const navigate = useNavigate();
   const [stats, setStats] = useState({
     totalClients: 0,
