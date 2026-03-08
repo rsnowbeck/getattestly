@@ -448,6 +448,7 @@ export default function Dashboard() {
         </div>
       )}
       <OnboardingTour organizationId={organization?.id} />
+      <PlanWelcomeOverlay organizationId={organization?.id} planKey={planKey} />
     </DashboardLayout>
   );
 }
