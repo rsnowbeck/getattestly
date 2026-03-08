@@ -202,6 +202,10 @@ export default function Clients() {
     `${c.first_name} ${c.last_name} ${c.email} ${c.company_name || ""}`.toLowerCase().includes(search.toLowerCase())
   );
 
+  // Reset to page 1 when search changes
+  const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+  const paginatedClients = filtered.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+
   if (authLoading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
