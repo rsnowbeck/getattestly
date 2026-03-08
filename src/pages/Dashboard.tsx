@@ -4,6 +4,7 @@ import { usePageTitle } from "@/hooks/usePageTitle";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Progress } from "@/components/ui/progress";
 import { 
   Users, 
   FolderOpen, 
@@ -15,6 +16,8 @@ import {
   Lock,
   FileText,
   Upload,
+  AlertCircle,
+  Send,
 } from "lucide-react";
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { useAuth } from "@/hooks/useAuth";
@@ -22,6 +25,20 @@ import { useOrganization } from "@/hooks/useOrganization";
 import { OnboardingTour } from "@/components/onboarding/OnboardingTour";
 import { PlanWelcomeOverlay } from "@/components/onboarding/PlanWelcomeOverlay";
 import { useSubscription } from "@/hooks/useSubscription";
+
+interface ClientWithTasks {
+  id: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  company_name: string | null;
+  client_type: string;
+  status: string;
+  totalTasks: number;
+  completedTasks: number;
+  pendingTasks: number;
+  highPriorityPending: number;
+}
 
 export default function Dashboard() {
   usePageTitle("Dashboard");
@@ -36,8 +53,7 @@ export default function Dashboard() {
     completedTasks: 0,
   });
   const [statsLoading, setStatsLoading] = useState(true);
-  const [recentClients, setRecentClients] = useState<any[]>([]);
-  const [recentTasks, setRecentTasks] = useState<any[]>([]);
+  const [clientsWithTasks, setClientsWithTasks] = useState<ClientWithTasks[]>([]);
   const [recentDocs, setRecentDocs] = useState<any[]>([]);
   const [firmId, setFirmId] = useState<string | null>(null);
 
@@ -58,9 +74,7 @@ export default function Dashboard() {
         .maybeSingle();
 
       if (!firmMember) {
-        // Use company_name from signup metadata, fallback to profile name
         const companyName = user.user_metadata?.company_name;
-        
         let firmName = companyName || 'My Firm';
         if (!companyName) {
           const { data: profile } = await supabase
@@ -97,52 +111,84 @@ export default function Dashboard() {
 
   const fetchStats = async (fId: string) => {
     try {
+      // Fetch all clients
       const { data: clients, count: clientsCount } = await supabase
         .from('clients')
         .select('*', { count: 'exact' })
         .eq('firm_id', fId)
-        .order('created_at', { ascending: false })
-        .limit(5);
+        .order('created_at', { ascending: false });
 
-      setRecentClients(clients || []);
+      const allClients = clients || [];
+      const clientIds = allClients.map(c => c.id);
 
-      const clientIds = (clients || []).map(c => c.id);
-
+      // Fetch docs count
       const { count: docsCount } = await supabase
         .from('documents')
         .select('*', { count: 'exact', head: true })
-        .in('client_id', clientIds);
+        .in('client_id', clientIds.length > 0 ? clientIds : ['00000000-0000-0000-0000-000000000000']);
 
-      // Fetch recent documents for the vault table
+      // Fetch recent documents
+      let docs: any[] = [];
       if (clientIds.length > 0) {
-        const { data: docs } = await supabase
+        const { data: docsData } = await supabase
           .from('documents')
           .select('*, clients!inner(first_name, last_name)')
           .in('client_id', clientIds)
           .order('created_at', { ascending: false })
           .limit(5);
-        setRecentDocs(docs || []);
+        docs = docsData || [];
+      }
+      setRecentDocs(docs);
+
+      // Fetch ALL tasks for these clients (not just 5)
+      let allTasks: any[] = [];
+      if (clientIds.length > 0) {
+        const { data: tasks } = await supabase
+          .from('tasks')
+          .select('*')
+          .in('client_id', clientIds);
+        allTasks = tasks || [];
       }
 
-      // Fetch tasks
-      const { data: tasks } = await supabase
-        .from('tasks')
-        .select('*')
-        .in('client_id', clientIds)
-        .order('created_at', { ascending: false })
-        .limit(5);
-
-      setRecentTasks(tasks || []);
-
-      const pending = (tasks || []).filter(t => t.status !== 'completed').length;
-      const completed = (tasks || []).filter(t => t.status === 'completed').length;
+      const totalPending = allTasks.filter(t => t.status !== 'completed').length;
+      const totalCompleted = allTasks.filter(t => t.status === 'completed').length;
 
       setStats({
         totalClients: clientsCount || 0,
         totalDocuments: docsCount || 0,
-        pendingTasks: pending,
-        completedTasks: completed,
+        pendingTasks: totalPending,
+        completedTasks: totalCompleted,
       });
+
+      // Build client-with-tasks view
+      const clientTaskMap: ClientWithTasks[] = allClients.map(client => {
+        const clientTasks = allTasks.filter(t => t.client_id === client.id);
+        const completed = clientTasks.filter(t => t.status === 'completed').length;
+        const pending = clientTasks.filter(t => t.status !== 'completed').length;
+        const highPriority = clientTasks.filter(t => t.status !== 'completed' && t.priority === 'high').length;
+        return {
+          id: client.id,
+          first_name: client.first_name,
+          last_name: client.last_name,
+          email: client.email,
+          company_name: client.company_name,
+          client_type: client.client_type,
+          status: client.status,
+          totalTasks: clientTasks.length,
+          completedTasks: completed,
+          pendingTasks: pending,
+          highPriorityPending: highPriority,
+        };
+      });
+
+      // Sort: clients with pending tasks first, then by pending count desc
+      clientTaskMap.sort((a, b) => {
+        if (a.pendingTasks > 0 && b.pendingTasks === 0) return -1;
+        if (a.pendingTasks === 0 && b.pendingTasks > 0) return 1;
+        return b.pendingTasks - a.pendingTasks;
+      });
+
+      setClientsWithTasks(clientTaskMap);
     } catch (error) {
       console.error('Error fetching stats:', error);
     }
@@ -188,12 +234,12 @@ export default function Dashboard() {
   const statCards = [
     { label: "Active Clients", value: stats.totalClients.toString(), icon: Users, clickAction: '/clients' },
     { label: "Documents", value: stats.totalDocuments.toString(), icon: FolderOpen, clickAction: '/documents' },
-    { label: "Pending PBC", value: stats.pendingTasks.toString(), icon: Clock, clickAction: '/requirements' },
-    { label: "Completed", value: stats.completedTasks.toString(), icon: CheckCircle, clickAction: '/requirements' },
+    { label: "Pending Tasks", value: stats.pendingTasks.toString(), icon: Clock, clickAction: '/clients' },
+    { label: "Completed", value: stats.completedTasks.toString(), icon: CheckCircle, clickAction: '/clients' },
   ];
 
-  const pendingTasks = recentTasks.filter(t => t.status !== 'completed');
-  const completedTasksList = recentTasks.filter(t => t.status === 'completed');
+  const clientsNeedingAction = clientsWithTasks.filter(c => c.pendingTasks > 0);
+  const clientsAllDone = clientsWithTasks.filter(c => c.totalTasks > 0 && c.pendingTasks === 0);
 
   return (
     <DashboardLayout>
@@ -275,56 +321,124 @@ export default function Dashboard() {
           </div>
         </div>
       ) : (
-        /* Two-Column Layout: PBC Tasks + Document Vault */
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          {/* Left Column: PBC Task List */}
-          <div className="lg:col-span-4 space-y-6">
+          {/* Left Column: Client PBC Status */}
+          <div className="lg:col-span-5 space-y-6">
+            {/* Clients Needing Action */}
             <div className="card-elevated overflow-hidden">
               <div className="p-5 border-b border-border flex justify-between items-center bg-muted/30">
                 <h2 className="font-bold text-foreground flex items-center gap-2 text-sm">
-                  <Clock className="h-4 w-4 text-accent" />
-                  Action Required (PBC)
+                  <AlertCircle className="h-4 w-4 text-destructive" />
+                  Clients Needing Action
                 </h2>
-                <span className="bg-accent/10 text-accent text-xs font-bold px-2 py-1 rounded-full">
-                  {pendingTasks.length} Pending
+                <span className="bg-destructive/10 text-destructive text-xs font-bold px-2 py-1 rounded-full">
+                  {clientsNeedingAction.length}
                 </span>
               </div>
-              <div className="p-4 space-y-3">
-                {recentTasks.length === 0 ? (
-                  <p className="text-sm text-muted-foreground text-center py-6">No PBC tasks yet. Create tasks from a client's page.</p>
+              <div className="divide-y divide-border">
+                {clientsNeedingAction.length === 0 && clientsAllDone.length === 0 ? (
+                  <div className="p-6 text-center">
+                    <Send className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
+                    <p className="text-sm text-muted-foreground">No PBC tasks yet.</p>
+                    <p className="text-xs text-muted-foreground mt-1">Create tasks from a client's detail page.</p>
+                  </div>
+                ) : clientsNeedingAction.length === 0 ? (
+                  <div className="p-6 text-center">
+                    <CheckCircle className="h-8 w-8 text-emerald-500 mx-auto mb-2" />
+                    <p className="text-sm font-medium text-foreground">All caught up!</p>
+                    <p className="text-xs text-muted-foreground mt-1">Every client has completed their tasks.</p>
+                  </div>
                 ) : (
-                  recentTasks.map((task) => (
-                    <div 
-                      key={task.id} 
-                      className={`p-4 rounded-xl border transition-all cursor-pointer hover:shadow-md ${
-                        task.status === 'completed' 
-                        ? 'bg-success/5 border-success/20 opacity-75' 
-                        : 'bg-card border-border hover:border-accent/30'
-                      }`}
-                    >
-                      <div className="flex items-start justify-between mb-2">
-                        <h3 className={`text-sm font-bold ${task.status === 'completed' ? 'text-success line-through' : 'text-foreground'}`}>
-                          {task.title}
-                        </h3>
-                        {task.status === 'completed' ? (
-                          <CheckCircle className="h-4 w-4 text-success flex-shrink-0" />
-                        ) : (
-                          <div className={`w-2 h-2 rounded-full flex-shrink-0 mt-1.5 ${task.priority === 'high' ? 'bg-destructive animate-pulse' : 'bg-warning'}`} />
-                        )}
-                      </div>
-                      <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
-                        <span>{task.due_date ? `Due: ${new Date(task.due_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}` : 'No due date'}</span>
-                        <span className={task.status === 'completed' ? 'text-success' : 'text-accent'}>
-                          {task.status === 'completed' ? 'Done' : task.status}
-                        </span>
-                      </div>
-                    </div>
-                  ))
+                  clientsNeedingAction.slice(0, 8).map((client) => {
+                    const pct = client.totalTasks > 0
+                      ? Math.round((client.completedTasks / client.totalTasks) * 100)
+                      : 0;
+                    const displayName = client.client_type === 'business' && client.company_name
+                      ? client.company_name
+                      : `${client.first_name} ${client.last_name}`;
+
+                    return (
+                      <Link
+                        key={client.id}
+                        to={`/clients/${client.id}`}
+                        className="flex items-center gap-4 p-4 hover:bg-muted/30 transition-colors group"
+                      >
+                        <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                          <span className="text-sm font-semibold text-primary">
+                            {client.first_name?.[0]}{client.last_name?.[0]}
+                          </span>
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center justify-between mb-1">
+                            <p className="text-sm font-semibold text-foreground truncate">{displayName}</p>
+                            <span className="text-xs text-muted-foreground flex-shrink-0 ml-2">
+                              {client.completedTasks}/{client.totalTasks}
+                            </span>
+                          </div>
+                          <Progress value={pct} className="h-1.5 mb-1" />
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs text-muted-foreground">
+                              {client.pendingTasks} pending
+                            </span>
+                            {client.highPriorityPending > 0 && (
+                              <span className="text-[10px] px-1.5 py-0.5 rounded bg-destructive/10 text-destructive font-semibold">
+                                {client.highPriorityPending} required
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                        <ChevronRight className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
+                      </Link>
+                    );
+                  })
                 )}
               </div>
+              {clientsNeedingAction.length > 8 && (
+                <div className="p-3 border-t border-border text-center">
+                  <Button variant="ghost" size="sm" asChild>
+                    <Link to="/clients">
+                      View all {clientsNeedingAction.length} clients
+                      <ArrowRight className="h-3.5 w-3.5 ml-1" />
+                    </Link>
+                  </Button>
+                </div>
+              )}
             </div>
 
-            {/* Security Badge Card */}
+            {/* Completed Clients */}
+            {clientsAllDone.length > 0 && (
+              <div className="card-elevated overflow-hidden">
+                <div className="p-5 border-b border-border flex justify-between items-center bg-muted/30">
+                  <h2 className="font-bold text-foreground flex items-center gap-2 text-sm">
+                    <CheckCircle className="h-4 w-4 text-emerald-500" />
+                    Completed
+                  </h2>
+                  <span className="bg-emerald-500/10 text-emerald-600 text-xs font-bold px-2 py-1 rounded-full">
+                    {clientsAllDone.length}
+                  </span>
+                </div>
+                <div className="divide-y divide-border">
+                  {clientsAllDone.slice(0, 5).map((client) => {
+                    const displayName = client.client_type === 'business' && client.company_name
+                      ? client.company_name
+                      : `${client.first_name} ${client.last_name}`;
+                    return (
+                      <Link
+                        key={client.id}
+                        to={`/clients/${client.id}`}
+                        className="flex items-center gap-3 p-4 hover:bg-muted/30 transition-colors"
+                      >
+                        <CheckCircle className="h-4 w-4 text-emerald-500 flex-shrink-0" />
+                        <p className="text-sm text-muted-foreground">{displayName}</p>
+                        <span className="ml-auto text-xs text-muted-foreground">{client.totalTasks} tasks</span>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {/* Security Badge */}
             <div className="rounded-2xl p-6 text-primary-foreground shadow-lg relative overflow-hidden bg-primary">
               <Lock className="absolute -right-4 -bottom-4 w-24 h-24 text-primary-foreground/10 rotate-12" />
               <div className="relative z-10">
@@ -343,7 +457,7 @@ export default function Dashboard() {
           </div>
 
           {/* Right Column: Document Vault + Recent Clients */}
-          <div className="lg:col-span-8 space-y-6">
+          <div className="lg:col-span-7 space-y-6">
             {/* Document Vault Table */}
             <div className="card-elevated overflow-hidden">
               <div className="p-5 border-b border-border flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -351,14 +465,12 @@ export default function Dashboard() {
                   <h2 className="font-bold text-foreground text-lg">Secure Document Vault</h2>
                   <p className="text-sm text-muted-foreground">Recent documents across all clients.</p>
                 </div>
-                <div className="flex items-center gap-3">
-                  <Button variant="heroOutline" size="sm" asChild>
-                    <Link to="/documents">
-                      <FolderOpen className="h-4 w-4" />
-                      View All
-                    </Link>
-                  </Button>
-                </div>
+                <Button variant="heroOutline" size="sm" asChild>
+                  <Link to="/documents">
+                    <FolderOpen className="h-4 w-4" />
+                    View All
+                  </Link>
+                </Button>
               </div>
 
               {recentDocs.length === 0 ? (
@@ -373,9 +485,9 @@ export default function Dashboard() {
                   <table className="w-full text-left border-collapse">
                     <thead>
                       <tr className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground border-b border-border">
-                        <th className="px-5 py-3">Document Name</th>
-                        <th className="px-5 py-3">Date Added</th>
-                        <th className="px-5 py-3">Size</th>
+                        <th className="px-5 py-3">Document</th>
+                        <th className="px-5 py-3">Client</th>
+                        <th className="px-5 py-3">Date</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-border/50">
@@ -385,19 +497,25 @@ export default function Dashboard() {
                             <div className="flex items-center gap-3">
                               <div className={`p-2 rounded-lg ${
                                 doc.file_type?.includes('pdf') ? 'bg-destructive/10 text-destructive' : 
-                                doc.file_type?.includes('sheet') || doc.file_type?.includes('xlsx') ? 'bg-success/10 text-success' : 
+                                doc.file_type?.includes('sheet') || doc.file_type?.includes('xlsx') ? 'bg-emerald-500/10 text-emerald-600' : 
                                 'bg-accent/10 text-accent'
                               }`}>
                                 <FileText className="w-4 h-4" />
                               </div>
                               <div>
-                                <p className="text-sm font-semibold text-foreground group-hover:text-accent transition-colors">{doc.file_name}</p>
-                                <p className="text-[10px] font-bold text-muted-foreground uppercase">{doc.file_type || 'File'}</p>
+                                <p className="text-sm font-medium text-foreground truncate max-w-[200px]">{doc.file_name}</p>
+                                <p className="text-[10px] text-muted-foreground">
+                                  {doc.file_size_bytes ? (doc.file_size_bytes >= 1048576 ? `${(doc.file_size_bytes / 1048576).toFixed(1)} MB` : `${(doc.file_size_bytes / 1024).toFixed(1)} KB`) : '—'}
+                                </p>
                               </div>
                             </div>
                           </td>
-                          <td className="px-5 py-3 text-sm text-muted-foreground">{new Date(doc.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</td>
-                          <td className="px-5 py-3 text-sm text-muted-foreground">{doc.file_size_bytes ? (doc.file_size_bytes >= 1048576 ? `${(doc.file_size_bytes / 1048576).toFixed(1)} MB` : `${(doc.file_size_bytes / 1024).toFixed(1)} KB`) : '—'}</td>
+                          <td className="px-5 py-3 text-sm text-muted-foreground">
+                            {doc.clients?.first_name} {doc.clients?.last_name}
+                          </td>
+                          <td className="px-5 py-3 text-sm text-muted-foreground">
+                            {new Date(doc.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                          </td>
                         </tr>
                       ))}
                     </tbody>
@@ -418,30 +536,35 @@ export default function Dashboard() {
                 </Button>
               </div>
               <div className="space-y-3">
-                {recentClients.map((client) => (
-                  <Link
-                    key={client.id}
-                    to={`/clients/${client.id}`}
-                    className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
-                        <span className="text-sm font-semibold text-primary">
-                          {client.first_name?.[0]}{client.last_name?.[0]}
-                        </span>
+                {clientsWithTasks.slice(0, 5).map((client) => {
+                  const displayName = client.client_type === 'business' && client.company_name
+                    ? client.company_name
+                    : `${client.first_name} ${client.last_name}`;
+                  return (
+                    <Link
+                      key={client.id}
+                      to={`/clients/${client.id}`}
+                      className="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors"
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
+                          <span className="text-sm font-semibold text-primary">
+                            {client.first_name?.[0]}{client.last_name?.[0]}
+                          </span>
+                        </div>
+                        <div>
+                          <p className="font-medium text-foreground">{displayName}</p>
+                          <p className="text-sm text-muted-foreground">{client.email}</p>
+                        </div>
                       </div>
-                      <div>
-                        <p className="font-medium text-foreground">{client.first_name} {client.last_name}</p>
-                        <p className="text-sm text-muted-foreground">{client.email}</p>
-                      </div>
-                    </div>
-                    <span className={`text-xs px-2 py-1 rounded-full ${
-                      client.status === 'active' ? 'bg-success/10 text-success' : 'bg-muted text-muted-foreground'
-                    }`}>
-                      {client.status}
-                    </span>
-                  </Link>
-                ))}
+                      <span className={`text-xs px-2 py-1 rounded-full ${
+                        client.status === 'active' ? 'bg-emerald-500/10 text-emerald-600' : 'bg-muted text-muted-foreground'
+                      }`}>
+                        {client.status}
+                      </span>
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           </div>
