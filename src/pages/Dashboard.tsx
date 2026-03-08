@@ -185,8 +185,8 @@ export default function Dashboard() {
   const statCards = [
     { label: "Active Clients", value: stats.totalClients.toString(), icon: Users, clickAction: '/clients' },
     { label: "Documents", value: stats.totalDocuments.toString(), icon: FolderOpen, clickAction: '/documents' },
-    { label: "Pending PBC", value: stats.pendingTasks.toString(), icon: Clock, clickAction: '/clients' },
-    { label: "Completed", value: stats.completedTasks.toString(), icon: CheckCircle, clickAction: '/clients' },
+    { label: "Pending PBC", value: stats.pendingTasks.toString(), icon: Clock, clickAction: '/requirements' },
+    { label: "Completed", value: stats.completedTasks.toString(), icon: CheckCircle, clickAction: '/requirements' },
   ];
 
   const pendingTasks = recentTasks.filter(t => t.status !== 'completed');
@@ -239,7 +239,7 @@ export default function Dashboard() {
             <Users className="h-8 w-8" />
           </div>
           <h2 className="text-xl font-semibold text-foreground mb-2">
-            Get started with LedgerStash
+            Get started with Ledger Stash
           </h2>
           <p className="text-muted-foreground max-w-md mx-auto mb-6">
             Add your first client to start exchanging documents and managing PBC task lists securely.

@@ -98,6 +98,8 @@ export default function Clients() {
   const [csvImportOpen, setCsvImportOpen] = useState(false);
   const [saving, setSaving] = useState(false);
   const [form, setForm] = useState<ClientForm>({ ...emptyForm });
+  const [currentPage, setCurrentPage] = useState(1);
+  const ITEMS_PER_PAGE = 25;
 
   const clientLimit = organization?.recipient_limit ?? 10;
 
@@ -199,6 +201,10 @@ export default function Clients() {
   const filtered = clients.filter(c =>
     `${c.first_name} ${c.last_name} ${c.email} ${c.company_name || ""}`.toLowerCase().includes(search.toLowerCase())
   );
+
+  // Reset to page 1 when search changes
+  const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
+  const paginatedClients = filtered.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 
   if (authLoading) {
     return (
@@ -396,7 +402,7 @@ export default function Clients() {
         <Input
           placeholder="Search clients..."
           value={search}
-          onChange={e => setSearch(e.target.value)}
+          onChange={e => { setSearch(e.target.value); setCurrentPage(1); }}
           className="pl-9"
         />
       </div>
@@ -437,7 +443,7 @@ export default function Clients() {
                 </tr>
               </thead>
               <tbody>
-                {filtered.map(client => (
+                {paginatedClients.map(client => (
                   <tr
                     key={client.id}
                     className="border-b border-border last:border-0 hover:bg-muted/30 transition-colors cursor-pointer"
@@ -485,6 +491,36 @@ export default function Clients() {
               </tbody>
             </table>
           </div>
+
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div className="flex items-center justify-between px-4 py-3 border-t border-border">
+              <p className="text-sm text-muted-foreground">
+                Showing {((currentPage - 1) * ITEMS_PER_PAGE) + 1}–{Math.min(currentPage * ITEMS_PER_PAGE, filtered.length)} of {filtered.length}
+              </p>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                  disabled={currentPage === 1}
+                >
+                  Previous
+                </Button>
+                <span className="text-sm text-muted-foreground">
+                  Page {currentPage} of {totalPages}
+                </span>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                  disabled={currentPage === totalPages}
+                >
+                  Next
+                </Button>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </DashboardLayout>
