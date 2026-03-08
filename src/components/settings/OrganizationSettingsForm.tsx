@@ -161,8 +161,8 @@ export function OrganizationSettingsForm({ organization, onUpdate }: Organizatio
   };
 
   const planBadgeVariant = (plan: string): "default" | "secondary" | "outline" => {
-    if (plan === "pro") return "default";
-    if (plan === "team") return "secondary";
+    if (["enterprise", "pro"].includes(plan)) return "default";
+    if (["boutique", "team"].includes(plan)) return "secondary";
     return "outline";
   };
 
