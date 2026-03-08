@@ -731,7 +731,7 @@ export default function Requirements() {
           {!searchQuery && statusFilter === "all" && (
             <Button variant="hero" onClick={handleNewRequirementClick}>
               <Plus className="h-4 w-4" />
-              Create Your First Requirement
+              Create Your First Document Request
             </Button>
           )}
         </div>
