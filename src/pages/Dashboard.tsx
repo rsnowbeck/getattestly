@@ -20,6 +20,8 @@ import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import { useAuth } from "@/hooks/useAuth";
 import { useOrganization } from "@/hooks/useOrganization";
 import { OnboardingTour } from "@/components/onboarding/OnboardingTour";
+import { PlanWelcomeOverlay } from "@/components/onboarding/PlanWelcomeOverlay";
+import { useSubscription } from "@/hooks/useSubscription";
 
 export default function Dashboard() {
   usePageTitle("Dashboard");
