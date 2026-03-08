@@ -31,7 +31,7 @@ const baseNavItems = [
   { label: "Clients", icon: Users, href: "/clients" },
   { label: "Document Requests", icon: ClipboardList, href: "/requirements" },
   { label: "Tracking", icon: FileSignature, href: "/signatures" },
-  { label: "Documents", icon: FolderOpen, href: "/documents" },
+  { label: "Document Vault", icon: FolderOpen, href: "/documents" },
   { label: "Settings", icon: Settings, href: "/settings" },
 ];
 

@@ -84,7 +84,7 @@ const wizardSteps: WizardStep[] = [
     description:
       "Once your PBC list is ready, send it to one or more clients with a single click. They'll receive a branded email with a secure link — no account needed on their end.",
     instructions: [
-      'Click "Send for Collection" on any published requirement',
+      'Click "Send to Clients" on any published document request',
       "Select which clients should receive the request",
       "Clients get an email with a one-click secure upload link",
       "Each link is unique, encrypted, and expires automatically",
