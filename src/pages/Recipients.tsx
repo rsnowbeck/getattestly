@@ -275,7 +275,7 @@ export default function Recipients() {
               <DialogHeader>
                 <DialogTitle>Add Contact</DialogTitle>
                 <DialogDescription>
-                  Add a person who will receive document requests from your clients.
+                  Add a client contact who will receive document requests and PBC list invitations.
                 </DialogDescription>
               </DialogHeader>
               <form onSubmit={handleAddRecipient} className="space-y-4 mt-4">
