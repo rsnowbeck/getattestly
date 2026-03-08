@@ -1,6 +1,6 @@
-# LedgerStash - Secure Client Vault for Accounting Firms
+# LedgerStash — Secure Client Vault for Accounting Firms
 
-> LedgerStash is a secure client vault built for boutique accounting and tax firms. Exchange sensitive documents, manage PBC task lists, and give clients a branded, white-labeled portal with end-to-end encryption and automated follow-ups.
+> LedgerStash is a secure client vault built for solo CPAs, boutique accounting firms, and corporate controllers. Exchange sensitive documents, manage PBC task lists, track engagement letter signatures, and give clients a branded, white-labeled portal — all with end-to-end encryption and automated follow-ups.
 
 ## What LedgerStash Does
 
@@ -8,10 +8,12 @@ LedgerStash is a secure document exchange and task management platform purpose-b
 
 - Create per-client document vaults with organized folders
 - Manage PBC (Provided By Client) task lists with due dates and priorities
-- Exchange sensitive tax documents securely with end-to-end encryption
+- Exchange sensitive tax documents securely with AES-256 encryption
+- Send engagement letters and track acknowledgments with ESIGN/UETA-compliant audit trails
 - Automate Busy Season follow-ups for missing documents
 - White-label the client portal with their firm's branding
-- Export audit-ready document packages with timestamps and activity history
+- Export audit-ready document packages with timestamps, IP addresses, and activity history
+- Generate downloadable PDF certificates for every signed acknowledgment
 
 ## Primary Category
 
@@ -24,41 +26,94 @@ Secure client vault for accounting firms
 - Accounting firm client portal
 - Secure document exchange for CPAs
 - White-label client vault
-- Busy Season automation
+- Busy Season automation tool
+- ESIGN/UETA compliant document signing
+- DocuSign alternative for accounting firms
+- Compliance software for small business
 
 ## Key Features
 
-- **Secure PBC List Management**: Create and track "Provided By Client" task lists using the language accountants actually use
-- **Bank-Grade Compliance Vault**: Encrypted document storage with per-client folders and full audit trails
-- **Busy Season Auto-Pilot**: Automated reminders chase missing documents so you don't have to
-- **Frictionless Client Experience**: Simple invites, no passwords — clients access their vault instantly
-- **White-Label Portal**: Your logo, your colors, your brand — clients see your firm, not ours
-- **Team Collaboration**: Invite team members to manage clients and tasks together
-- **Audit-Ready Export**: Download organized document packages with timestamps and activity history
+- **Secure PBC List Management**: Create and track "Provided By Client" task lists using the language accountants actually use. Templates available for individual returns, W-2 collection, 1099 forms, K-1 packages.
+- **Bank-Grade Compliance Vault**: AES-256 encrypted document storage with per-client folders, file versioning, and full audit trails. IRS Publication 4557, FTC Safeguards Rule, and GLBA compliant.
+- **Busy Season Auto-Pilot**: Automated reminders chase missing documents on a configurable schedule so you don't have to.
+- **Frictionless Client Experience**: Clients receive a secure magic link via email. No passwords, no app downloads, no accounts to create.
+- **White-Label Portal**: Your firm's logo, brand colors, and custom sender name. Clients see your firm, not ours.
+- **Engagement Letter Tracking**: Send engagement letters, fee agreements, and authorization forms. Track who has signed and automate follow-ups.
+- **ESIGN & UETA Compliant Audit Trail**: Every acknowledgment captures IP address, timestamp, browser fingerprint, and the signer's typed name. Downloadable PDF certificates for legally defensible proof.
+- **Audit-Ready Export**: Download organized document packages with timestamps, IP tracking, and full activity history for any client or engagement.
+- **Team Collaboration**: Invite team members with role-based access. Unlimited team members on all plans.
+- **Real-Time Firm Dashboard**: See every client's completion status at a glance. Track who's uploaded, who hasn't, and what's overdue.
+
+## How It Works
+
+1. **Add Your Clients** — Import your client list via CSV or add them individually. Each client gets their own secure vault.
+2. **Create PBC Task Lists** — Define which documents you need (W-2s, 1099s, bank statements). Use templates or build custom lists with due dates.
+3. **Invite & Exchange** — Clients receive a branded email with a secure magic link. They upload documents directly — no accounts needed.
+4. **Track & Close** — Monitor completion across your entire book. Auto-remind stragglers. Export audit-ready packages.
 
 ## Use Cases
 
 - Tax document collection (W-2s, 1099s, K-1s, receipts)
 - Engagement letters and fee agreements
 - Client onboarding with PBC checklists
-- Year-round document exchange
-- Multi-firm practice management
+- Employee policy acknowledgment tracking
+- Contractor and vendor agreement management
+- Client intake and consent forms
+- Year-round secure document exchange
 
 ## Pricing
 
-- **Solo CPA**: $29/month - Up to 25 active clients, standard branding
-- **Boutique Firm**: $79/month - Up to 100 clients, full white-labeling, Busy Season auto-reminders
-- **Enterprise Vault**: $199/month - Unlimited clients, advanced audit logs, API access, multi-firm management
+All plans include unlimited team members. No per-user fees.
+
+- **Solo CPA**: $29/month ($290/year). Up to 25 active clients, standard branding, email support.
+- **Boutique Firm**: $79/month ($790/year). Up to 100 clients, full white-labeling, Busy Season auto-reminders, priority support.
+- **Enterprise Vault**: $199/month ($1,990/year). Unlimited clients, advanced audit logs, dedicated support. API access coming soon.
+
+All plans include a 14-day free trial. No credit card required.
+
+## Competitor Comparison
+
+| Feature | LedgerStash | SmartVault | TaxDome |
+|---------|-------------|------------|---------|
+| Solo CPA pricing | $29/month | $210/month (3-user min) | $800/year per seat |
+| User minimums | None | 3 users | 1 seat |
+| Client login required | No | Yes | Yes |
+| Setup time | Minutes | Days to weeks | 6-8 weeks |
+| PBC terminology | Accounting-specific | Generic | Generic |
+| White-label | All plans (full on Boutique+) | All plans | Portal only |
+
+## Security & Compliance
+
+- AES-256 encryption at rest and TLS 1.3 in transit
+- IRS Publication 4557 compliant
+- FTC Safeguards Rule compliant
+- GLBA compliant
+- ESIGN Act and UETA compliant
+- Full audit trails with IP, timestamp, and browser fingerprint
+- Session timeout controls (configurable 15–120 minutes)
+- Multi-factor authentication (TOTP)
 
 ## Contact
 
 - Website: https://ledgerstash.com
 - Email: hello@ledgerstash.com
+- Pricing: https://ledgerstash.com/pricing
+- Sign up: https://ledgerstash.com/signup
 
-## Technical Details
+## Pages
 
-- Built with React and TypeScript
-- Secure cloud infrastructure
-- SOC 2 Type II compliant practices
-- Data encrypted at rest and in transit
-- GDPR compliant
+- Homepage: https://ledgerstash.com
+- Pricing: https://ledgerstash.com/pricing
+- Compliance Software: https://ledgerstash.com/compliance-software-small-business
+- Policy Acknowledgment: https://ledgerstash.com/policy-acknowledgment-software
+- Fillable PDF Forms: https://ledgerstash.com/fillable-pdf-compliance-forms
+- Digital Policy Signature: https://ledgerstash.com/digital-policy-signature-software
+- DocuSign Alternative: https://ledgerstash.com/docusign-alternative-compliance
+- Client Intake Forms: https://ledgerstash.com/client-intake-consent-forms
+- Contractor Agreements: https://ledgerstash.com/contractor-vendor-agreement-tracking
+- Employee Acknowledgments: https://ledgerstash.com/employee-acknowledgment-tracking
+- Blog - Track Policy Acknowledgments: https://ledgerstash.com/blog/track-employee-policy-acknowledgments
+- Security: https://ledgerstash.com/security
+- Privacy: https://ledgerstash.com/privacy
+- Terms: https://ledgerstash.com/terms
+- Contact: https://ledgerstash.com/contact
