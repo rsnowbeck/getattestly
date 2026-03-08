@@ -451,10 +451,10 @@ export default function Requirements() {
 
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
-        <div>
-          <h1 className="text-2xl font-bold text-foreground">Requirements</h1>
+         <div>
+          <h1 className="text-2xl font-bold text-foreground">Document Requests</h1>
           <p className="text-muted-foreground">
-            Create and manage compliance items that need acknowledgment.
+            Create and manage PBC lists, engagement letters, and document requests for your clients.
             {planLimits.requirementLimit !== -1 && (
               <span className="ml-2 text-xs">
                 ({requirements.length}/{planLimits.requirementLimit} used)
