@@ -518,6 +518,8 @@ export default function Signatures() {
               </ScrollArea>
             </div>
           </>
+            );
+          })()
         )}
       </div>
 
