@@ -479,7 +479,7 @@ export default function Requirements() {
                 <Label htmlFor="title">Title *</Label>
                 <Input
                   id="title"
-                  placeholder="e.g., Employee Handbook 2024"
+                  placeholder="e.g., 2025 Individual Tax Return PBC List"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   required
