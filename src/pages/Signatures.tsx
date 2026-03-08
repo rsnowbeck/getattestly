@@ -59,6 +59,8 @@ export default function Signatures() {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>(searchParams.get("status") || "all");
   const [bulkReminderDialogOpen, setBulkReminderDialogOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const ITEMS_PER_PAGE = 25;
   const { resend, resending } = useResendSigningLink();
 
   // Sync status filter with URL params
