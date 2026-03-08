@@ -2,7 +2,7 @@ import { Shield, Star, Award } from "lucide-react";
 
 const testimonials = [
   {
-    quote: "LedgerStash replaced our messy email chains with a professional client vault. Our clients love how simple it is — no accounts, no passwords.",
+    quote: "Ledger Stash replaced our messy email chains with a professional client vault. Our clients love how simple it is — no accounts, no passwords.",
     name: "Sarah M.",
     title: "Solo CPA, Denver",
     initials: "SM",
