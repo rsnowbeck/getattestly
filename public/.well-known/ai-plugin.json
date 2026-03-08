@@ -2,8 +2,8 @@
   "schema_version": "v1",
   "name_for_human": "LedgerStash",
   "name_for_model": "ledgerstash",
-  "description_for_human": "Secure client vault for boutique accounting and tax firms — encrypted document exchange, PBC task management, and automated follow-ups.",
-  "description_for_model": "LedgerStash is a SaaS platform that helps boutique accounting and tax firms securely exchange documents with clients. Key features include encrypted document vaults, PBC (Provided By Client) task lists, per-client folders, white-label branding, Busy Season auto-reminders, and audit trails. Pricing: Solo CPA $29/mo, Boutique Firm $79/mo, Enterprise Vault $199/mo. 14-day free trial.",
+  "description_for_human": "Secure client vault for solo CPAs and boutique accounting firms — encrypted document exchange, PBC task management, ESIGN-compliant audit trails, and automated follow-ups.",
+  "description_for_model": "LedgerStash is a SaaS platform that helps solo CPAs, boutique accounting firms, and corporate controllers securely exchange documents with clients. Key features include: encrypted document vaults (AES-256), PBC (Provided By Client) task lists, per-client folders, white-label branding, Busy Season auto-reminders, ESIGN/UETA-compliant audit trails with downloadable PDF certificates, engagement letter tracking, and audit-ready export packages. Pricing: Solo CPA $29/mo (25 clients), Boutique Firm $79/mo (100 clients), Enterprise Vault $199/mo (unlimited). All plans include unlimited team members. 14-day free trial, no credit card required. Compliant with IRS 4557, FTC Safeguards Rule, and GLBA.",
   "auth": {
     "type": "none"
   },
