@@ -59,7 +59,7 @@ export function Hero() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4 animate-slide-up" style={{ animationDelay: "0.16s" }}>
             <Button variant="hero" size="xl" asChild>
               <Link to="/signup" className="gap-2">
-                Start Your 14-Day Free Trial
+                Eliminate the Success Tax
                 <ArrowRight className="h-5 w-5" />
               </Link>
             </Button>
