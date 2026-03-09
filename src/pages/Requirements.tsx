@@ -146,6 +146,26 @@ export default function Requirements() {
     }
   }, [organization?.id]);
 
+  useEffect(() => {
+    if (user?.id) fetchClients();
+  }, [user?.id]);
+
+  const fetchClients = async () => {
+    if (!user?.id) return;
+    const { data: fm } = await supabase
+      .from('firm_members')
+      .select('firm_id')
+      .eq('profile_id', user.id)
+      .maybeSingle();
+    if (!fm) return;
+    const { data } = await supabase
+      .from('clients')
+      .select('id, first_name, last_name')
+      .eq('firm_id', fm.firm_id)
+      .order('last_name');
+    setClientsList(data || []);
+  };
+
   const fetchRecipientCount = async () => {
     if (!organization?.id) return;
     
