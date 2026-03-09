@@ -205,6 +205,42 @@ export default function Dashboard() {
     }
   };
 
+  const handleDownloadDoc = async (doc: any) => {
+    try {
+      const { data, error } = await supabase.storage
+        .from('client-documents')
+        .createSignedUrl(doc.storage_path, 60);
+      if (error) throw error;
+      window.open(data.signedUrl, '_blank');
+    } catch (error) {
+      console.error('Download error:', error);
+      toast.error('Failed to download document');
+    }
+  };
+
+  const handleDeleteDoc = async (doc: any) => {
+    if (!confirm(`Delete "${doc.file_name}"? This cannot be undone.`)) return;
+    try {
+      const { error: storageError } = await supabase.storage
+        .from('client-documents')
+        .remove([doc.storage_path]);
+      if (storageError) throw storageError;
+
+      const { error: dbError } = await supabase
+        .from('documents')
+        .delete()
+        .eq('id', doc.id);
+      if (dbError) throw dbError;
+
+      setRecentDocs(prev => prev.filter(d => d.id !== doc.id));
+      setStats(prev => ({ ...prev, totalDocuments: Math.max(0, prev.totalDocuments - 1) }));
+      toast.success('Document deleted');
+    } catch (error) {
+      console.error('Delete error:', error);
+      toast.error('Failed to delete document');
+    }
+  };
+
   if (authLoading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
