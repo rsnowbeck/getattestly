@@ -62,6 +62,10 @@ export default function ClientDetail() {
   const [folderName, setFolderName] = useState("");
   const [templatePickerOpen, setTemplatePickerOpen] = useState(false);
 
+  // Bulk task selection
+  const [selectedTaskIds, setSelectedTaskIds] = useState<Set<string>>(new Set());
+  const [bulkDeleting, setBulkDeleting] = useState(false);
+
   // Upload
   const [uploading, setUploading] = useState(false);
 
