@@ -44,11 +44,10 @@ export function Pricing() {
       <div className="container">
         <div className="text-center">
           <h2 className="text-[2.25rem] sm:text-[2.5rem] font-bold text-foreground leading-[1.2] mb-4">
-            Pricing that scales with your practice
-            <span className="block">from solo CPAs to growing firms.</span>
+            Transparent Pricing. Zero "Success Tax."
           </h2>
           <p className="mx-auto max-w-[50rem] text-lg text-muted-foreground font-normal leading-relaxed mb-8">
-            Start free for 14 days. No credit card required. Cancel anytime.
+            Start free for 14 days and see how much you save when you stop paying for software seats. No setup fees. No credit card required.
           </p>
 
           {/* Billing Toggle */}
@@ -88,6 +87,8 @@ export function Pricing() {
               : plan.annual.monthlyEquivalent;
             const totalAnnual = plan.annual.amount;
 
+            const cardCopy = planCopy[key];
+
             return (
               <div
                 key={key}
@@ -96,7 +97,7 @@ export function Pricing() {
                 {featured && !isActive && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                     <span className="inline-flex items-center rounded-full bg-accent px-3 py-1 text-xs font-semibold text-accent-foreground">
-                      Most Popular
+                      Best Value
                     </span>
                   </div>
                 )}
@@ -109,10 +110,8 @@ export function Pricing() {
                 )}
 
                 <div className="mb-6">
-                  <h3 className="text-lg font-semibold text-foreground mb-1">{plan.name}</h3>
-                  {plan.description && (
-                    <p className="text-sm text-muted-foreground mb-2">{plan.description}</p>
-                  )}
+                  <h3 className="text-lg font-semibold text-foreground mb-1">{cardCopy.title}</h3>
+                  <p className="text-sm text-muted-foreground mb-2">{cardCopy.subhead}</p>
                   <div className="flex items-baseline gap-1">
                     <span className="text-4xl font-bold text-foreground">
                       ${billingInterval === "monthly" ? price : price.toFixed(0)}
@@ -126,7 +125,7 @@ export function Pricing() {
                   )}
                 </div>
 
-                <ul className="space-y-3 mb-8 flex-1">
+                <ul className="space-y-3 mb-6 flex-1">
                   {plan.features.map((feature) => (
                     <li key={feature} className="flex items-center gap-3 text-sm">
                       <Check className="h-4 w-4 text-accent flex-shrink-0" />
@@ -150,6 +149,10 @@ export function Pricing() {
                     <span className="text-foreground">14-day free trial</span>
                   </li>
                 </ul>
+
+                <p className="text-xs font-semibold text-accent mb-4 tracking-wide uppercase">
+                  {cardCopy.footer}
+                </p>
 
                 {isActive ? (
                   <Button variant="heroOutline" className="w-full" disabled>
@@ -194,7 +197,6 @@ export function Pricing() {
             );
           })}
         </div>
-
 
         <div className="text-center mt-10">
           <p className="text-sm text-muted-foreground">
