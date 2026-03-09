@@ -71,7 +71,7 @@ export function Hero() {
           </div>
 
           <p className="text-xs text-muted-foreground mb-12 animate-slide-up" style={{ animationDelay: "0.18s" }}>
-            No Credit Card Required | IRS Pub 4557 Compliant
+            No credit card required. 14-day free trial.
           </p>
 
           {/* Trust Row */}
