@@ -146,13 +146,20 @@ export function FAQ() {
               ))}
           </Accordion>
 
-          <div className="mt-8 text-center">
+          <p className="mt-6 text-center text-sm text-muted-foreground">
+            Have a technical question?{" "}
+            <a href="/contact" className="text-accent hover:underline">Chat with us</a>{" "}
+            or read our{" "}
+            <a href="/security" className="text-accent hover:underline">Security Whitepaper</a>.
+          </p>
+
+          <div className="mt-4 text-center">
             <Button
               variant="ghost"
               onClick={() => setShowMore(!showMore)}
               className="text-muted-foreground hover:text-foreground gap-2"
             >
-              {showMore ? "Show fewer questions" : "Show more questions"}
+              {showMore ? "Show fewer questions" : "View All Frequently Asked Questions"}
               <ChevronDown
                 className={`h-4 w-4 transition-transform duration-200 ${
                   showMore ? "rotate-180" : ""
