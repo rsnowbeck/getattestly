@@ -13,6 +13,10 @@ export function useOrganizationSchema() {
       logo: "https://ledgerstash.com/og-image.png",
       description: "Secure client vault for solo CPAs, boutique accounting firms, and corporate controllers. Exchange documents, manage PBC tasks, and track engagement letter signatures securely.",
       foundingDate: "2025",
+      sameAs: [
+        "https://twitter.com/ledgerstash",
+        "https://www.linkedin.com/company/ledgerstash",
+      ],
       contactPoint: {
         "@type": "ContactPoint",
         email: "hello@ledgerstash.com",
@@ -145,10 +149,62 @@ export function useWebSiteSchema() {
   }, []);
 }
 
+export function useHowToSchema() {
+  useEffect(() => {
+    const existingScript = document.querySelector('script[data-howto-schema]');
+    if (existingScript) return;
+
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      name: "How to Set Up a Secure Client Vault with LedgerStash",
+      description: "Get your accounting firm's secure client vault running in minutes with LedgerStash.",
+      step: [
+        {
+          "@type": "HowToStep",
+          position: 1,
+          name: "Add Your Clients",
+          text: "Import your client list via CSV or add them individually. Each client gets their own secure vault.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 2,
+          name: "Create PBC Task Lists",
+          text: "Define which documents you need (W-2s, 1099s, bank statements). Use templates or build custom lists with due dates.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 3,
+          name: "Invite & Exchange",
+          text: "Clients receive a branded email with a secure magic link. They upload documents directly — no accounts needed.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 4,
+          name: "Track & Close",
+          text: "Monitor completion across your entire book. Auto-remind stragglers. Export audit-ready packages.",
+        },
+      ],
+    };
+
+    const script = document.createElement("script");
+    script.type = "application/ld+json";
+    script.setAttribute("data-howto-schema", "true");
+    script.textContent = JSON.stringify(schema);
+    document.head.appendChild(script);
+
+    return () => {
+      const el = document.querySelector('script[data-howto-schema]');
+      if (el) el.remove();
+    };
+  }, []);
+}
+
 export function StructuredData() {
   useOrganizationSchema();
   useSoftwareApplicationSchema();
   useBreadcrumbSchema();
   useWebSiteSchema();
+  useHowToSchema();
   return null;
 }
