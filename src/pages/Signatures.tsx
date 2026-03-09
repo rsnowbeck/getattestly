@@ -442,6 +442,14 @@ export default function Signatures() {
                           <Send className="h-4 w-4" />
                         </Button>
                       )}
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        onClick={() => handleDeleteRequest(request)}
+                        className="h-7 px-2 text-destructive hover:text-destructive"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
                     </div>
                   </div>
                 </div>
