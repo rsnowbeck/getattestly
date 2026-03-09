@@ -16,7 +16,7 @@ const planOrder: { key: PlanKey; featured: boolean }[] = [
 const planCopy: Record<PlanKey, { title: string; subhead: string; footer: string }> = {
   solo: {
     title: 'The "Solo" Plan',
-    subhead: "Perfect for the independent practitioner.",
+    subhead: "Perfect for solo firms and independent practitioners.",
     footer: "Unlimited Staff Seats",
   },
   boutique: {
