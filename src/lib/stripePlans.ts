@@ -1,7 +1,7 @@
 // Stripe product and price IDs for each plan tier (LIVE)
 export const STRIPE_PLANS = {
   solo: {
-    name: "Solo CPA",
+    name: "Solo Firm",
     description: "For independent practitioners managing a focused client base.",
     product_id: "prod_U5Wn9ZDZbzbZKc",
     monthly: {
