@@ -59,7 +59,7 @@ export function Hero() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-4 animate-slide-up" style={{ animationDelay: "0.16s" }}>
             <Button variant="hero" size="xl" asChild>
               <Link to="/signup" className="gap-2">
-                Start Your 14-Day Free Trial
+                Eliminate the Success Tax
                 <ArrowRight className="h-5 w-5" />
               </Link>
             </Button>
@@ -71,7 +71,7 @@ export function Hero() {
           </div>
 
           <p className="text-xs text-muted-foreground mb-12 animate-slide-up" style={{ animationDelay: "0.18s" }}>
-            No Credit Card Required | IRS Pub 4557 Compliant
+            No credit card required. 14-day free trial.
           </p>
 
           {/* Trust Row */}
