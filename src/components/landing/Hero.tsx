@@ -11,15 +11,15 @@ const featureCards = [
   },
   {
     icon: Clock,
-    title: "Your Whole Team — One Price",
+    title: "Scale Without Permission",
     description:
-      "Add every staff member, every intern, every partner. Zero per-user fees. You only pay based on active clients.",
+      "Hire 5 seasonal interns or a new admin without your software bill skyrocketing. We don't charge \"per-seat\" fees. Add your entire team for $0 extra and keep your margins as you grow.",
   },
   {
     icon: ShieldCheck,
-    title: "Stop Chasing Documents",
+    title: "Busy Season Auto-Pilot",
     description:
-      "PBC checklists tell clients exactly what's missing. Automated reminders follow up so you don't have to.",
+      "Stop playing \"Document Police.\" Our PBC checklists tell clients exactly what's missing, and our automated nudges follow up until the task is done. You get the files; we do the chasing.",
   },
 ];
 
