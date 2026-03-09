@@ -574,7 +574,7 @@ export async function generateBlueOceanPdf(): Promise<void> {
 
   doc.setFontSize(8);
   doc.setTextColor(150, 150, 170);
-  doc.text("No email required to download this guide. Free resource for solo CPAs.", pw / 2, ph - 25, { align: "center" });
+  doc.text("No email required to download this guide. Free resource for solo firms and practitioners.", pw / 2, ph - 25, { align: "center" });
 
   // Save
   doc.save("LedgerStash_Comparison.pdf");
