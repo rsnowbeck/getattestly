@@ -295,9 +295,9 @@ export default function Signatures() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-foreground">Signatures</h1>
+          <h1 className="text-2xl font-bold text-foreground">Tracking</h1>
           <p className="text-muted-foreground">
-            Track and manage all signing requests
+            Track and manage all document requests sent to contacts
           </p>
         </div>
         <div className="flex gap-3">
@@ -325,7 +325,7 @@ export default function Signatures() {
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
-            placeholder="Search by recipient or requirement..."
+            placeholder="Search by contact or document request..."
             value={searchQuery}
             onChange={(e) => { setSearchQuery(e.target.value); setCurrentPage(1); }}
             className="pl-9"
@@ -359,12 +359,12 @@ export default function Signatures() {
               <FileSignature className="h-8 w-8 text-muted-foreground" />
             </div>
             <h3 className="text-lg font-semibold text-foreground mb-2">
-              No signing requests
+              No document requests yet
             </h3>
             <p className="text-muted-foreground max-w-sm mx-auto">
               {searchQuery || statusFilter !== "all"
                 ? "No requests match your filters"
-                : "Send requirements to recipients to create signing requests"}
+                : "Send a document request to a contact to get started"}
             </p>
           </div>
         ) : (
@@ -429,8 +429,8 @@ export default function Signatures() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Recipient</TableHead>
-                      <TableHead>Requirement</TableHead>
+                      <TableHead>Contact</TableHead>
+                      <TableHead>Document Request</TableHead>
                       <TableHead>Status</TableHead>
                       <TableHead>Sent</TableHead>
                       <TableHead>Completed</TableHead>
