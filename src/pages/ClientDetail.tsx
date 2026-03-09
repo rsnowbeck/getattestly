@@ -387,6 +387,7 @@ export default function ClientDetail() {
   };
 
 
+  if (authLoading || loading) {
     return (
       <DashboardLayout>
         <div className="space-y-6">
