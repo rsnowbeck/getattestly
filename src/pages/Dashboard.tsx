@@ -380,9 +380,9 @@ export default function Dashboard() {
                             <span className="text-xs text-muted-foreground">
                               {client.pendingTasks} pending
                             </span>
-                            {client.highPriorityPending > 0 && (
+                                 {client.highPriorityPending > 0 && (
                               <span className="text-[10px] px-1.5 py-0.5 rounded bg-destructive/10 text-destructive font-semibold">
-                                {client.highPriorityPending} required
+                                {client.highPriorityPending} urgent
                               </span>
                             )}
                           </div>

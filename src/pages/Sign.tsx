@@ -177,7 +177,7 @@ export default function Sign() {
             </div>
             <p className="text-sm text-muted-foreground mb-6">Submitted on {signedDate}</p>
             <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
-              Your submission has been securely recorded and shared with your organization.<br />
+              Your submission has been securely recorded and shared with {signingData?.organizationName || 'your firm'}.<br />
               You may now close this page.
             </p>
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-muted text-xs text-muted-foreground">

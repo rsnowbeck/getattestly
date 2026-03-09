@@ -429,8 +429,8 @@ export default function Signatures() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Recipient</TableHead>
-                      <TableHead>Requirement</TableHead>
+                      <TableHead>Contact</TableHead>
+                      <TableHead>Document Request</TableHead>
                       <TableHead>Status</TableHead>
                       <TableHead>Sent</TableHead>
                       <TableHead>Completed</TableHead>
