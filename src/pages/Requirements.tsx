@@ -124,6 +124,7 @@ export default function Requirements() {
     setDescription("");
     setFrequency("one-time");
     setDueDate("");
+    setSelectedClientId("");
     setAttachmentFile(null);
     setVaultAttachment(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
