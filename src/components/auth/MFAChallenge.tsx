@@ -22,8 +22,9 @@ export function MFAChallenge({ onVerified, onCancel }: MFAChallengeProps) {
 
     setLoading(true);
     try {
-      const { data: factorsData } = await supabase.auth.mfa.listFactors();
-      const totpFactor = factorsData?.totp?.find((f) => f.status === "verified");
+      const auth = supabase.auth as any;
+      const { data: factorsData } = await auth.mfa.listFactors();
+      const totpFactor = factorsData?.totp?.find((f: any) => f.status === "verified");
 
       if (!totpFactor) {
         toast.error("No verified 2FA factor found");
@@ -31,10 +32,10 @@ export function MFAChallenge({ onVerified, onCancel }: MFAChallengeProps) {
       }
 
       const { data: challengeData, error: challengeError } =
-        await supabase.auth.mfa.challenge({ factorId: totpFactor.id });
+        await auth.mfa.challenge({ factorId: totpFactor.id });
       if (challengeError) throw challengeError;
 
-      const { error: verifyError } = await supabase.auth.mfa.verify({
+      const { error: verifyError } = await auth.mfa.verify({
         factorId: totpFactor.id,
         challengeId: challengeData.id,
         code,
