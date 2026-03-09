@@ -14,6 +14,7 @@ import {
   UserCheck,
   FileSignature,
   ClipboardList,
+  ShieldCheck,
 } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useOrganization } from "@/hooks/useOrganization";
