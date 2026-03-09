@@ -564,11 +564,13 @@ export default function RequirementDetail() {
 
       {/* Tabbed Content */}
       <Tabs value={activeTab} onValueChange={setActiveTab}>
+        {(formTemplate || showFormBuilder) && (
         <TabsList className="mb-4">
           <TabsTrigger value="recipients">Recipients</TabsTrigger>
           {(formTemplate || showFormBuilder) && <TabsTrigger value="form">Form Builder</TabsTrigger>}
           {formTemplate?.status === "published" && <TabsTrigger value="submissions">Submissions</TabsTrigger>}
         </TabsList>
+        )}
 
         <TabsContent value="recipients">
           <div className="card-elevated overflow-hidden">
@@ -680,15 +682,14 @@ export default function RequirementDetail() {
               pdfUrl={requirement.attachment_url}
               pdfName={requirement.attachment_name}
               templateId={formTemplate?.id}
-              onPublish={() => fetchFormTemplate()}
+              onPublish={() => fetchRequirementDetails()}
             />
           </TabsContent>
         )}
 
-        {formTemplate?.status === "published" && (
+        {formTemplate?.status === "published" && organization && (
           <TabsContent value="submissions">
-            <div className="card-elevated p-6">
-              <h2 className="text-lg font-semibold text-foreground mb-4">Submissions</h2>
+            <div className="card-elevated overflow-hidden p-6">
               <SubmissionsTable
                 templateId={formTemplate.id}
                 fields={
@@ -701,7 +702,6 @@ export default function RequirementDetail() {
           </TabsContent>
         )}
       </Tabs>
-
       {/* Send for Signature Dialog */}
       {organization && (
         <SendForSignatureDialog
