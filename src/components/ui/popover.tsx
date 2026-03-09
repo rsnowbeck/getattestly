@@ -3,13 +3,19 @@ import * as PopoverPrimitive from "@radix-ui/react-popover";
 
 import { cn } from "@/lib/utils";
 
+type RadixExtend<T> = T & { children?: React.ReactNode; className?: string; asChild?: boolean };
+
 const Popover = PopoverPrimitive.Root;
 
-const PopoverTrigger = PopoverPrimitive.Trigger;
+const PopoverTrigger = React.forwardRef<
+  HTMLButtonElement,
+  RadixExtend<React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Trigger>>
+>((props, ref) => <PopoverPrimitive.Trigger ref={ref} {...props} />);
+PopoverTrigger.displayName = "PopoverTrigger";
 
 const PopoverContent = React.forwardRef<
   React.ElementRef<typeof PopoverPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content>
+  RadixExtend<React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content>>
 >(({ className, align = "center", sideOffset = 4, ...props }, ref) => (
   <PopoverPrimitive.Portal>
     <PopoverPrimitive.Content

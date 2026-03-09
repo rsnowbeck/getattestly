@@ -4,17 +4,27 @@ import { X } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
+type RadixExtend<T> = T & { children?: React.ReactNode; className?: string; asChild?: boolean };
+
 const Dialog = DialogPrimitive.Root;
 
-const DialogTrigger = DialogPrimitive.Trigger;
+const DialogTrigger = React.forwardRef<
+  HTMLButtonElement,
+  RadixExtend<React.ComponentPropsWithoutRef<typeof DialogPrimitive.Trigger>>
+>((props, ref) => <DialogPrimitive.Trigger ref={ref} {...props} />);
+DialogTrigger.displayName = "DialogTrigger";
 
 const DialogPortal = DialogPrimitive.Portal;
 
-const DialogClose = DialogPrimitive.Close;
+const DialogClose = React.forwardRef<
+  HTMLButtonElement,
+  RadixExtend<React.ComponentPropsWithoutRef<typeof DialogPrimitive.Close>>
+>((props, ref) => <DialogPrimitive.Close ref={ref} {...props} />);
+DialogClose.displayName = "DialogClose";
 
 const DialogOverlay = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Overlay>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>
+  RadixExtend<React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>>
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Overlay
     ref={ref}
@@ -29,7 +39,7 @@ DialogOverlay.displayName = DialogPrimitive.Overlay.displayName;
 
 const DialogContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>
+  RadixExtend<React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content>>
 >(({ className, children, ...props }, ref) => (
   <DialogPortal>
     <DialogOverlay />
@@ -63,7 +73,7 @@ DialogFooter.displayName = "DialogFooter";
 
 const DialogTitle = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Title>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
+  RadixExtend<React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>>
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Title
     ref={ref}
@@ -75,7 +85,7 @@ DialogTitle.displayName = DialogPrimitive.Title.displayName;
 
 const DialogDescription = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Description>,
-  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
+  RadixExtend<React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description>>
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Description ref={ref} className={cn("text-sm text-muted-foreground", className)} {...props} />
 ));
