@@ -13,6 +13,24 @@ const planOrder: { key: PlanKey; featured: boolean }[] = [
   { key: "enterprise", featured: false },
 ];
 
+const planCopy: Record<PlanKey, { title: string; subhead: string; footer: string }> = {
+  solo: {
+    title: 'The "Solo" Plan',
+    subhead: "Perfect for the independent practitioner.",
+    footer: "Unlimited Staff Seats",
+  },
+  boutique: {
+    title: 'The "Boutique" Plan',
+    subhead: "Built for teams ready to automate.",
+    footer: "All Pro Features + White-labeling",
+  },
+  enterprise: {
+    title: 'The "Unlimited" Plan',
+    subhead: "For firms that refuse to be taxed on growth.",
+    footer: 'The "TaxDome Killer."',
+  },
+};
+
 export function Pricing() {
   const [billingInterval, setBillingInterval] = useState<"monthly" | "annual">("monthly");
   const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
