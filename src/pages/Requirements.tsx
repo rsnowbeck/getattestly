@@ -100,6 +100,8 @@ export default function Requirements() {
   const [attachmentFile, setAttachmentFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [vaultPickerOpen, setVaultPickerOpen] = useState(false);
+  const [vaultAttachment, setVaultAttachment] = useState<{ name: string; url: string; storagePath: string } | null>(null);
 
   const handleSendForSignature = (requirement: Requirement) => {
     setSelectedRequirement(requirement);
