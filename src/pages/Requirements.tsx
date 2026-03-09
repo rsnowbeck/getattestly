@@ -37,6 +37,7 @@ import {
   Paperclip,
   Wand2,
   FileText as FileTextIcon,
+  FolderOpen,
 } from "lucide-react";
 import {
   DropdownMenu,
