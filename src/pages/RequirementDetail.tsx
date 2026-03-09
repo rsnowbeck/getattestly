@@ -563,6 +563,8 @@ export default function RequirementDetail() {
       </div>
 
       {/* Tabbed Content */}
+      {/* Only show tabs if there are multiple sections */}
+      {(formTemplate || showFormBuilder) ? (
       <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsList className="mb-4">
           <TabsTrigger value="recipients">Recipients</TabsTrigger>
