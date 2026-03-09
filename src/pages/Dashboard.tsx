@@ -449,20 +449,14 @@ export default function Dashboard() {
               </div>
             )}
 
-            {/* Security Badge */}
-            <div className="rounded-2xl p-6 text-primary-foreground shadow-lg relative overflow-hidden bg-primary">
-              <Lock className="absolute -right-4 -bottom-4 w-24 h-24 text-primary-foreground/10 rotate-12" />
-              <div className="relative z-10">
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="bg-primary-foreground/20 p-1.5 rounded-lg">
-                    <Lock className="w-4 h-4 text-primary-foreground" />
-                  </div>
-                  <span className="text-xs font-bold uppercase tracking-widest text-primary-foreground/70">AES-256 Encrypted</span>
-                </div>
-                <h3 className="text-lg font-bold mb-2">Your Private Vault</h3>
-                <p className="text-sm text-primary-foreground/80 leading-relaxed">
-                  All documents are encrypted at rest and in transit. Only you and your clients can access these files.
-                </p>
+            {/* Security Trust Badge */}
+            <div className="rounded-2xl p-5 border border-border bg-card flex items-center gap-4">
+              <div className="h-10 w-10 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
+                <ShieldCheck className="h-5 w-5 text-accent" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-foreground">AES-256 Encrypted</p>
+                <p className="text-xs text-muted-foreground">All documents are encrypted at rest and in transit.</p>
               </div>
             </div>
           </div>
