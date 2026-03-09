@@ -47,7 +47,7 @@ const planConfig: Record<string, {
       "You've unlocked powerful team and automation features for up to 100 active clients. Here's everything in your plan:",
     accentLabel: "Boutique Firm",
     features: [
-      { icon: FolderOpen, label: "Everything in Solo CPA, plus..." },
+      { icon: FolderOpen, label: "Everything in Solo Firm, plus..." },
       { icon: Paintbrush, label: "Full white-labeling — no Ledger Stash branding" },
       { icon: Bell, label: "Busy Season auto-reminders on autopilot" },
       { icon: UserPlus, label: "Unlimited team member accounts" },
