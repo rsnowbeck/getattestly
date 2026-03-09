@@ -1,23 +1,23 @@
-import { FileText, Receipt, Briefcase } from "lucide-react";
+import { UserPlus, PenTool, CalendarRange } from "lucide-react";
 
 const useCases = [
   {
-    icon: Receipt,
-    title: "Busy Season Document Collection",
+    icon: UserPlus,
+    title: "Frictionless Onboarding",
     description:
-      "Create per-client PBC checklists for W-2s, 1099s, K-1s, and receipts. Clients upload to organized folders via a secure link — no email chains, no missing files, no excuses.",
+      "Send new clients a branded link with an automated checklist of everything you need—prior year returns, EIN letters, and bank access. They complete it at their pace; you track it in real-time.",
   },
   {
-    icon: FileText,
-    title: "Engagement Letters & Fee Agreements",
+    icon: PenTool,
+    title: "Engagements & E-Signs",
     description:
-      "Send engagement letters through the vault with ESIGN-compliant tracking. See who signed, who hasn't, and auto-remind the rest — with a PDF audit trail for every signature.",
+      "Stop paying for separate e-sign software. Send engagement letters and fee agreements directly through the vault with ESIGN-compliant tracking and automated reminders for stragglers.",
   },
   {
-    icon: Briefcase,
-    title: "Year-Round Client Onboarding",
+    icon: CalendarRange,
+    title: "Year-Round Advisory",
     description:
-      "New client? Send them a branded portal link with a checklist of everything you need — EIN letters, prior returns, bank access. They complete it at their pace. You track it in real time.",
+      'Use your vault for quarterly bookkeeping, consulting projects, or permanent file storage. Keep your clients organized 365 days a year without the "where did I send that email?" chaos.',
   },
 ];
 
@@ -27,11 +27,10 @@ export function UseCases() {
       <div className="container">
         <div className="text-center mb-12">
           <h2 className="text-[2.25rem] sm:text-[2.5rem] font-bold text-foreground leading-[1.2] mb-4">
-            Built for the Way Accountants Actually Work
+            One Tool. Every Client Milestone.
           </h2>
           <p className="mx-auto max-w-[50rem] text-lg text-muted-foreground font-normal leading-relaxed">
-            Whether it's January or July, Ledger Stash keeps your document
-            collection organized, automated, and audit-ready.
+            LedgerStash isn't just for tax season. It's the professional infrastructure your firm needs from January to December.
           </p>
         </div>
 
