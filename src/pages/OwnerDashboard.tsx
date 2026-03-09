@@ -79,9 +79,9 @@ export default function OwnerDashboard() {
   return (
     <DashboardLayout>
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-foreground">Owner Dashboard</h1>
+        <h1 className="text-2xl font-bold text-foreground">Account</h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Business metrics — only visible to you
+          Business metrics and platform activity — only visible to you.
         </p>
       </div>
 
