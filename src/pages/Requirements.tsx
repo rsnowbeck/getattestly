@@ -561,6 +561,22 @@ export default function Requirements() {
                   rows={3}
                 />
               </div>
+              <div className="space-y-2">
+                <Label>Client</Label>
+                <Select value={selectedClientId} onValueChange={setSelectedClientId}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a client (optional)" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {clientsList.map(c => (
+                      <SelectItem key={c.id} value={c.id}>
+                        {c.first_name} {c.last_name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <p className="text-xs text-muted-foreground">Uploaded files will be saved to this client's Document Vault</p>
+              </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="frequency">Frequency</Label>
