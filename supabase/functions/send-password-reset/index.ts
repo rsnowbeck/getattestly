@@ -209,17 +209,26 @@ const handler = async (req: Request): Promise<Response> => {
     // Build the reset URL with the token
     const resetUrl = `${redirectUrl}?token=${token}`;
 
-    // Send the branded email
-    const emailResponse = await resend.emails.send({
-      from: "LedgerStash <noreply@ledgerstash.com>",
-      to: [email],
-      subject: "Reset your LedgerStash password",
-      html: generateEmailHtml(resetUrl),
+    // Send the branded email via Brevo
+    const brevoResponse = await fetch("https://api.brevo.com/v3/smtp/email", {
+      method: "POST",
+      headers: {
+        "accept": "application/json",
+        "api-key": BREVO_API_KEY,
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        sender: { name: "LedgerStash", email: "notifications@ledgerstash.com" },
+        to: [{ email }],
+        subject: "Reset your LedgerStash password",
+        htmlContent: generateEmailHtml(resetUrl),
+      }),
     });
 
-    if (emailResponse.error) {
-      console.error("Resend error:", emailResponse.error);
-      throw emailResponse.error;
+    if (!brevoResponse.ok) {
+      const errBody = await brevoResponse.text();
+      console.error("Brevo error:", errBody);
+      throw new Error("Failed to send reset email");
     }
 
     console.log("Password reset email sent successfully to:", email);

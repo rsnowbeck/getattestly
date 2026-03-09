@@ -152,15 +152,24 @@ const handler = async (req: Request): Promise<Response> => {
 </html>
     `;
 
-    const { error: emailError } = await resend.emails.send({
-      from: "LedgerStash <noreply@ledgerstash.com>",
-      to: [email],
-      subject: `You're invited to join ${organizationName} on LedgerStash`,
-      html: emailHtml,
+    const brevoResponse = await fetch("https://api.brevo.com/v3/smtp/email", {
+      method: "POST",
+      headers: {
+        "accept": "application/json",
+        "api-key": BREVO_API_KEY,
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        sender: { name: "LedgerStash", email: "notifications@ledgerstash.com" },
+        to: [{ email }],
+        subject: `You're invited to join ${organizationName} on LedgerStash`,
+        htmlContent: emailHtml,
+      }),
     });
 
-    if (emailError) {
-      console.error("Resend error:", emailError);
+    if (!brevoResponse.ok) {
+      const errBody = await brevoResponse.text();
+      console.error("Brevo error:", errBody);
       throw new Error("Failed to send email");
     }
 
