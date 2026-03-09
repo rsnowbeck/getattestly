@@ -536,17 +536,17 @@ export default function Requirements() {
               </div>
               <div className="space-y-2">
                 <Label>Attachment</Label>
-                {attachmentFile ? (
+                {attachmentFile || vaultAttachment ? (
                   <div className="flex items-center gap-3 p-3 rounded-lg border border-border bg-muted/30">
                     <div className="h-10 w-10 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
                       <Paperclip className="h-5 w-5 text-accent" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-medium text-foreground truncate">
-                        {attachmentFile.name}
+                        {attachmentFile?.name || vaultAttachment?.name}
                       </p>
                       <p className="text-xs text-muted-foreground">
-                        {(attachmentFile.size / 1024 / 1024).toFixed(2)} MB
+                        {vaultAttachment ? "From Document Vault" : `${((attachmentFile?.size || 0) / 1024 / 1024).toFixed(2)} MB`}
                       </p>
                     </div>
                     <Button
@@ -560,17 +560,29 @@ export default function Requirements() {
                     </Button>
                   </div>
                 ) : (
-                  <div
-                    className="border-2 border-dashed border-border rounded-lg p-6 text-center hover:border-accent/50 transition-colors cursor-pointer"
-                    onClick={() => fileInputRef.current?.click()}
-                  >
-                    <Upload className="h-8 w-8 mx-auto text-muted-foreground mb-2" />
-                    <p className="text-sm text-muted-foreground">
-                      Click to upload or drag and drop
-                    </p>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      PDF, Word, or images up to 10MB
-                    </p>
+                  <div className="space-y-2">
+                    <div
+                      className="border-2 border-dashed border-border rounded-lg p-6 text-center hover:border-accent/50 transition-colors cursor-pointer"
+                      onClick={() => fileInputRef.current?.click()}
+                    >
+                      <Upload className="h-8 w-8 mx-auto text-muted-foreground mb-2" />
+                      <p className="text-sm text-muted-foreground">
+                        Click to upload or drag and drop
+                      </p>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        PDF, Word, or images up to 10MB
+                      </p>
+                    </div>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      className="w-full"
+                      onClick={() => setVaultPickerOpen(true)}
+                    >
+                      <FolderOpen className="h-4 w-4 mr-2" />
+                      Choose from Document Vault
+                    </Button>
                   </div>
                 )}
                 <input
