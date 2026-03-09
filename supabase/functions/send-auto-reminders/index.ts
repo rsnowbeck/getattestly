@@ -1,8 +1,7 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-import { Resend } from "https://esm.sh/resend@2.0.0";
 
-const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
+const BREVO_API_KEY = Deno.env.get("BREVO_API_KEY")!;
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -155,12 +154,7 @@ serve(async (req: Request) => {
         const baseUrl = Deno.env.get("SITE_URL") || "https://getattestly.lovable.app";
 
         try {
-          const { error: emailError } = await resend.emails.send({
-            from: "LedgerStash <noreply@ledgerstash.com>",
-            reply_to: org.sender_email || undefined,
-            to: [client.email],
-            subject,
-            html: `
+          const emailHtml = `
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
@@ -228,11 +222,28 @@ serve(async (req: Request) => {
     </tr>
   </table>
 </body>
-</html>
-            `,
+</html>`;
+
+          const brevoResponse = await fetch("https://api.brevo.com/v3/smtp/email", {
+            method: "POST",
+            headers: {
+              "accept": "application/json",
+              "api-key": BREVO_API_KEY,
+              "content-type": "application/json",
+            },
+            body: JSON.stringify({
+              sender: { name: "LedgerStash", email: "notifications@ledgerstash.com" },
+              replyTo: org.sender_email ? { email: org.sender_email } : undefined,
+              to: [{ email: client.email, name: `${client.first_name} ${client.last_name}` }],
+              subject,
+              htmlContent: emailHtml,
+            }),
           });
 
-          if (emailError) throw emailError;
+          if (!brevoResponse.ok) {
+            const errBody = await brevoResponse.text();
+            throw new Error(`Brevo error: ${errBody}`);
+          }
           totalSent++;
           console.log(`Sent reminder to ${client.email} (${pendingTasks.length} tasks)`);
         } catch (emailError: any) {

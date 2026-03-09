@@ -1,8 +1,7 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
-import { Resend } from "https://esm.sh/resend@2.0.0";
 
-const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
+const BREVO_API_KEY = Deno.env.get("BREVO_API_KEY")!;
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -22,11 +21,12 @@ interface SigningEmailRequest {
   senderEmail?: string;
   logoUrl?: string;
   emailType?: EmailType;
-  dueDate?: string; // ISO date string
+  dueDate?: string;
   daysUntilDue?: number;
   sendCount?: number;
-  isPro?: boolean; // Whether the org is on Pro plan (for branding)
-  customMessage?: string; // Optional plain-text message from the org
+  isPro?: boolean;
+  customMessage?: string;
+  isReminder?: boolean;
 }
 
 function formatDueDate(dateStr: string): string {
@@ -34,11 +34,6 @@ function formatDueDate(dateStr: string): string {
   return date.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
 }
 
-/**
- * Build the intro line with proper requester attribution.
- * Priority: requester + org → show both, requester only → show requester, 
- * org only → show org, never show Attestly as requester when either exists
- */
 function buildIntroLine(
   senderName: string | undefined,
   organizationName: string | undefined
@@ -57,10 +52,6 @@ function buildIntroLine(
   }
 }
 
-/**
- * Build vendor-safe closing statement.
- * Uses neutral language that works for both employees and external parties.
- */
 function buildClosingStatement(organizationName: string | undefined): string {
   if (organizationName && organizationName.trim().length > 0) {
     return `This request is part of your document preparation process with ${organizationName}.`;
@@ -80,9 +71,6 @@ function getEmailContent(
   
   const intro = buildIntroLine(senderName, organizationName);
   const closing = buildClosingStatement(organizationName);
-  
-  // Build subject lines with proper due date handling
-  const dueTextForSubject = formattedDueDate ? ` (due ${formattedDueDate})` : "";
   
   switch (emailType) {
     case "initial":
@@ -155,32 +143,26 @@ function getEmailContent(
 function determineEmailType(
   explicitType?: EmailType,
   daysUntilDue?: number,
-  sendCount?: number
+  sendCount?: number,
+  isReminder?: boolean
 ): EmailType {
-  // If explicit type provided, use it
   if (explicitType) return explicitType;
   
-  // Auto-determine based on context
   if (daysUntilDue !== undefined) {
     if (daysUntilDue < 0) return "overdue";
     if (daysUntilDue <= 5 || (sendCount && sendCount >= 3)) return "escalated";
   }
   
-  if (sendCount && sendCount > 1) return "reminder";
+  if (isReminder || (sendCount && sendCount > 1)) return "reminder";
   
   return "initial";
 }
 
-/**
- * Build the custom message HTML block if a message is provided.
- * Rendered as a note/callout between the document card and the CTA.
- */
 function buildCustomMessageHtml(customMessage?: string): string {
   if (!customMessage || customMessage.trim().length === 0) {
     return "";
   }
   
-  // Sanitize the message - escape HTML entities
   const sanitized = customMessage
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
@@ -201,7 +183,6 @@ function buildCustomMessageHtml(customMessage?: string): string {
 }
 
 const handler = async (req: Request): Promise<Response> => {
-  // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
   }
@@ -216,7 +197,6 @@ const handler = async (req: Request): Promise<Response> => {
 
     let hasValidJwt = false;
     if (!hasValidSecret) {
-      // Verify JWT properly using Supabase auth
       if (authHeader?.startsWith('Bearer ')) {
         const supabase = createClient(
           Deno.env.get('SUPABASE_URL')!,
@@ -249,17 +229,21 @@ const handler = async (req: Request): Promise<Response> => {
       daysUntilDue,
       sendCount,
       isPro = false,
-      customMessage
+      customMessage,
+      isReminder
     }: SigningEmailRequest = await req.json();
 
     // Validate required fields
     if (!recipientName || !recipientEmail || !requirementTitle || !signingUrl) {
       console.error("Missing required fields:", { recipientName, recipientEmail, requirementTitle, signingUrl });
-      throw new Error("Missing required fields: recipientName, recipientEmail, requirementTitle, signingUrl");
+      return new Response(
+        JSON.stringify({ success: false, error: "Missing required fields" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
     // Determine email type based on context
-    const emailType = determineEmailType(explicitEmailType, daysUntilDue, sendCount);
+    const emailType = determineEmailType(explicitEmailType, daysUntilDue, sendCount, isReminder);
     const { subject, intro, buttonText, dueText, consequence, closing } = getEmailContent(
       emailType,
       requirementTitle,
@@ -269,7 +253,7 @@ const handler = async (req: Request): Promise<Response> => {
       daysUntilDue
     );
 
-    // Build due date display HTML - simple text for initial, styled box for escalated/overdue
+    // Build due date display HTML
     let dueDateHtml = "";
     if (dueText) {
       const isOverdue = emailType === "overdue";
@@ -290,134 +274,151 @@ const handler = async (req: Request): Promise<Response> => {
           </table>
         `;
       } else {
-        // Simple text for initial/reminder
         dueDateHtml = `<p style="margin: 16px 0; font-size: 14px; color: #3f3f46;">${dueText}</p>`;
       }
     }
 
-    // Build custom message HTML
     const customMessageHtml = buildCustomMessageHtml(customMessage);
 
-    // Build logo HTML - Pro users get custom logo, everyone gets LedgerStash logo
+    // Build logo HTML
     const ledgerStashLogoUrl = "https://urpqjnoowsdehvkrqxmy.supabase.co/storage/v1/object/public/email-assets/attestly-logo.png?v=1";
     let logoHtml = "";
     if (isPro && logoUrl) {
-      // Pro users with custom logo: show their logo
       const logoAlt = organizationName ? `${organizationName} logo` : "Organization logo";
       logoHtml = `
         <img src="${logoUrl}" alt="${logoAlt}" style="height: 40px; max-width: 160px; object-fit: contain; margin-bottom: 12px;" />
       `;
     } else {
-      // Default: show LedgerStash logo with shield
       logoHtml = `
         <img src="${ledgerStashLogoUrl}" alt="LedgerStash" style="height: 48px; width: 48px; object-fit: contain; margin-bottom: 12px; border-radius: 8px;" />
       `;
     }
 
-    // Build footer with proper attribution
+    // Build footer
     const footerText = organizationName
       ? `If you have questions, please contact ${senderName || "the requester"} or your primary contact at ${organizationName}.`
       : `If you have questions, please contact ${senderName || "the requester"}.`;
 
-    console.log(`Sending ${emailType} email to ${recipientEmail} for "${requirementTitle}"`);
+    console.log(`Sending ${emailType} email to ${recipientEmail} for "${requirementTitle}" via Brevo`);
 
-    const emailResponse = await resend.emails.send({
-      from: `LedgerStash <noreply@ledgerstash.com>`,
-      reply_to: senderEmail || undefined,
-      to: [recipientEmail],
-      subject,
-      html: `
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <meta charset="utf-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        </head>
-        <body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f4f4f5;">
-          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #f4f4f5;">
-            <tr>
-              <td align="center" style="padding: 40px 20px;">
-                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width: 520px; background-color: #ffffff; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-                  <!-- Header -->
-                  <tr>
-                    <td style="padding: 32px 32px 24px; text-align: center;">
-                      ${logoHtml}
-                      <h1 style="margin: 0; font-size: 24px; font-weight: 600; color: #18181b;">LedgerStash</h1>
-                      <hr style="margin-top: 20px; border: none; border-top: 1px solid #e4e4e7;" />
-                    </td>
-                  </tr>
-                  
-                  <!-- Content -->
-                  <tr>
-                    <td style="padding: 32px;">
-                      <p style="margin: 0 0 16px; font-size: 16px; color: #3f3f46;">
-                        Hi ${recipientName},
-                      </p>
-                      <p style="margin: 0 0 24px; font-size: 16px; color: #3f3f46; line-height: 1.6;">
-                        ${intro}
-                      </p>
-                      
-                      <!-- Document Card -->
-                      <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #fafafa; border-radius: 8px; border: 1px solid #e4e4e7; margin-bottom: 8px;">
-                        <tr>
-                          <td style="padding: 16px;">
-                            <p style="margin: 0; font-size: 14px; color: #71717a; text-transform: uppercase; letter-spacing: 0.5px;">Document</p>
-                            <p style="margin: 4px 0 0; font-size: 16px; font-weight: 600; color: #18181b;">${requirementTitle}</p>
-                          </td>
-                        </tr>
-                      </table>
+    const emailHtml = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      </head>
+      <body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f4f4f5;">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #f4f4f5;">
+          <tr>
+            <td align="center" style="padding: 40px 20px;">
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width: 520px; background-color: #ffffff; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                <!-- Header -->
+                <tr>
+                  <td style="padding: 32px 32px 24px; text-align: center;">
+                    ${logoHtml}
+                    <h1 style="margin: 0; font-size: 24px; font-weight: 600; color: #18181b;">LedgerStash</h1>
+                    <hr style="margin-top: 20px; border: none; border-top: 1px solid #e4e4e7;" />
+                  </td>
+                </tr>
+                
+                <!-- Content -->
+                <tr>
+                  <td style="padding: 32px;">
+                    <p style="margin: 0 0 16px; font-size: 16px; color: #3f3f46;">
+                      Hi ${recipientName},
+                    </p>
+                    <p style="margin: 0 0 24px; font-size: 16px; color: #3f3f46; line-height: 1.6;">
+                      ${intro}
+                    </p>
+                    
+                    <!-- Document Card -->
+                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #fafafa; border-radius: 8px; border: 1px solid #e4e4e7; margin-bottom: 8px;">
+                      <tr>
+                        <td style="padding: 16px;">
+                          <p style="margin: 0; font-size: 14px; color: #71717a; text-transform: uppercase; letter-spacing: 0.5px;">Document</p>
+                          <p style="margin: 4px 0 0; font-size: 16px; font-weight: 600; color: #18181b;">${requirementTitle}</p>
+                        </td>
+                      </tr>
+                    </table>
 
-                      ${dueDateHtml}
+                    ${dueDateHtml}
 
-                      ${customMessageHtml}
+                    ${customMessageHtml}
 
-                      ${consequence ? `<p style="margin: 0 0 16px; font-size: 13px; color: #71717a; font-style: italic; line-height: 1.5;">${consequence}</p>` : ""}
-                      
-                      ${closing ? `<p style="margin: 0 0 24px; font-size: 14px; color: #52525b; line-height: 1.5;">${closing}</p>` : ""}
-                      
-                      <!-- CTA Button -->
-                      <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
-                        <tr>
-                          <td align="center">
-                            <a href="${signingUrl}" style="display: inline-block; padding: 14px 32px; background-color: #18181b; color: #ffffff; text-decoration: none; font-size: 16px; font-weight: 500; border-radius: 8px;">
-                              ${buttonText}
-                            </a>
-                          </td>
-                        </tr>
-                      </table>
-                      
-                      <p style="margin: 24px 0 0; font-size: 14px; color: #71717a; line-height: 1.6;">
-                        ${footerText}
-                      </p>
-                    </td>
-                  </tr>
-                  
-                  <!-- Footer -->
-                  <tr>
-                    <td style="padding: 24px 32px; border-top: 1px solid #e4e4e7; text-align: center;">
-                      <p style="margin: 0; font-size: 12px; color: #a1a1aa;">
-                        If you didn't expect this email, you can safely ignore it.
-                      </p>
-                      <p style="margin: 8px 0 0; font-size: 12px; color: #a1a1aa;">
-                        Need help? Contact <a href="mailto:hello@ledgerstash.com" style="color: #71717a;">hello@ledgerstash.com</a>
-                      </p>
-                      <p style="margin: 12px 0 0; font-size: 11px; color: #d4d4d8;">
-                        Powered by <a href="https://ledgerstash.com" style="color: #a1a1aa; text-decoration: none;">LedgerStash</a>
-                      </p>
-                    </td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-          </table>
-        </body>
-        </html>
-      `,
+                    ${consequence ? `<p style="margin: 0 0 16px; font-size: 13px; color: #71717a; font-style: italic; line-height: 1.5;">${consequence}</p>` : ""}
+                    
+                    ${closing ? `<p style="margin: 0 0 24px; font-size: 14px; color: #52525b; line-height: 1.5;">${closing}</p>` : ""}
+                    
+                    <!-- CTA Button -->
+                    <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td align="center">
+                          <a href="${signingUrl}" style="display: inline-block; padding: 14px 32px; background-color: #18181b; color: #ffffff; text-decoration: none; font-size: 16px; font-weight: 500; border-radius: 8px;">
+                            ${buttonText}
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
+                    
+                    <p style="margin: 24px 0 0; font-size: 14px; color: #71717a; line-height: 1.6;">
+                      ${footerText}
+                    </p>
+                  </td>
+                </tr>
+                
+                <!-- Footer -->
+                <tr>
+                  <td style="padding: 24px 32px; border-top: 1px solid #e4e4e7; text-align: center;">
+                    <p style="margin: 0; font-size: 12px; color: #a1a1aa;">
+                      If you didn't expect this email, you can safely ignore it.
+                    </p>
+                    <p style="margin: 8px 0 0; font-size: 12px; color: #a1a1aa;">
+                      Need help? Contact <a href="mailto:hello@ledgerstash.com" style="color: #71717a;">hello@ledgerstash.com</a>
+                    </p>
+                    <p style="margin: 12px 0 0; font-size: 11px; color: #d4d4d8;">
+                      Powered by <a href="https://ledgerstash.com" style="color: #a1a1aa; text-decoration: none;">LedgerStash</a>
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </body>
+      </html>
+    `;
+
+    // Send via Brevo
+    const brevoResponse = await fetch("https://api.brevo.com/v3/smtp/email", {
+      method: "POST",
+      headers: {
+        "accept": "application/json",
+        "api-key": BREVO_API_KEY,
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        sender: { name: "LedgerStash", email: "notifications@ledgerstash.com" },
+        replyTo: senderEmail ? { email: senderEmail } : undefined,
+        to: [{ email: recipientEmail, name: recipientName }],
+        subject,
+        htmlContent: emailHtml,
+      }),
     });
 
-    console.log("Email sent successfully:", emailResponse);
+    if (!brevoResponse.ok) {
+      const errBody = await brevoResponse.text();
+      console.error("Brevo error:", errBody);
+      return new Response(
+        JSON.stringify({ success: false, error: "Failed to send email. Please try again." }),
+        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
 
-    return new Response(JSON.stringify({ success: true, data: emailResponse }), {
+    const brevoData = await brevoResponse.json();
+    console.log("Email sent successfully via Brevo:", brevoData);
+
+    return new Response(JSON.stringify({ success: true }), {
       status: 200,
       headers: { "Content-Type": "application/json", ...corsHeaders },
     });
