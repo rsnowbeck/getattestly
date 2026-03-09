@@ -114,7 +114,7 @@ export async function generateBlueOceanPdf(): Promise<void> {
   doc.setTextColor(...TEXT_DARK);
   doc.setFontSize(11);
   doc.setFont("helvetica", "normal");
-  const introText = "SmartVault and TaxDome are designed for firms with 10+ employees. Solo CPAs and boutique firms get stuck paying for bloated features they'll never use.";
+  const introText = "SmartVault and TaxDome are designed for firms with 10+ employees. Solo practitioners and boutique firms get stuck paying for bloated features they'll never use.";
   const introLines = doc.splitTextToSize(introText, pw - 50);
   doc.text(introLines, 25, y);
   y += introLines.length * 7 + 15;
