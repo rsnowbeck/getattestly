@@ -248,8 +248,18 @@ export default function Requirements() {
 
       if (createError) throw createError;
 
+      // If vault attachment selected, use its URL directly
+      if (vaultAttachment && newReq) {
+        await supabase
+          .from('requirements')
+          .update({
+            attachment_url: vaultAttachment.url,
+            attachment_name: vaultAttachment.name,
+          })
+          .eq('id', newReq.id);
+      }
       // If there's a file to upload, upload it now
-      if (attachmentFile && newReq) {
+      else if (attachmentFile && newReq) {
         setUploading(true);
         const fileExt = attachmentFile.name.split(".").pop();
         const fileName = `${organization.id}/${newReq.id}/${Date.now()}.${fileExt}`;
@@ -262,7 +272,6 @@ export default function Requirements() {
           console.error("Upload error:", uploadError);
           toast.error("Requirement created but file upload failed");
         } else {
-          // Get public URL and update the requirement
           const { data: urlData } = supabase.storage
             .from("requirement-attachments")
             .getPublicUrl(fileName);
@@ -282,7 +291,8 @@ export default function Requirements() {
       setDialogOpen(false);
       
       // If a PDF was uploaded, show the fillable form prompt
-      const isPdf = attachmentFile?.name?.toLowerCase().endsWith(".pdf");
+      const attachName = attachmentFile?.name || vaultAttachment?.name || "";
+      const isPdf = attachName.toLowerCase().endsWith(".pdf");
       if (isPdf && newReq) {
         setCreatedRequirementId(newReq.id);
         setCreatedRequirementTitle(title);
@@ -294,6 +304,7 @@ export default function Requirements() {
       setFrequency("one-time");
       setDueDate("");
       setAttachmentFile(null);
+      setVaultAttachment(null);
       if (fileInputRef.current) fileInputRef.current.value = "";
       fetchRequirements();
     } catch (error: any) {
