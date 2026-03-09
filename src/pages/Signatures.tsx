@@ -504,36 +504,37 @@ export default function Signatures() {
                           )}
                         </TableCell>
                         <TableCell>
-                          <div className="flex gap-1">
-                            {request.status === "completed" && (
-                              <Button
-                                size="sm"
-                                variant="ghost"
-                                onClick={() => handleDownloadPdf(request)}
-                                className="h-8 px-2"
-                                title="Download PDF certificate"
-                              >
-                                <FileText className="h-4 w-4" />
-                                <span className="sr-only">Download PDF</span>
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button size="sm" variant="ghost" className="h-8 w-8 p-0">
+                                <MoreHorizontal className="h-4 w-4" />
                               </Button>
-                            )}
-                            {isRequestPendingOrExpired(request) && (
-                              <Button
-                                size="sm"
-                                variant="ghost"
-                                onClick={() => handleResendClick(request)}
-                                disabled={resending === request.id}
-                                className="hover:bg-primary hover:text-primary-foreground"
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                              {isRequestPendingOrExpired(request) && (
+                                <DropdownMenuItem
+                                  onClick={() => handleResendClick(request)}
+                                  disabled={resending === request.id}
+                                >
+                                  <Send className="h-4 w-4 mr-2" />
+                                  {resending === request.id ? "Sending..." : "Resend"}
+                                </DropdownMenuItem>
+                              )}
+                              {request.status === "completed" && (
+                                <DropdownMenuItem onClick={() => handleDownloadPdf(request)}>
+                                  <FileText className="h-4 w-4 mr-2" />
+                                  Download PDF
+                                </DropdownMenuItem>
+                              )}
+                              <DropdownMenuItem
+                                onClick={() => handleDeleteRequest(request)}
+                                className="text-destructive focus:text-destructive"
                               >
-                                {resending === request.id ? (
-                                  <Loader2 className="h-4 w-4 animate-spin" />
-                                ) : (
-                                  <Send className="h-4 w-4" />
-                                )}
-                                {resending === request.id ? "Sending..." : "Resend"}
-                              </Button>
-                            )}
-                          </div>
+                                <Trash2 className="h-4 w-4 mr-2" />
+                                Remove
+                              </DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
                         </TableCell>
                       </TableRow>
                     ))}
