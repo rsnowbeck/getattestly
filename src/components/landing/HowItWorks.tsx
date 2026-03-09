@@ -5,18 +5,18 @@ const steps = [
     number: "01",
     title: "Add Your Clients",
     description:
-      "Import your client list via CSV or add them one by one. Each client gets their own private, organized vault in under a minute.",
+      "Import your client list via CSV or add them one by one. Each client gets their own private vault in under a minute. Invite your whole team to help—we don't charge for the seats.",
     details: [
       "Bulk CSV import or manual entry",
       "Each client gets a separate secure vault",
-      "Individual or business client types",
+      "Add unlimited staff at no extra cost",
     ],
   },
   {
     number: "02",
     title: "Build Your PBC Checklist",
     description:
-      "Tell each client exactly what documents to provide — W-2s, K-1s, bank statements, receipts. Set due dates, mark priorities, attach reference files.",
+      "Tell each client exactly what documents to provide—W-2s, K-1s, bank statements. Use our pre-built templates to launch a full year of tax collection in 30 seconds.",
     details: [
       "Pre-built templates for common engagements",
       "Custom due dates and priority levels",
@@ -26,9 +26,9 @@ const steps = [
   },
   {
     number: "03",
-    title: "Send a Secure Link",
+    title: "Send a Secure \"Magic Link\"",
     description:
-      "Clients receive a branded email with a one-click magic link. They land on your white-labeled portal, see their tasks, and start uploading. No account needed.",
+      "Your clients receive a branded email with a one-click magic link. They land on your white-labeled portal, see their tasks, and start uploading. No account creation and no passwords for them to lose.",
     details: [
       "Your firm's logo and brand colors",
       "Drag-and-drop file uploads",
@@ -38,9 +38,9 @@ const steps = [
   },
   {
     number: "04",
-    title: "Track, Remind & Close",
+    title: "Auto-Pilot Tracking & Reminders",
     description:
-      "Watch your dashboard light up as documents roll in. Automated reminders handle the stragglers. When you're ready, export an audit-ready package.",
+      "Watch your dashboard light up as documents roll in. LedgerStash automatically handles the \"chasing\" with smart reminders. When you're ready, export an audit-ready, timestamped package in one click.",
     details: [
       "Real-time completion tracking",
       "Configurable auto-reminders",
@@ -59,7 +59,7 @@ export function HowItWorks() {
             Up and Running in 5 Minutes
           </h2>
           <p className="mx-auto max-w-[50rem] text-lg text-muted-foreground font-normal leading-relaxed mb-12">
-            No onboarding calls. No training videos. No IT department required.
+            No onboarding calls. No training videos. No $1,000 "implementation fees." Just a system that works.
           </p>
         </div>
 
