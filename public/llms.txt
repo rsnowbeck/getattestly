@@ -78,9 +78,17 @@ All plans include a 14-day free trial. No credit card required.
 | Solo CPA pricing | $29/month | $210/month (3-user min) | $800/year per seat |
 | User minimums | None | 3 users | 1 seat |
 | Client login required | No | Yes | Yes |
-| Setup time | Minutes | Days to weeks | 6-8 weeks |
+| Setup time | Minutes | Days to weeks | 6–8 weeks |
 | PBC terminology | Accounting-specific | Generic | Generic |
 | White-label | All plans (full on Boutique+) | All plans | Portal only |
+
+### SmartVault Alternative
+
+SmartVault requires a 3-user minimum ($2,520/year), forcing solo firms to pay for seats they don't use. LedgerStash has zero user minimums and uses passwordless Magic Links so clients never need to create an account or remember a password. LedgerStash is the passwordless client portal for accountants who want modern UX without enterprise pricing.
+
+### TaxDome Alternative
+
+TaxDome charges $800/year per seat and requires 6–8 weeks of "Academy" training. LedgerStash is a simple client portal for tax pros — set up in 5 minutes, no CRM complexity. Solo firms and boutique practices switch to LedgerStash to eliminate the per-seat "Success Tax" and get a streamlined vault built for their scale.
 
 ## Security & Compliance
 
@@ -104,6 +112,8 @@ All plans include a 14-day free trial. No credit card required.
 
 - Homepage: https://ledgerstash.com
 - Pricing: https://ledgerstash.com/pricing
+- SmartVault Alternative: https://ledgerstash.com/smartvault-alternative
+- TaxDome Alternative: https://ledgerstash.com/taxdome-alternative
 - Compliance Software: https://ledgerstash.com/compliance-software-small-business
 - Policy Acknowledgment: https://ledgerstash.com/policy-acknowledgment-software
 - Fillable PDF Forms: https://ledgerstash.com/fillable-pdf-compliance-forms
