@@ -150,7 +150,7 @@ export function FAQ() {
             Have a technical question?{" "}
             <a href="/contact#form" className="text-accent hover:underline">Message Us</a>{" "}
             or read our{" "}
-            <a href="/security" className="text-accent hover:underline">Security Whitepaper</a>.
+            <a href="/security" className="text-accent hover:underline">Security Page</a>.
           </p>
 
           <div className="mt-4 text-center">
