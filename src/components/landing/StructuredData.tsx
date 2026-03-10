@@ -101,7 +101,9 @@ export function useBreadcrumbSchema() {
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: "https://ledgerstash.com" },
         { "@type": "ListItem", position: 2, name: "Pricing", item: "https://ledgerstash.com/pricing" },
-        { "@type": "ListItem", position: 3, name: "Sign Up", item: "https://ledgerstash.com/signup" },
+        { "@type": "ListItem", position: 3, name: "SmartVault Alternative", item: "https://ledgerstash.com/smartvault-alternative" },
+        { "@type": "ListItem", position: 4, name: "TaxDome Alternative", item: "https://ledgerstash.com/taxdome-alternative" },
+        { "@type": "ListItem", position: 5, name: "Sign Up", item: "https://ledgerstash.com/signup" },
       ],
     };
 
