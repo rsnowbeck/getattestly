@@ -321,9 +321,9 @@ export default function SmartVaultAlternative() {
         </section>
 
         {/* Migration Guide Download */}
-        <section className="py-12 bg-muted/40">
+        <section className="py-16 bg-muted/40">
           <div className="container">
-            <div className="mx-auto max-w-2xl text-center">
+            <div className="mx-auto max-w-2xl rounded-2xl border border-border bg-card p-8 sm:p-10 text-center shadow-md">
               <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-accent/10 text-accent mb-4">
                 <Download className="h-5 w-5" />
               </div>
