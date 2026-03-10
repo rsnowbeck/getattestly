@@ -114,13 +114,9 @@ export async function generateMigrationGuidePdf(competitor: "SmartVault" | "TaxD
     doc.setFont("helvetica", "bold");
     doc.text(step.num, 32, y + 12, { align: "center" });
 
-    // Step content card
-    doc.setFillColor(...LIGHT_BG);
-    // Use a lighter fill on the dark background — switch to semi-transparent white card
-    doc.setFillColor(255, 255, 255);
-    doc.setGState(new (doc as any).GState({ opacity: 0.15 }));
+    // Step content card background
+    doc.setFillColor(70, 67, 150);
     doc.roundedRect(45, y - 2, pw - 65, 30, 3, 3, "F");
-    doc.setGState(new (doc as any).GState({ opacity: 1 }));
 
     // Title
     doc.setTextColor(...WHITE);
