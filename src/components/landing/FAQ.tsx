@@ -7,6 +7,7 @@ import {
 import { useEffect, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { generateBlueOceanPdf } from "@/lib/generateBlueOceanPdf";
 
 const essentialFaqs = [
   {
@@ -149,8 +150,8 @@ export function FAQ() {
           <p className="mt-6 text-center text-sm text-muted-foreground">
             Have a technical question?{" "}
             <a href="/contact#form" className="text-accent hover:underline">Message Us</a>{" "}
-            or read our{" "}
-            <a href="/security" className="text-accent hover:underline">Security Page</a>.
+            or download our{" "}
+            <button onClick={() => generateBlueOceanPdf()} className="text-accent hover:underline">Switching Guide</button>.
           </p>
 
           <div className="mt-4 text-center">
