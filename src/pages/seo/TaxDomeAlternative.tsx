@@ -75,6 +75,12 @@ const comparisonRows = [
     competitor: "General Security",
   },
   {
+    feature: "Migrating Files",
+    ledger: "One-click bulk upload",
+    competitor: "Manual or paid migration",
+    ledgerGreen: true,
+  },
+  {
     feature: "Best For",
     ledger: "Solo firms, EAs, & Boutique practices",
     competitor: "Enterprise-level firms",
