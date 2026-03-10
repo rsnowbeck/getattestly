@@ -7,6 +7,7 @@ import {
 import { useEffect, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { generateBlueOceanPdf } from "@/lib/generateBlueOceanPdf";
 
 const essentialFaqs = [
   {
