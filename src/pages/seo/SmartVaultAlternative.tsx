@@ -81,6 +81,12 @@ const comparisonRows = [
     smart: "Basic audit trail",
   },
   {
+    feature: "Migrating Files",
+    ledger: "One-click bulk upload",
+    smart: "Manual or paid migration",
+    ledgerGreen: true,
+  },
+  {
     feature: "Best For",
     ledger: "Solo firms, EAs, & Boutique practices",
     smart: "Large firms with IT staff",
