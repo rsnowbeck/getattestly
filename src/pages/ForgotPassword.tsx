@@ -48,6 +48,11 @@ export default function ForgotPassword() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
+      <PageSEO
+        title="Forgot Password | LedgerStash"
+        description="Reset your LedgerStash account password."
+        noindex={true}
+      />
       {/* Header */}
       <header className="border-b border-border">
         <div className="container flex h-16 items-center">
