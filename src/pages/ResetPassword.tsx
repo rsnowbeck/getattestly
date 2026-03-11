@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Shield, ArrowLeft, Loader2, CheckCircle2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { PageSEO } from "@/components/seo/PageSEO";
 
 export default function ResetPassword() {
   const [password, setPassword] = useState("");
@@ -125,6 +126,7 @@ export default function ResetPassword() {
   if (!tokenValid) {
     return (
       <div className="min-h-screen bg-background flex flex-col">
+        <PageSEO title="Reset Password | LedgerStash" description="Set a new password for your LedgerStash account." noindex={true} />
         <header className="border-b border-border">
           <div className="container flex h-16 items-center">
             <Link to="/login" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
@@ -153,6 +155,7 @@ export default function ResetPassword() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
+      <PageSEO title="Reset Password | LedgerStash" description="Set a new password for your LedgerStash account." noindex={true} />
       {/* Header */}
       <header className="border-b border-border">
         <div className="container flex h-16 items-center">
