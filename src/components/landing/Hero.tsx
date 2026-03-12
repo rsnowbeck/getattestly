@@ -5,7 +5,7 @@ import { ArrowRight, ShieldCheck, Shield, Clock, Lock, CheckCircle2 } from "luci
 const featureCards = [
   {
     icon: Shield,
-    title: "Frictionless Client Onboarding",
+    title: "Secure Portals, Zero Passwords",
     description:
       "Stop acting as your clients' IT support. LedgerStash uses secure Magic Links so clients can upload W-2s and receipts with one click. No accounts to create, no passwords to forget, and no more excuses for late documents.",
   },
@@ -17,7 +17,7 @@ const featureCards = [
   },
   {
     icon: ShieldCheck,
-    title: "Automated Document Chasing",
+    title: "End the Document Chase",
     description:
       "Stop playing \"Document Police.\" Our PBC checklists tell clients exactly what's missing, and our automated nudges follow up until the task is done. You get the files; we do the chasing.",
   },
