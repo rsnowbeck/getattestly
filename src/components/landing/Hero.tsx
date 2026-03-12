@@ -11,7 +11,7 @@ const featureCards = [
   },
   {
     icon: Clock,
-    title: "Scale Without Permission",
+    title: "Grow Your Team, Not Your Bill",
     description:
       "Hire 5 seasonal interns or a new admin without your software bill skyrocketing. We don't charge \"per-seat\" fees. Add your entire team for $0 extra and keep your margins as you grow.",
   },
