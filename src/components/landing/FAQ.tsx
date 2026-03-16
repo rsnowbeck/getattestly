@@ -163,5 +163,6 @@ export function FAQ() {
         </div>
       </div>
     </section>
+    </>
   );
 }
