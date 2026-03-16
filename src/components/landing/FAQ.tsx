@@ -93,6 +93,8 @@ export function FAQ() {
   const [showMore, setShowMore] = useState(false);
 
   return (
+    <>
+    <FAQSchema />
     <section id="faq" className="pt-24 pb-24 bg-background">
       <div className="container">
         <div className="mx-auto max-w-3xl">
