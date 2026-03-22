@@ -7,7 +7,7 @@ import { CheckCircle2, ArrowRight, XCircle } from "lucide-react";
 import { Helmet } from "react-helmet-async";
 
 const comparisonRows = [
-  { feature: "Solo Firm Pricing", ledger: "$49/month flat", smart: "$210/month (3-user min)", tax: "~$67/seat/month", liscio: "$49/user/month + overages" },
+  { feature: "Solo Firm Pricing", ledger: "$49/month flat", smart: "$210/month (3-user min)", tax: "~$800/seat — paid upfront annually", liscio: "$49/user/month + overages" },
   { feature: "User Minimums", ledger: "None — start as a solo", smart: "3-user minimum", tax: "1 seat minimum", liscio: "Per user" },
   { feature: "Seasonal Staff Cost", ledger: "Included — always", smart: "+$70/user/month", tax: "+$67/seat/month", liscio: "+$49/user/month" },
   { feature: "Annual Contract Required", ledger: "No — month to month", smart: "Yes", tax: "Yes", liscio: "Contact for monthly" },
