@@ -243,6 +243,50 @@ serve(async (req: Request) => {
       });
     }
 
+    // ACTION: get-messages — load messages for this client
+    if (action === "get-messages") {
+      const { data: msgs, error: msgsError } = await supabase
+        .from("messages")
+        .select("id, sender_type, content, is_read, created_at")
+        .eq("client_id", clientId)
+        .order("created_at", { ascending: true });
+
+      if (msgsError) throw msgsError;
+
+      return new Response(JSON.stringify({ success: true, messages: msgs || [] }), {
+        status: 200,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    // ACTION: send-message — client sends a message
+    if (action === "send-message") {
+      const { content } = body;
+      if (!content || !content.trim()) {
+        return new Response(JSON.stringify({ error: "Message content required" }), {
+          status: 400,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+
+      const { data: msg, error: msgError } = await supabase
+        .from("messages")
+        .insert({
+          client_id: clientId,
+          sender_type: "client",
+          content: content.trim(),
+        })
+        .select()
+        .single();
+
+      if (msgError) throw msgError;
+
+      return new Response(JSON.stringify({ success: true, message: msg }), {
+        status: 200,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
     return new Response(JSON.stringify({ error: "Unknown action" }), {
       status: 400,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
