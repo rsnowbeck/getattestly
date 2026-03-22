@@ -473,6 +473,92 @@ export default function ClientPortal() {
         </div>
       </main>
 
+      {/* Messages Section */}
+      <div className="max-w-2xl mx-auto px-4 mt-6">
+        <button
+          onClick={() => {
+            setShowMessages(!showMessages);
+            if (!showMessages) loadMessages();
+          }}
+          className="w-full flex items-center justify-between px-4 py-3 rounded-xl border border-border bg-card hover:bg-muted/50 transition-colors"
+        >
+          <div className="flex items-center gap-2">
+            <MessageSquare className="h-5 w-5 text-primary" />
+            <span className="font-medium text-sm text-foreground">Messages</span>
+          </div>
+          {showMessages ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+        </button>
+
+        {showMessages && (
+          <div className="mt-3 rounded-xl border border-border bg-card overflow-hidden">
+            <div className="max-h-[300px] overflow-y-auto p-4 space-y-3">
+              {messages.length === 0 ? (
+                <p className="text-sm text-muted-foreground text-center py-4">
+                  No messages yet. Send a message to your accountant.
+                </p>
+              ) : (
+                messages.map((msg) => (
+                  <div
+                    key={msg.id}
+                    className={`flex gap-2 ${msg.sender_type === "client" ? "justify-end" : "justify-start"}`}
+                  >
+                    {msg.sender_type === "cpa" && (
+                      <div className="h-7 w-7 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1">
+                        <User className="h-3.5 w-3.5 text-primary" />
+                      </div>
+                    )}
+                    <div
+                      className={`max-w-[75%] rounded-xl px-3 py-2 ${
+                        msg.sender_type === "client"
+                          ? "bg-accent text-accent-foreground"
+                          : "bg-muted text-foreground"
+                      }`}
+                    >
+                      <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
+                      <p className="text-[10px] mt-1 opacity-60">
+                        {new Date(msg.created_at).toLocaleString(undefined, { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })}
+                      </p>
+                    </div>
+                    {msg.sender_type === "client" && (
+                      <div className="h-7 w-7 rounded-full bg-muted flex items-center justify-center flex-shrink-0 mt-1">
+                        <User className="h-3.5 w-3.5 text-muted-foreground" />
+                      </div>
+                    )}
+                  </div>
+                ))
+              )}
+              <div ref={messagesEndRef} />
+            </div>
+            <div className="border-t border-border p-3">
+              <form
+                onSubmit={(e) => { e.preventDefault(); handleSendMessage(); }}
+                className="flex gap-2"
+              >
+                <Textarea
+                  value={newMessage}
+                  onChange={(e) => setNewMessage(e.target.value)}
+                  placeholder="Type a message..."
+                  className="min-h-[40px] max-h-[80px] resize-none text-sm"
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && !e.shiftKey) {
+                      e.preventDefault();
+                      handleSendMessage();
+                    }
+                  }}
+                />
+                <Button
+                  type="submit"
+                  size="sm"
+                  disabled={sendingMessage || !newMessage.trim()}
+                  className="h-10 w-10 p-0 flex-shrink-0"
+                >
+                  <Send className="h-4 w-4" />
+                </Button>
+              </form>
+            </div>
+          </div>
+        )}
+
       {/* Footer */}
       {showPoweredBy && (
         <footer className="border-t border-border mt-8 py-6 text-center">
