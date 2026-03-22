@@ -215,6 +215,28 @@ serve(async (req: Request) => {
         throw new Error("Failed to record document");
       }
 
+      // Fire upload notification (non-blocking)
+      try {
+        const internalSecret = Deno.env.get("INTERNAL_FUNCTION_SECRET");
+        const supabaseUrl = Deno.env.get("SUPABASE_URL");
+        if (internalSecret && supabaseUrl) {
+          fetch(`${supabaseUrl}/functions/v1/send-upload-notification`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "x-internal-secret": internalSecret,
+            },
+            body: JSON.stringify({
+              clientId,
+              fileName,
+              fileType: fileType || null,
+            }),
+          }).catch((e) => console.error("Upload notification fire-and-forget error:", e));
+        }
+      } catch (notifErr) {
+        console.error("Upload notification error (non-blocking):", notifErr);
+      }
+
       return new Response(JSON.stringify({ success: true }), {
         status: 200,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
