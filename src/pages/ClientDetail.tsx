@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useParams, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { ClientContacts } from "@/components/clients/ClientContacts";
+import { ClientMessages } from "@/components/clients/ClientMessages";
 import { useOrganization } from "@/hooks/useOrganization";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -30,7 +31,7 @@ import { DropZone } from "@/components/documents/DropZone";
 import { AuditExportButton } from "@/components/clients/AuditExportButton";
 import { PBCTemplatePicker } from "@/components/clients/PBCTemplatePicker";
 import { useAuth } from "@/hooks/useAuth";
-import { ArrowLeft, Plus, Upload, FileText, CheckSquare, Clock, FolderPlus, Send, Loader2, Copy, ListChecks, Download, Trash2, Eye, MoreHorizontal, Pencil, X } from "lucide-react";
+import { ArrowLeft, Plus, Upload, FileText, CheckSquare, Clock, FolderPlus, Send, Loader2, Copy, ListChecks, Download, Trash2, Eye, MoreHorizontal, Pencil, X, MessageSquare } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import {
@@ -474,6 +475,10 @@ export default function ClientDetail() {
         <TabsList>
           <TabsTrigger value="documents">Documents ({documents.length})</TabsTrigger>
           <TabsTrigger value="tasks">Tasks ({tasks.length})</TabsTrigger>
+          <TabsTrigger value="messages">
+            <MessageSquare className="h-4 w-4 mr-1" />
+            Messages
+          </TabsTrigger>
           {client.client_type === 'business' && (
             <TabsTrigger value="contacts">Contacts ({contactCount})</TabsTrigger>
           )}
@@ -761,6 +766,15 @@ export default function ClientDetail() {
             </div>
           )}
         </TabsContent>
+
+        {/* Messages Tab */}
+        <TabsContent value="messages">
+          <ClientMessages
+            clientId={client.id}
+            clientName={client.company_name || `${client.first_name} ${client.last_name}`}
+          />
+        </TabsContent>
+
         {/* Contacts Tab - Business clients only */}
         {client.client_type === 'business' && organization?.id && (
           <TabsContent value="contacts">

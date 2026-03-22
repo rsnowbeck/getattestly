@@ -30,6 +30,7 @@ import { OrganizationSettingsForm } from "@/components/settings/OrganizationSett
 import { TeamManagement } from "@/components/settings/TeamManagement";
 import { EmailSettingsForm } from "@/components/settings/EmailSettingsForm";
 import { AutoReminderSettings } from "@/components/settings/AutoReminderSettings";
+import { UploadNotificationSettings } from "@/components/settings/UploadNotificationSettings";
 import { ReminderLogTable } from "@/components/signatures/ReminderLogTable";
 import { useOnboardingTour } from "@/components/onboarding/OnboardingTour";
 import { BillingSettings } from "@/components/settings/BillingSettings";
@@ -605,6 +606,12 @@ export default function Settings() {
                   organizationId={organization.id}
                   autoReminderEnabled={organization.auto_reminder_enabled ?? false}
                   autoReminderDays={organization.auto_reminder_days ?? 7}
+                  onUpdate={refetchOrg}
+                />
+                <UploadNotificationSettings
+                  organizationId={organization.id}
+                  uploadNotificationsEnabled={(organization as any).upload_notifications_enabled ?? true}
+                  uploadNotificationMode={(organization as any).upload_notification_mode ?? "instant"}
                   onUpdate={refetchOrg}
                 />
                 <Card>
