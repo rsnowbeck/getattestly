@@ -46,6 +46,7 @@ const TrackPolicyAcknowledgments = lazy(() => import("./pages/blog/TrackPolicyAc
 const ClientIntakeForms = lazy(() => import("./pages/use-cases/ClientIntakeForms"));
 const ContractorAgreements = lazy(() => import("./pages/use-cases/ContractorAgreements"));
 const EmployeeAcknowledgments = lazy(() => import("./pages/use-cases/EmployeeAcknowledgments"));
+const Compare = lazy(() => import("./pages/Compare"));
 
 const queryClient = new QueryClient();
 
@@ -94,6 +95,7 @@ const App = () => {
             <Route path="/docusign-alternative-compliance" element={<DocusignAlternative />} />
             <Route path="/smartvault-alternative" element={<SmartVaultAlternative />} />
             <Route path="/taxdome-alternative" element={<TaxDomeAlternative />} />
+            <Route path="/compare" element={<Compare />} />
             {/* Blog */}
             <Route path="/blog/track-employee-policy-acknowledgments" element={<TrackPolicyAcknowledgments />} />
             {/* Use Cases */}
