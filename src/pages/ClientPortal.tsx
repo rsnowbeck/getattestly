@@ -558,6 +558,7 @@ export default function ClientPortal() {
             </div>
           </div>
         )}
+      </div>
 
       {/* Footer */}
       {showPoweredBy && (
