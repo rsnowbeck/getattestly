@@ -30,6 +30,7 @@ import { OrganizationSettingsForm } from "@/components/settings/OrganizationSett
 import { TeamManagement } from "@/components/settings/TeamManagement";
 import { EmailSettingsForm } from "@/components/settings/EmailSettingsForm";
 import { AutoReminderSettings } from "@/components/settings/AutoReminderSettings";
+import { UploadNotificationSettings } from "@/components/settings/UploadNotificationSettings";
 import { ReminderLogTable } from "@/components/signatures/ReminderLogTable";
 import { useOnboardingTour } from "@/components/onboarding/OnboardingTour";
 import { BillingSettings } from "@/components/settings/BillingSettings";
