@@ -41,7 +41,7 @@ const greenValues = [
 ];
 const isGreenValue = (val: string) => greenValues.includes(val) || val.includes("Included");
 
-const redKeywords = ["$210", "$800", "$67", "+$70", "+$49", "Per-user pricing", "3-user minimum", "Yes", "Demo required", "Mandatory demo", "6–8 week", "Days to weeks", "Password login", "Add-on", "Usage-billed", "Paid add-on", "Contact for monthly"];
+const redKeywords = ["$110", "$800", "$55/staff", "+$49", "Per-user pricing", "2–3 user minimum", "Yes", "Demo required", "Mandatory demo", "6–8 week", "Days to weeks", "Password login", "Add-on", "Usage-billed", "Paid add-on", "Contact for monthly", "Per seat", "Per user"];
 const isRedValue = (val: string) => redKeywords.some((k) => val.includes(k));
 
 const costCards = [
