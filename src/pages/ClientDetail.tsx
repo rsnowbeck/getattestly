@@ -33,7 +33,8 @@ import { AuditExportButton } from "@/components/clients/AuditExportButton";
 import { PBCTemplatePicker } from "@/components/clients/PBCTemplatePicker";
 import { useAuth } from "@/hooks/useAuth";
 import { EngagementHistoryDialog } from "@/components/clients/EngagementHistoryDialog";
-import { ArrowLeft, Plus, Upload, FileText, CheckSquare, Clock, FolderPlus, Send, Loader2, Copy, ListChecks, Download, Trash2, Eye, MoreHorizontal, Pencil, X, MessageSquare, Settings, Bell, Archive } from "lucide-react";
+import { ScanReturnDialog } from "@/components/clients/ScanReturnDialog";
+import { ArrowLeft, Plus, Upload, FileText, CheckSquare, Clock, FolderPlus, Send, Loader2, Copy, ListChecks, Download, Trash2, Eye, MoreHorizontal, Pencil, X, MessageSquare, Settings, Bell, Archive, Sparkles } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
@@ -79,6 +80,7 @@ export default function ClientDetail() {
   const [inviting, setInviting] = useState(false);
   const [portalLink, setPortalLink] = useState<string | null>(null);
   const [engagementDialogOpen, setEngagementDialogOpen] = useState(false);
+  const [scanReturnOpen, setScanReturnOpen] = useState(false);
 
   useEffect(() => {
     if (user?.id && id) loadClientData();
@@ -598,6 +600,10 @@ export default function ClientDetail() {
         {/* Tasks Tab */}
         <TabsContent value="tasks" className="space-y-4">
           <div className="flex items-center gap-2">
+            <Button variant="outline" size="sm" onClick={() => setScanReturnOpen(true)} className="gap-1">
+              <Sparkles className="h-4 w-4" />
+              Generate from Return
+            </Button>
             <Button variant="outline" size="sm" onClick={() => setTemplatePickerOpen(true)}>
               <ListChecks className="h-4 w-4" />
               Use Template
@@ -912,6 +918,20 @@ export default function ClientDetail() {
               loadClientData();
             }
           }}
+        />
+      )}
+
+      {/* Scan Return Dialog */}
+      {client && organization && user && (
+        <ScanReturnDialog
+          open={scanReturnOpen}
+          onOpenChange={setScanReturnOpen}
+          clientId={client.id}
+          clientName={client.client_type === "business" ? client.company_name || `${client.first_name} ${client.last_name}` : `${client.first_name} ${client.last_name}`}
+          organizationId={organization.id}
+          userId={user.id}
+          existingDocuments={documents}
+          onTasksCreated={loadClientData}
         />
       )}
     </DashboardLayout>
