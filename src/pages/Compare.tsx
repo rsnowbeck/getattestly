@@ -92,7 +92,7 @@ const costCards = [
 const deepDives = [
   {
     name: "SmartVault",
-    text: "SmartVault was built for mid-size and enterprise accounting firms. It's a capable product — but it was never designed for the solo practitioner or boutique firm. The 3-user minimum isn't an oversight. It's a business model that assumes you have a team.\n\nIf you're a solo CPA, you're subsidizing SmartVault's enterprise infrastructure with fees for seats that don't exist. Ledger Stash starts at $49/month with no minimums, no phantom seats, and no annual commitment.",
+    text: "SmartVault was built for mid-size and enterprise accounting firms. It's a capable product — but it was never designed for the solo practitioner or boutique firm. The 2-user minimum isn't an oversight. It's a business model that assumes you have a team.\n\nSmartVault does offer SmartRequestAI for intake automation from prior-year returns — a genuine feature. But it's not conversational AI. Ledger Stash includes two purpose-built AI agents that work in real time. If you're a solo CPA, Ledger Stash starts at $49/month with no minimums, no phantom seats, and no annual commitment.",
     link: "/smartvault-alternative",
     linkText: "Full SmartVault vs Ledger Stash comparison",
   },
