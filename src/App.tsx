@@ -42,6 +42,7 @@ const DigitalPolicySignature = lazy(() => import("./pages/seo/DigitalPolicySigna
 const DocusignAlternative = lazy(() => import("./pages/seo/DocusignAlternative"));
 const SmartVaultAlternative = lazy(() => import("./pages/seo/SmartVaultAlternative"));
 const TaxDomeAlternative = lazy(() => import("./pages/seo/TaxDomeAlternative"));
+const LiscioAlternative = lazy(() => import("./pages/seo/LiscioAlternative"));
 const TrackPolicyAcknowledgments = lazy(() => import("./pages/blog/TrackPolicyAcknowledgments"));
 const ClientIntakeForms = lazy(() => import("./pages/use-cases/ClientIntakeForms"));
 const ContractorAgreements = lazy(() => import("./pages/use-cases/ContractorAgreements"));
@@ -95,6 +96,7 @@ const App = () => {
             <Route path="/docusign-alternative-compliance" element={<DocusignAlternative />} />
             <Route path="/smartvault-alternative" element={<SmartVaultAlternative />} />
             <Route path="/taxdome-alternative" element={<TaxDomeAlternative />} />
+            <Route path="/liscio-alternative" element={<LiscioAlternative />} />
             <Route path="/compare" element={<Compare />} />
             {/* Blog */}
             <Route path="/blog/track-employee-policy-acknowledgments" element={<TrackPolicyAcknowledgments />} />
