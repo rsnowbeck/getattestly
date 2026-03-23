@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
+import { escapeHtml, escapeAttr } from "../_shared/escape-html.ts";
 
 const BREVO_API_KEY = Deno.env.get("BREVO_API_KEY")!;
 
@@ -42,11 +43,11 @@ function buildIntroLine(
   const hasOrg = organizationName && organizationName.trim().length > 0;
 
   if (hasRequester && hasOrg) {
-    return `${senderName} from ${organizationName} has requested the following documents:`;
+    return `${escapeHtml(senderName)} from ${escapeHtml(organizationName)} has requested the following documents:`;
   } else if (hasRequester) {
-    return `${senderName} has requested the following documents:`;
+    return `${escapeHtml(senderName)} has requested the following documents:`;
   } else if (hasOrg) {
-    return `${organizationName} has requested the following documents:`;
+    return `${escapeHtml(organizationName)} has requested the following documents:`;
   } else {
     return `Your accountant has requested the following documents:`;
   }
@@ -54,7 +55,7 @@ function buildIntroLine(
 
 function buildClosingStatement(organizationName: string | undefined): string {
   if (organizationName && organizationName.trim().length > 0) {
-    return `This request is part of your document preparation process with ${organizationName}.`;
+    return `This request is part of your document preparation process with ${escapeHtml(organizationName)}.`;
   }
   return `This request is part of your document preparation process.`;
 }
@@ -163,12 +164,7 @@ function buildCustomMessageHtml(customMessage?: string): string {
     return "";
   }
   
-  const sanitized = customMessage
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+  const sanitized = escapeHtml(customMessage);
   
   return `
     <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin-top: 16px; margin-bottom: 16px;">
@@ -188,7 +184,6 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    // Validate caller is authenticated (JWT) or internal (shared secret)
     const authHeader = req.headers.get('Authorization');
     const internalSecret = req.headers.get('x-internal-secret');
     const expectedSecret = Deno.env.get('INTERNAL_FUNCTION_SECRET');
@@ -233,7 +228,6 @@ const handler = async (req: Request): Promise<Response> => {
       isReminder
     }: SigningEmailRequest = await req.json();
 
-    // Validate required fields
     if (!recipientName || !recipientEmail || !requirementTitle || !signingUrl) {
       console.error("Missing required fields:", { recipientName, recipientEmail, requirementTitle, signingUrl });
       return new Response(
@@ -242,7 +236,6 @@ const handler = async (req: Request): Promise<Response> => {
       );
     }
 
-    // Determine email type based on context
     const emailType = determineEmailType(explicitEmailType, daysUntilDue, sendCount, isReminder);
     const { subject, intro, buttonText, dueText, consequence, closing } = getEmailContent(
       emailType,
@@ -252,6 +245,12 @@ const handler = async (req: Request): Promise<Response> => {
       dueDate,
       daysUntilDue
     );
+
+    // Escape all user-controlled values for HTML context
+    const safeRecipientName = escapeHtml(recipientName);
+    const safeRequirementTitle = escapeHtml(requirementTitle);
+    const safeSigningUrl = escapeAttr(signingUrl);
+    const safeLogoUrl = escapeAttr(logoUrl);
 
     // Build due date display HTML
     let dueDateHtml = "";
@@ -284,9 +283,9 @@ const handler = async (req: Request): Promise<Response> => {
     const ledgerStashLogoUrl = "https://urpqjnoowsdehvkrqxmy.supabase.co/storage/v1/object/public/email-assets/attestly-logo.png?v=1";
     let logoHtml = "";
     if (isPro && logoUrl) {
-      const logoAlt = organizationName ? `${organizationName} logo` : "Organization logo";
+      const logoAlt = organizationName ? `${escapeHtml(organizationName)} logo` : "Organization logo";
       logoHtml = `
-        <img src="${logoUrl}" alt="${logoAlt}" style="height: 40px; max-width: 160px; object-fit: contain; margin-bottom: 12px;" />
+        <img src="${safeLogoUrl}" alt="${logoAlt}" style="height: 40px; max-width: 160px; object-fit: contain; margin-bottom: 12px;" />
       `;
     } else {
       logoHtml = `
@@ -294,10 +293,12 @@ const handler = async (req: Request): Promise<Response> => {
       `;
     }
 
-    // Build footer
+    // Build footer with escaped values
+    const safeFooterSender = escapeHtml(senderName || "the requester");
+    const safeFooterOrg = escapeHtml(organizationName);
     const footerText = organizationName
-      ? `If you have questions, please contact ${senderName || "the requester"} or your primary contact at ${organizationName}.`
-      : `If you have questions, please contact ${senderName || "the requester"}.`;
+      ? `If you have questions, please contact ${safeFooterSender} or your primary contact at ${safeFooterOrg}.`
+      : `If you have questions, please contact ${safeFooterSender}.`;
 
     console.log(`Sending ${emailType} email to ${recipientEmail} for "${requirementTitle}" via Brevo`);
 
@@ -326,7 +327,7 @@ const handler = async (req: Request): Promise<Response> => {
                 <tr>
                   <td style="padding: 32px;">
                     <p style="margin: 0 0 16px; font-size: 16px; color: #3f3f46;">
-                      Hi ${recipientName},
+                      Hi ${safeRecipientName},
                     </p>
                     <p style="margin: 0 0 24px; font-size: 16px; color: #3f3f46; line-height: 1.6;">
                       ${intro}
@@ -337,7 +338,7 @@ const handler = async (req: Request): Promise<Response> => {
                       <tr>
                         <td style="padding: 16px;">
                           <p style="margin: 0; font-size: 14px; color: #71717a; text-transform: uppercase; letter-spacing: 0.5px;">Document</p>
-                          <p style="margin: 4px 0 0; font-size: 16px; font-weight: 600; color: #18181b;">${requirementTitle}</p>
+                          <p style="margin: 4px 0 0; font-size: 16px; font-weight: 600; color: #18181b;">${safeRequirementTitle}</p>
                         </td>
                       </tr>
                     </table>
@@ -354,7 +355,7 @@ const handler = async (req: Request): Promise<Response> => {
                     <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
                       <tr>
                         <td align="center">
-                          <a href="${signingUrl}" style="display: inline-block; padding: 14px 32px; background-color: #18181b; color: #ffffff; text-decoration: none; font-size: 16px; font-weight: 500; border-radius: 8px;">
+                          <a href="${safeSigningUrl}" style="display: inline-block; padding: 14px 32px; background-color: #18181b; color: #ffffff; text-decoration: none; font-size: 16px; font-weight: 500; border-radius: 8px;">
                             ${buttonText}
                           </a>
                         </td>
@@ -389,7 +390,6 @@ const handler = async (req: Request): Promise<Response> => {
       </html>
     `;
 
-    // Send via Brevo
     const brevoResponse = await fetch("https://api.brevo.com/v3/smtp/email", {
       method: "POST",
       headers: {

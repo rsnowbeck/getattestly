@@ -253,7 +253,21 @@ serve(async (req) => {
       });
 
     } else {
-      // Fallback: generic assistant (no context)
+      // Fallback: require authentication
+      const authHeader = req.headers.get("Authorization");
+      if (!authHeader?.startsWith("Bearer ")) {
+        return new Response(JSON.stringify({ error: "Authorization required" }), {
+          status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+      const token = authHeader.replace("Bearer ", "");
+      const { data: { user }, error: authError } = await supabase.auth.getUser(token);
+      if (authError || !user) {
+        return new Response(JSON.stringify({ error: "Unauthorized" }), {
+          status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+
       systemPrompt = `You are the LedgerStash AI Assistant — a helpful, concise support agent for an accounting firm client vault platform.
 
 IMPORTANT RULES:
