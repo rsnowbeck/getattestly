@@ -56,7 +56,7 @@ export default function DocusignAlternative() {
                       { feature: "AI field detection", vaultledger: true, docusign: true },
                       { feature: "Automated compliance reminders", vaultledger: true, docusign: true },
                       { feature: "Audit-ready exports (CSV + PDF)", vaultledger: true, docusign: true },
-                      { feature: "Starts at $29/month", vaultledger: true, docusign: false },
+                      { feature: "Starts at $49/month", vaultledger: true, docusign: false },
                       { feature: "No per-envelope pricing", vaultledger: true, docusign: false },
                       { feature: "Multi-party contract negotiation", vaultledger: false, docusign: true },
                       { feature: "Legal workflow management", vaultledger: false, docusign: true },
@@ -96,7 +96,7 @@ export default function DocusignAlternative() {
                   "DocuSign requires signers to create accounts — Ledger Stash uses secure one-click links",
                   "DocuSign is designed for legal contracts — Ledger Stash is designed for compliance workflows",
                   "DocuSign's complexity is overkill for policy acknowledgments and training sign-offs",
-                  "Ledger Stash starts at $29/month vs DocuSign's $10/month per user minimum",
+                  "Ledger Stash starts at $49/month vs DocuSign's $10/month per user minimum",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-3">
                     <CheckCircle2 className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />

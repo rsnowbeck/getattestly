@@ -5,17 +5,17 @@ import { Calculator } from "lucide-react";
 type Competitor = "smartvault" | "taxdome" | "liscio";
 
 const competitors: { key: Competitor; label: string }[] = [
-  { key: "taxdome", label: "TaxDome" },
   { key: "smartvault", label: "SmartVault" },
+  { key: "taxdome", label: "TaxDome" },
   { key: "liscio", label: "Liscio" },
 ];
 
 function getCompetitorCost(competitor: Competitor, staffCount: number): number {
   switch (competitor) {
     case "smartvault":
-      // $90/month base (2 users) + $45/month per additional user
+      // $110/month base (2 users) + $55/month per additional user
       const extraUsers = Math.max(0, staffCount - 2);
-      return (90 + extraUsers * 45) * 12;
+      return (110 + extraUsers * 55) * 12;
     case "taxdome":
       // $800/seat/year upfront
       return staffCount * 800;
@@ -27,7 +27,7 @@ function getCompetitorCost(competitor: Competitor, staffCount: number): number {
 
 export function SuccessTaxCalculator() {
   const [staffCount, setStaffCount] = useState(3);
-  const [competitor, setCompetitor] = useState<Competitor>("taxdome");
+  const [competitor, setCompetitor] = useState<Competitor>("smartvault");
 
   const competitorCost = getCompetitorCost(competitor, staffCount);
   const ledgerStashCost = 49 * 12; // $49/month flat
@@ -91,7 +91,7 @@ export function SuccessTaxCalculator() {
         </div>
         <div className="rounded-lg border border-border p-4 text-center bg-accent/5">
           <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-1">
-            LedgerStash
+            Ledger Stash
           </p>
           <p className="text-2xl font-bold text-success">
             ${ledgerStashCost.toLocaleString()}

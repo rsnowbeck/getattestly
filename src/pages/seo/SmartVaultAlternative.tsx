@@ -17,7 +17,7 @@ const whySwitchCards = [
     icon: UserX,
     title: 'No "Solo Penalty"',
     description:
-      "SmartVault forces you into a 3-user minimum. LedgerStash lets you start as a solo firm at $29/mo and grow at your own pace.",
+      "SmartVault forces you into a 2-user minimum at $110/month. Ledger Stash lets you start as a solo firm at $49/mo and grow at your own pace.",
   },
   {
     icon: Bell,
@@ -29,22 +29,22 @@ const whySwitchCards = [
     icon: Sparkles,
     title: "Modern Client Experience",
     description:
-      "SmartVault feels like a 90s folder tree. LedgerStash feels like a premium, modern portal that makes your boutique firm look like a tech leader.",
+      "SmartVault feels like a 90s folder tree. Ledger Stash feels like a premium, modern portal that makes your boutique firm look like a tech leader.",
   },
 ];
 
 const comparisonRows = [
   {
     feature: "Solo Firm Pricing",
-    ledger: "$29/month (Unlimited team)",
-    smart: "$210/month ($2,520/yr)",
+    ledger: "$49/month (Unlimited team)",
+    smart: "$110/month min (Accounting Pro, 2-user min)",
     ledgerGreen: true,
     smartRed: true,
   },
   {
     feature: "User Minimums",
     ledger: "None — start as a solo",
-    smart: "3-user minimum required",
+    smart: "2-user minimum required",
     ledgerGreen: true,
   },
   {
@@ -53,6 +53,24 @@ const comparisonRows = [
     smart: "Per-user pricing",
     ledgerGreen: true,
     smartRed: true,
+  },
+  {
+    feature: "E-Signatures",
+    ledger: "Included — all plans",
+    smart: "Add-on on most plans",
+    ledgerGreen: true,
+    smartRed: true,
+  },
+  {
+    feature: "Context-Aware AI Client Bot",
+    ledger: "Conversational, real-time checklist status, 24/7",
+    smart: "⚠️ SmartRequestAI — intake automation from prior-year return, not conversational",
+  },
+  {
+    feature: "AI Practice Intelligence Bot",
+    ledger: "Queries full portfolio, sends reminders",
+    smart: "—",
+    ledgerGreen: true,
   },
   {
     feature: "Client Login Required?",
@@ -73,7 +91,7 @@ const comparisonRows = [
   {
     feature: "Time to First Client",
     ledger: "Under 5 minutes",
-    smart: "Days to weeks",
+    smart: "Guided setup required",
     ledgerGreen: true,
   },
   {
@@ -87,12 +105,6 @@ const comparisonRows = [
     smart: "Basic audit trail",
   },
   {
-    feature: "Migrating Files",
-    ledger: "One-click bulk upload",
-    smart: "Manual or paid migration",
-    ledgerGreen: true,
-  },
-  {
     feature: "Best For",
     ledger: "Solo firms, EAs, & Boutique practices",
     smart: "Large firms with IT staff",
@@ -101,19 +113,24 @@ const comparisonRows = [
 
 const faqItems = [
   {
-    question: "Does LedgerStash have a user minimum like SmartVault?",
+    question: "Does Ledger Stash have a user minimum like SmartVault?",
     answer:
-      "No. SmartVault requires a 3-user minimum, which can cost solo firms over $2,500 per year. LedgerStash has zero user minimums, making it the ideal alternative for solo practitioners and boutique firms.",
+      "No. SmartVault's Accounting Pro requires a 2-user minimum at $55/user/month ($110/month). Ledger Stash has zero user minimums, making it the ideal alternative for solo practitioners and boutique firms.",
   },
   {
-    question: "Is LedgerStash as secure as SmartVault?",
+    question: "Is Ledger Stash as secure as SmartVault?",
     answer:
-      "Absolutely. LedgerStash is built for tax professionals and is fully compliant with IRS Pub 4557, GLBA, and FTC safeguards. We use bank-level AES-256 encryption to ensure your client data is always protected.",
+      "Absolutely. Ledger Stash is built for tax professionals and is fully compliant with IRS Pub 4557, GLBA, and FTC safeguards. We use bank-level AES-256 encryption to ensure your client data is always protected.",
   },
   {
     question: "Can I brand the portal with my own firm's logo?",
     answer:
-      "Yes. Every LedgerStash plan includes white-label branding. You can add your firm's logo and brand colors so your clients see a professional, cohesive experience that matches your firm's identity.",
+      "Yes. Every Ledger Stash plan includes white-label branding. You can add your firm's logo and brand colors so your clients see a professional, cohesive experience that matches your firm's identity.",
+  },
+  {
+    question: "Does SmartVault have AI features?",
+    answer:
+      "SmartVault offers SmartRequestAI, which automates intake by pulling data from prior-year returns. However, it is not a conversational AI. Ledger Stash includes two purpose-built AI agents: a client-facing bot that answers checklist questions in real time, and a CPA practice intelligence bot that queries your full portfolio and can take actions like sending reminders.",
   },
 ];
 
@@ -134,8 +151,8 @@ export default function SmartVaultAlternative() {
   return (
     <div className="min-h-screen bg-background">
       <PageSEO
-        title="SmartVault Alternative | No 3-User Minimums | LedgerStash"
-        description='Stop paying for "Ghost Seats." LedgerStash is the premier SmartVault alternative for solo firms and EAs. Passwordless magic links and zero user minimums.'
+        title="SmartVault Alternative | No User Minimums | Ledger Stash"
+        description='Stop paying for ghost seats. Ledger Stash is the premier SmartVault alternative for solo firms and EAs. Passwordless magic links and zero user minimums. Starting at $49/mo.'
         keywords="SmartVault alternative, SmartVault alternatives, SmartVault competitor, SmartVault vs LedgerStash, SmartVault pricing for one user, SmartVault vs TaxDome, secure document exchange for accountants, passwordless client portal for accountants, solo CPA client portal, accounting firm document management"
         canonical="/smartvault-alternative"
       />
@@ -153,7 +170,7 @@ export default function SmartVaultAlternative() {
                 The <span className="text-accent">SmartVault Alternative</span> with Zero User Minimums.
               </h1>
               <p className="mx-auto max-w-[44rem] text-base text-muted-foreground mb-10">
-                Why pay $2,520/year for 3 seats when you only need one? Get a professional, branded vault with unlimited staff seats for a fraction of the cost.
+                Why pay $110/month for a 2-user minimum when you only need one? Get a professional, branded vault with unlimited staff seats for a fraction of the cost.
               </p>
               <Button variant="hero" size="xl" asChild>
                 <Link to="/signup" className="gap-2">
@@ -195,7 +212,7 @@ export default function SmartVaultAlternative() {
         <section className="py-16">
           <div className="container">
             <h2 className="text-2xl sm:text-3xl font-bold text-foreground text-center mb-12">
-              LedgerStash vs SmartVault
+              Ledger Stash vs SmartVault
             </h2>
 
             {/* Desktop table */}
@@ -238,8 +255,8 @@ export default function SmartVaultAlternative() {
                       <td className="px-5 py-4 text-sm text-muted-foreground">
                         <span
                           style={{
-                            color: row.smartRed ? "#D93025" : undefined,
-                            fontWeight: row.smartRed ? 600 : undefined,
+                            color: row.smartRed ? "#D93025" : row.smart.startsWith("⚠️") ? "#B45309" : undefined,
+                            fontWeight: row.smartRed || row.smart.startsWith("⚠️") ? 600 : undefined,
                           }}
                         >
                           {row.smart}
@@ -249,6 +266,9 @@ export default function SmartVaultAlternative() {
                   ))}
                 </tbody>
               </table>
+              <p className="text-xs text-muted-foreground mt-3 text-center italic">
+                SmartVault Accounting Pro: $55/user/month, 2-user minimum, annual billing. eSignatures are add-on on Business Pro and Accounting Pro plans. Pricing as of 2026.
+              </p>
             </div>
 
             {/* Mobile cards */}

@@ -7,9 +7,9 @@ import { CheckCircle2, ArrowRight, XCircle } from "lucide-react";
 import { Helmet } from "react-helmet-async";
 
 const comparisonRows = [
-  { feature: "Solo Firm Pricing", ledger: "$49/month flat", smart: "$210/month (3-user min)", tax: "~$800/seat — paid upfront annually", liscio: "$49/user/month + overages" },
-  { feature: "User Minimums", ledger: "None — start as a solo", smart: "3-user minimum", tax: "1 seat minimum", liscio: "Per user" },
-  { feature: "Seasonal Staff Cost", ledger: "Included — always", smart: "+$70/user/month", tax: "+$67/seat/month", liscio: "+$49/user/month" },
+  { feature: "Solo Firm Pricing", ledger: "$49/month flat", smart: "$110/month min (Accounting Pro, 2-user min)", tax: "~$800/seat — paid upfront annually", liscio: "$49/user/month + overages" },
+  { feature: "Staff Seat Minimums", ledger: "None", smart: "2–3 user minimum", tax: "Per seat", liscio: "Per user" },
+  { feature: "Seasonal Staff Cost", ledger: "Included — always", smart: "+$55/staff seat/month", tax: "Full year upfront per seat", liscio: "+$49/user/month" },
   { feature: "Annual Contract Required", ledger: "No — month to month", smart: "Yes", tax: "Full year billed upfront — no refunds, no cancellation", liscio: "Contact for monthly" },
   { feature: "Pricing Transparency", ledger: "Public pricing", smart: "Public pricing", tax: "Public pricing", liscio: "Demo required" },
   { feature: "Client Accounts Required", ledger: "No", smart: "Yes", tax: "Yes", liscio: "Yes" },
@@ -17,9 +17,9 @@ const comparisonRows = [
   { feature: "Mobile Experience", ledger: "Mobile-first (React)", smart: "Desktop-focused", tax: "Limited mobile", liscio: "Native app" },
   { feature: "PBC List Terminology", ledger: "Built for accountants (W-2s, K-1s, PBC)", smart: 'Generic "file requests"', tax: 'Generic "file requests"', liscio: "Generic tasks" },
   { feature: "White-Label Branding", ledger: "Logo + name — all plans", smart: "Custom portal", tax: "Portal branding only", liscio: "Paid add-on" },
-  { feature: "E-Signatures", ledger: "Included — all plans", smart: "Add-on", tax: "Included", liscio: "Usage-billed per signature" },
-  { feature: "Audit Trail", ledger: "ESIGN/UETA (IP, timestamp, browser)", smart: "Basic audit trail", tax: "Built-in eSign logs", liscio: "Basic" },
-  { feature: "Compliance", ledger: "IRS 4557 · FTC Safeguards · GLBA", smart: "SOC 2 · IRS 4557", tax: "General security", liscio: "General security" },
+  { feature: "E-Signatures", ledger: "Included — all plans", smart: "⚠️ Add-on on most plans", tax: "Included", liscio: "Usage-billed per signature" },
+  { feature: "Context-Aware AI Client Bot", ledger: "Conversational, real-time checklist status", smart: "⚠️ SmartRequestAI — intake only, not conversational", tax: "—", liscio: "—" },
+  { feature: "AI Practice Intelligence Bot", ledger: "Portfolio queries + sends reminders", smart: "—", tax: "—", liscio: "—" },
   { feature: "Time to First Client", ledger: "Under 5 minutes", smart: "Days to weeks", tax: "6–8 weeks", liscio: "Demo required" },
   { feature: "Setup / Onboarding", ledger: "Self-serve — no demo needed", smart: "Self-serve", tax: "6–8 week onboarding", liscio: "Mandatory demo call" },
   { feature: "Busy Season Auto-Reminders", ledger: "Included", smart: "Included", tax: "Included", liscio: "Included" },
@@ -41,22 +41,23 @@ const greenValues = [
 ];
 const isGreenValue = (val: string) => greenValues.includes(val) || val.includes("Included");
 
-const redKeywords = ["$210", "$800", "$67", "+$70", "+$49", "Per-user pricing", "3-user minimum", "Yes", "Demo required", "Mandatory demo", "6–8 week", "Days to weeks", "Password login", "Add-on", "Usage-billed", "Paid add-on", "Contact for monthly"];
+const redKeywords = ["$110", "$800", "$55/staff", "+$49", "Per-user pricing", "2–3 user minimum", "Yes", "Demo required", "Mandatory demo", "6–8 week", "Days to weeks", "Password login", "Add-on", "Usage-billed", "Paid add-on", "Contact for monthly", "Per seat", "Per user"];
 const isRedValue = (val: string) => redKeywords.some((k) => val.includes(k));
 
 const costCards = [
   {
     name: "SmartVault",
-    tagline: "SmartVault requires a 3-user minimum.",
-    pain: "As a solo practitioner you pay for 2 employees who don't exist.",
+    tagline: "SmartVault requires a 2-user minimum.",
+    pain: "As a solo practitioner you pay for 1 employee who doesn't exist.",
     bullets: [
-      "Base cost: $210/month (3-seat minimum)",
-      "Annual cost: $2,520/year",
-      "Employees you're paying for who don't work for you: 2",
+      "Base cost: $110/month (2-seat minimum, Accounting Pro)",
+      "Annual cost: $1,320/year",
+      "Employees you're paying for who don't work for you: 1",
+      "eSignatures: Add-on — not included",
       "Setup time: Days to weeks",
     ],
     ledgerCost: "$588/year",
-    savings: "$1,932/year",
+    savings: "$732/year",
   },
   {
     name: "TaxDome",
@@ -91,7 +92,7 @@ const costCards = [
 const deepDives = [
   {
     name: "SmartVault",
-    text: "SmartVault was built for mid-size and enterprise accounting firms. It's a capable product — but it was never designed for the solo practitioner or boutique firm. The 3-user minimum isn't an oversight. It's a business model that assumes you have a team.\n\nIf you're a solo CPA, you're subsidizing SmartVault's enterprise infrastructure with fees for seats that don't exist. Ledger Stash starts at $49/month with no minimums, no phantom seats, and no annual commitment.",
+    text: "SmartVault was built for mid-size and enterprise accounting firms. It's a capable product — but it was never designed for the solo practitioner or boutique firm. The 2-user minimum isn't an oversight. It's a business model that assumes you have a team.\n\nSmartVault does offer SmartRequestAI for intake automation from prior-year returns — a genuine feature. But it's not conversational AI. Ledger Stash includes two purpose-built AI agents that work in real time. If you're a solo CPA, Ledger Stash starts at $49/month with no minimums, no phantom seats, and no annual commitment.",
     link: "/smartvault-alternative",
     linkText: "Full SmartVault vs Ledger Stash comparison",
   },
@@ -234,7 +235,7 @@ export default function Compare() {
             </div>
 
             <p className="text-xs text-muted-foreground text-center mt-6 max-w-3xl mx-auto">
-              Competitor pricing and features based on publicly available information as of 2026. Liscio pricing reflects Tax Solo plan. SmartVault pricing reflects 3-user minimum. Prices may vary.
+              Competitor pricing and features based on publicly available information as of 2026. SmartVault Accounting Pro: $55/user/month, 2-user minimum, annual billing. TaxDome billed annually upfront. Liscio usage fees apply beyond base limits.
             </p>
           </div>
         </section>
