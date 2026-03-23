@@ -920,6 +920,20 @@ export default function ClientDetail() {
           }}
         />
       )}
+
+      {/* Scan Return Dialog */}
+      {client && organization && user && (
+        <ScanReturnDialog
+          open={scanReturnOpen}
+          onOpenChange={setScanReturnOpen}
+          clientId={client.id}
+          clientName={client.client_type === "business" ? client.company_name || `${client.first_name} ${client.last_name}` : `${client.first_name} ${client.last_name}`}
+          organizationId={organization.id}
+          userId={user.id}
+          existingDocuments={documents}
+          onTasksCreated={loadClientData}
+        />
+      )}
     </DashboardLayout>
   );
 }
