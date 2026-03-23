@@ -6,7 +6,7 @@ const organizationSchema = {
   name: "LedgerStash",
   url: "https://ledgerstash.com",
   logo: "https://ledgerstash.com/og-image.png",
-  description: "Secure client vault for solo CPAs, boutique accounting firms, and corporate controllers. Exchange documents, manage PBC tasks, and track engagement letter signatures securely.",
+  description: "Secure client vault for solo CPAs and boutique accounting firms. Exchange documents, manage PBC tasks, and track engagement letter signatures securely.",
   foundingDate: "2025",
   sameAs: [
     "https://twitter.com/ledgerstash",
@@ -33,8 +33,8 @@ const softwareApplicationSchema = {
   operatingSystem: "Web",
   description: "Secure client vault for solo CPAs and boutique accounting firms. Simplify document exchange, PBC task management, engagement letter tracking, and ESIGN-compliant audit trails.",
   offers: [
-    { "@type": "Offer", name: "Solo CPA", price: "29", priceCurrency: "USD", priceValidUntil: "2027-12-31", description: "Up to 25 active clients, standard branding, unlimited team members" },
-    { "@type": "Offer", name: "Boutique Firm", price: "79", priceCurrency: "USD", priceValidUntil: "2027-12-31", description: "Up to 100 clients, full white-labeling, Busy Season auto-reminders" },
+    { "@type": "Offer", name: "Solo Practitioner", price: "49", priceCurrency: "USD", priceValidUntil: "2027-12-31", description: "Up to 25 active clients, standard branding, unlimited team members" },
+    { "@type": "Offer", name: "Boutique Firm", price: "149", priceCurrency: "USD", priceValidUntil: "2027-12-31", description: "Up to 100 clients, full white-labeling, Busy Season auto-reminders" },
     { "@type": "Offer", name: "Enterprise Vault", price: "199", priceCurrency: "USD", priceValidUntil: "2027-12-31", description: "Unlimited clients, advanced audit logs, dedicated support" },
   ],
   aggregateRating: {
@@ -79,6 +79,11 @@ const softwareApplicationSchema = {
     "Team collaboration (unlimited members)",
     "Real-time firm dashboard",
     "Frictionless client access (no passwords)",
+    "Context-aware AI client bot",
+    "AI practice intelligence bot",
+    "Two-way secure messaging",
+    "Real-time upload notifications",
+    "10 pre-built PBC templates",
   ],
   url: "https://ledgerstash.com",
   screenshot: "https://ledgerstash.com/og-image.png",
@@ -90,9 +95,11 @@ const breadcrumbSchema = {
   itemListElement: [
     { "@type": "ListItem", position: 1, name: "Home", item: "https://ledgerstash.com" },
     { "@type": "ListItem", position: 2, name: "Pricing", item: "https://ledgerstash.com/pricing" },
-    { "@type": "ListItem", position: 3, name: "SmartVault Alternative", item: "https://ledgerstash.com/smartvault-alternative" },
-    { "@type": "ListItem", position: 4, name: "TaxDome Alternative", item: "https://ledgerstash.com/taxdome-alternative" },
-    { "@type": "ListItem", position: 5, name: "Sign Up", item: "https://ledgerstash.com/signup" },
+    { "@type": "ListItem", position: 3, name: "Compare", item: "https://ledgerstash.com/compare" },
+    { "@type": "ListItem", position: 4, name: "SmartVault Alternative", item: "https://ledgerstash.com/smartvault-alternative" },
+    { "@type": "ListItem", position: 5, name: "TaxDome Alternative", item: "https://ledgerstash.com/taxdome-alternative" },
+    { "@type": "ListItem", position: 6, name: "Liscio Alternative", item: "https://ledgerstash.com/liscio-alternative" },
+    { "@type": "ListItem", position: 7, name: "Sign Up", item: "https://ledgerstash.com/signup" },
   ],
 };
 

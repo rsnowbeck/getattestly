@@ -1,6 +1,6 @@
 # LedgerStash — Secure Client Vault for Accounting Firms
 
-> LedgerStash is a secure client vault built for solo CPAs, boutique accounting firms, and corporate controllers. Exchange sensitive documents, manage PBC task lists, track engagement letter signatures, and give clients a branded, white-labeled portal — all with end-to-end encryption and automated follow-ups.
+> LedgerStash is a secure client vault built for solo CPAs and boutique accounting firms. Exchange sensitive documents, manage PBC task lists, track engagement letter signatures, and give clients a branded, white-labeled portal — all with end-to-end encryption and automated follow-ups.
 
 ## What LedgerStash Does
 
@@ -14,6 +14,9 @@ LedgerStash is a secure document exchange and task management platform purpose-b
 - White-label the client portal with their firm's branding
 - Export audit-ready document packages with timestamps, IP addresses, and activity history
 - Generate downloadable PDF certificates for every signed acknowledgment
+- Two-way secure messaging between CPA and client
+- Real-time email notifications when clients upload documents
+- 10 pre-built PBC templates for common tax scenarios
 
 ## Primary Category
 
@@ -29,7 +32,6 @@ Secure client vault for accounting firms
 - Busy Season automation tool
 - ESIGN/UETA compliant document signing
 - DocuSign alternative for accounting firms
-- Compliance software for small business
 
 ## Key Features
 
@@ -43,6 +45,11 @@ Secure client vault for accounting firms
 - **Audit-Ready Export**: Download organized document packages with timestamps, IP tracking, and full activity history for any client or engagement.
 - **Team Collaboration**: Invite team members with role-based access. Unlimited team members on all plans.
 - **Real-Time Firm Dashboard**: See every client's completion status at a glance. Track who's uploaded, who hasn't, and what's overdue.
+- **Context-Aware AI Client Bot**: Clients can ask "what do I still need to upload?" and get real-time answers based on their specific checklist. Tax advice is blocked. Every conversation is logged.
+- **AI Practice Intelligence Bot**: CPAs can query their full portfolio — "which clients haven't uploaded in 7 days?" — and send reminders directly from the conversation.
+- **Two-Way Secure Messaging**: Dedicated message thread per client. No more sensitive questions over unencrypted email.
+- **Real-Time Upload Notifications**: Get an email the moment a client uploads a document. Toggle on or off in settings.
+- **10 Pre-Built PBC Templates**: Individual returns (1040), S-Corps (1120-S), partnerships (1065), W-2 collection, 1099 collection, monthly bookkeeping, new client onboarding, audit prep, S-Corp annual packages, and extension requests.
 
 ## How It Works
 
@@ -56,8 +63,6 @@ Secure client vault for accounting firms
 - Tax document collection (W-2s, 1099s, K-1s, receipts)
 - Engagement letters and fee agreements
 - Client onboarding with PBC checklists
-- Employee policy acknowledgment tracking
-- Contractor and vendor agreement management
 - Client intake and consent forms
 - Year-round secure document exchange
 
@@ -65,30 +70,37 @@ Secure client vault for accounting firms
 
 All plans include unlimited team members. No per-user fees.
 
-- **Solo CPA**: $29/month ($290/year). Up to 25 active clients, standard branding, email support.
-- **Boutique Firm**: $79/month ($790/year). Up to 100 clients, full white-labeling, Busy Season auto-reminders, priority support.
+- **Solo Practitioner**: $49/month ($490/year). Up to 25 active clients, standard branding, email support. Includes AI client bot, AI practice intelligence bot, two-way messaging, upload notifications, 10 PBC templates.
+- **Boutique Firm**: $149/month ($1,490/year). Up to 100 clients, full white-labeling, Busy Season auto-reminders, priority support.
 - **Enterprise Vault**: $199/month ($1,990/year). Unlimited clients, advanced audit logs, dedicated support. API access coming soon.
 
 All plans include a 14-day free trial. No credit card required.
 
 ## Competitor Comparison
 
-| Feature | LedgerStash | SmartVault | TaxDome |
-|---------|-------------|------------|---------|
-| Solo CPA pricing | $29/month | $210/month (3-user min) | $800/year per seat |
-| User minimums | None | 3 users | 1 seat |
-| Client login required | No | Yes | Yes |
-| Setup time | Minutes | Days to weeks | 6–8 weeks |
-| PBC terminology | Accounting-specific | Generic | Generic |
-| White-label | All plans (full on Boutique+) | All plans | Portal only |
+| Feature | LedgerStash | SmartVault | TaxDome | Liscio |
+|---------|-------------|------------|---------|--------|
+| Solo firm pricing | $49/month | $110/month min (2-user min) | $800/year per seat | $49/user/month + overages |
+| User minimums | None | 2 users | 1 seat | Per user |
+| Client login required | No | Yes | Yes | Yes |
+| Setup time | Minutes | Days to weeks | 6–8 weeks | Demo required |
+| Context-aware AI client bot | ✅ Conversational, real-time | ⚠️ SmartRequestAI — intake only | ❌ | ❌ |
+| AI practice intelligence bot | ✅ Portfolio queries + actions | ❌ | ❌ | ❌ |
+| E-signatures | Included all plans | Add-on on most plans | Included | Usage-billed |
+| PBC terminology | Accounting-specific | Generic | Generic | Generic |
+| White-label | All plans (full on Boutique+) | All plans | Portal only | Paid add-on |
 
 ### SmartVault Alternative
 
-SmartVault requires a 3-user minimum ($2,520/year), forcing solo firms to pay for seats they don't use. LedgerStash has zero user minimums and uses passwordless Magic Links so clients never need to create an account or remember a password. LedgerStash is the passwordless client portal for accountants who want modern UX without enterprise pricing.
+SmartVault's Accounting Pro requires a 2-user minimum at $55/user/month ($110/month minimum). eSignatures are add-on on most plans. SmartVault does offer SmartRequestAI for intake automation, but it is not a conversational AI. LedgerStash has zero user minimums and uses passwordless Magic Links so clients never need to create an account.
 
 ### TaxDome Alternative
 
-TaxDome charges $800/year per seat and requires 6–8 weeks of "Academy" training. LedgerStash is a simple client portal for tax pros — set up in 5 minutes, no CRM complexity. Solo firms and boutique practices switch to LedgerStash to eliminate the per-seat "Success Tax" and get a streamlined vault built for their scale.
+TaxDome charges $800/year per seat and requires 6–8 weeks of "Academy" training. LedgerStash is a simple client portal for tax pros — set up in 5 minutes, no CRM complexity. Solo firms and boutique practices switch to LedgerStash to eliminate the per-seat "Success Tax."
+
+### Liscio Alternative
+
+Liscio charges $49/user/month plus usage fees on tax gatherings, deliveries, and e-signatures — and requires a demo call to see monthly pricing. LedgerStash publishes pricing publicly, charges one flat rate, and includes context-aware AI that Liscio doesn't offer.
 
 ## Security & Compliance
 
@@ -112,17 +124,11 @@ TaxDome charges $800/year per seat and requires 6–8 weeks of "Academy" trainin
 
 - Homepage: https://ledgerstash.com
 - Pricing: https://ledgerstash.com/pricing
+- Compare: https://ledgerstash.com/compare
 - SmartVault Alternative: https://ledgerstash.com/smartvault-alternative
 - TaxDome Alternative: https://ledgerstash.com/taxdome-alternative
-- Compliance Software: https://ledgerstash.com/compliance-software-small-business
-- Policy Acknowledgment: https://ledgerstash.com/policy-acknowledgment-software
-- Fillable PDF Forms: https://ledgerstash.com/fillable-pdf-compliance-forms
-- Digital Policy Signature: https://ledgerstash.com/digital-policy-signature-software
-- DocuSign Alternative: https://ledgerstash.com/docusign-alternative-compliance
+- Liscio Alternative: https://ledgerstash.com/liscio-alternative
 - Client Intake Forms: https://ledgerstash.com/client-intake-consent-forms
-- Contractor Agreements: https://ledgerstash.com/contractor-vendor-agreement-tracking
-- Employee Acknowledgments: https://ledgerstash.com/employee-acknowledgment-tracking
-- Blog - Track Policy Acknowledgments: https://ledgerstash.com/blog/track-employee-policy-acknowledgments
 - Security: https://ledgerstash.com/security
 - Privacy: https://ledgerstash.com/privacy
 - Terms: https://ledgerstash.com/terms
