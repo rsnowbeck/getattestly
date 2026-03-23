@@ -518,7 +518,7 @@ export default function ClientPortal() {
                               </h4>
                               {task.priority === "high" && !isCompleted && (
                                 <span className="text-[10px] px-1.5 py-0.5 rounded bg-destructive/10 text-destructive font-semibold uppercase">
-                                  Urgent
+                                  Required
                                 </span>
                               )}
                             </div>
