@@ -42,6 +42,7 @@ const DigitalPolicySignature = lazy(() => import("./pages/seo/DigitalPolicySigna
 const DocusignAlternative = lazy(() => import("./pages/seo/DocusignAlternative"));
 const SmartVaultAlternative = lazy(() => import("./pages/seo/SmartVaultAlternative"));
 const TaxDomeAlternative = lazy(() => import("./pages/seo/TaxDomeAlternative"));
+const LiscioAlternative = lazy(() => import("./pages/seo/LiscioAlternative"));
 const TrackPolicyAcknowledgments = lazy(() => import("./pages/blog/TrackPolicyAcknowledgments"));
 const ClientIntakeForms = lazy(() => import("./pages/use-cases/ClientIntakeForms"));
 const ContractorAgreements = lazy(() => import("./pages/use-cases/ContractorAgreements"));
