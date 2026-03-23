@@ -2,8 +2,9 @@ import { useState, useCallback, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { X, Send, Loader2, User, RotateCcw, Bot } from "lucide-react";
 import ReactMarkdown from "react-markdown";
-import sageShieldIcon from "@/assets/sage-shield-icon.png";
-import scoutShieldIcon from "@/assets/scout-shield-icon.png";
+import aiShieldIcon from "@/assets/ai-shield-icon.png";
+import aiChatAvatar from "@/assets/ai-chat-avatar.png";
+import scoutIcon from "@/assets/scout-icon.png";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
@@ -198,7 +199,8 @@ export function AIAssistantWidget({ mode = "cpa", clientToken }: AIAssistantWidg
       ];
 
   const agentName = mode === "cpa" ? "Sage" : "Scout";
-  const agentIcon = mode === "cpa" ? sageShieldIcon : scoutShieldIcon;
+  const agentIcon = mode === "cpa" ? aiShieldIcon : scoutIcon;
+  const agentAvatar = mode === "cpa" ? aiChatAvatar : scoutIcon;
   const botLabel = mode === "cpa" ? "Sage — CPA Operations" : "Scout — Client Assistant";
 
   return (
