@@ -2,8 +2,7 @@ import { useState, useCallback, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { X, Send, Loader2, User, RotateCcw, Bot } from "lucide-react";
 import ReactMarkdown from "react-markdown";
-import aiShieldIcon from "@/assets/ai-shield-icon.png";
-import aiChatAvatar from "@/assets/ai-chat-avatar.png";
+import sageIcon from "@/assets/sage-shield-icon.png";
 import scoutIcon from "@/assets/scout-icon.png";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -199,8 +198,7 @@ export function AIAssistantWidget({ mode = "cpa", clientToken }: AIAssistantWidg
       ];
 
   const agentName = mode === "cpa" ? "Sage" : "Scout";
-  const agentIcon = mode === "cpa" ? aiShieldIcon : scoutIcon;
-  const agentAvatar = mode === "cpa" ? aiChatAvatar : scoutIcon;
+  const agentIcon = mode === "cpa" ? sageIcon : scoutIcon;
   const botLabel = mode === "cpa" ? "Sage — CPA Operations" : "Scout — Client Assistant";
 
   return (
@@ -226,7 +224,7 @@ export function AIAssistantWidget({ mode = "cpa", clientToken }: AIAssistantWidg
               <div>
                 <span className="font-semibold text-sm text-foreground block">{botLabel}</span>
                 {mode === "cpa" && (
-                  <span className="text-[10px] text-muted-foreground">Data-aware • Can take actions</span>
+                  <span className="text-[10px] text-muted-foreground">Your Practice Intelligence Agent</span>
                 )}
               </div>
             </div>
@@ -326,7 +324,7 @@ export function AIAssistantWidget({ mode = "cpa", clientToken }: AIAssistantWidg
                 ref={inputRef}
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder={mode === "cpa" ? "Ask about your clients..." : "Ask a question..."}
+                placeholder={mode === "cpa" ? "Ask Sage anything about your practice..." : "Ask Scout a question..."}
                 className="flex-1 rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-accent"
                 disabled={isLoading}
               />
