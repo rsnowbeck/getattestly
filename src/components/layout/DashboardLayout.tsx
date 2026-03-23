@@ -22,6 +22,7 @@ import { toast } from "sonner";
 import { useSessionTimeout } from "@/hooks/useSessionTimeout";
 import { SessionTimeoutDialog } from "@/components/common/SessionTimeoutDialog";
 import { AIAssistantWidget } from "@/components/ai/AIAssistantWidget";
+import { GlobalSearchDialog } from "@/components/search/GlobalSearchDialog";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
