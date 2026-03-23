@@ -224,7 +224,7 @@ export function AIAssistantWidget({ mode = "cpa", clientToken }: AIAssistantWidg
               <div>
                 <span className="font-semibold text-sm text-foreground block">{botLabel}</span>
                 {mode === "cpa" && (
-                  <span className="text-[10px] text-muted-foreground">Data-aware • Can take actions</span>
+                  <span className="text-[10px] text-muted-foreground">Your Practice Intelligence Agent</span>
                 )}
               </div>
             </div>
