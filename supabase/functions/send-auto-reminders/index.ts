@@ -88,12 +88,12 @@ serve(async (req: Request) => {
 
       if (!org?.auto_reminder_enabled) continue;
 
-      const reminderDays = org.auto_reminder_days || 7;
+      const orgReminderDays = org.auto_reminder_days || 7;
 
-      // Get all active clients for this firm
+      // Get all active clients for this firm (include per-client reminder override)
       const { data: clients } = await supabase
         .from("clients")
-        .select("id, email, first_name, last_name")
+        .select("id, email, first_name, last_name, reminder_cadence_days")
         .eq("firm_id", firm.id)
         .eq("status", "active");
 
