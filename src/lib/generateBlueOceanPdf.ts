@@ -130,7 +130,7 @@ export async function generateBlueOceanPdf(): Promise<void> {
     },
     {
       title: "Hidden Minimums",
-      desc: "SmartVault's Business Pro requires a 3-user minimum at $210/month. TaxDome charges $800/year per seat. You're a solo — why pay for ghost users?",
+      desc: "SmartVault's Business Pro requires a 3-user minimum at $110/month. TaxDome charges $800/year per seat. You're a solo — why pay for ghost users?",
     },
     {
       title: "Client Friction",
@@ -190,11 +190,11 @@ export async function generateBlueOceanPdf(): Promise<void> {
   const compRows = [
     {
       feature: "Solo Firm Pricing",
-      ls: "$29/month",
+      ls: "$49/month",
       lsSub: "Unlimited team members included",
       lsSub2: "",
-      sv: "$210/month",
-      svSub: "$1,800/year — 3-user minimum",
+      sv: "$110/month",
+      svSub: "$1,320/year — 2-user minimum",
       svSub2: "",
       td: "$800/year per seat",
       tdSub: "Annual contract only",
@@ -532,7 +532,7 @@ export async function generateBlueOceanPdf(): Promise<void> {
   doc.setFontSize(11);
   doc.setFont("helvetica", "normal");
   const closingLines = [
-    "$29/month — No user minimums",
+    "$49/month — No user minimums",
     "Unlimited users included on every plan",
     "Set up in minutes, not weeks",
     "Frictionless client experience — no logins",
