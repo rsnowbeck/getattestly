@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { escapeHtml, escapeAttr } from "../_shared/escape-html.ts";
 
 const BREVO_API_KEY = Deno.env.get("BREVO_API_KEY")!;
 
@@ -117,8 +118,10 @@ serve(async (req: Request) => {
     const baseUrl = Deno.env.get("SITE_URL") || "https://getattestly.lovable.app";
     const portalUrl = `${baseUrl}/portal/${token}`;
 
-    const displayFirm = firmName || "Your Accountant";
-    const displaySender = senderName || "Your accountant";
+    const displayFirm = escapeHtml(firmName || "Your Accountant");
+    const displaySender = escapeHtml(senderName || "Your accountant");
+    const safeFirstName = escapeHtml(client.first_name);
+    const safePortalUrl = escapeAttr(portalUrl);
 
     // Send invite email via Brevo
     const emailHtml = `
@@ -142,7 +145,7 @@ serve(async (req: Request) => {
           <tr>
             <td style="padding: 0 32px 32px;">
               <p style="margin: 0 0 16px; font-size: 16px; color: #3f3f46;">
-                Hi ${client.first_name},
+                Hi ${safeFirstName},
               </p>
               <p style="margin: 0 0 16px; font-size: 16px; color: #3f3f46; line-height: 1.6;">
                 ${displaySender} at <strong>${displayFirm}</strong> has set up a secure document portal for you. Use it to upload tax documents, view tasks, and stay organized — no account or password needed.
@@ -164,7 +167,7 @@ serve(async (req: Request) => {
               <table role="presentation" width="100%" cellspacing="0" cellpadding="0">
                 <tr>
                   <td align="center">
-                    <a href="${portalUrl}" style="display: inline-block; padding: 14px 32px; background-color: #18181b; color: #ffffff; text-decoration: none; font-size: 16px; font-weight: 500; border-radius: 8px;">
+                    <a href="${safePortalUrl}" style="display: inline-block; padding: 14px 32px; background-color: #18181b; color: #ffffff; text-decoration: none; font-size: 16px; font-weight: 500; border-radius: 8px;">
                       Open Your Portal
                     </a>
                   </td>
@@ -203,7 +206,7 @@ serve(async (req: Request) => {
       body: JSON.stringify({
         sender: { name: "LedgerStash", email: "notifications@ledgerstash.com" },
         to: [{ email: client.email, name: `${client.first_name} ${client.last_name}` }],
-        subject: `${displayFirm} has set up a secure document portal for you`,
+        subject: `${firmName || "Your Accountant"} has set up a secure document portal for you`,
         htmlContent: emailHtml,
       }),
     });

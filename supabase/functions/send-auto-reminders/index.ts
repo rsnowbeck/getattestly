@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { escapeHtml } from "../_shared/escape-html.ts";
 
 const BREVO_API_KEY = Deno.env.get("BREVO_API_KEY")!;
 
@@ -131,6 +132,9 @@ serve(async (req: Request) => {
         const overdueTasks = pendingTasks.filter(t => t.due_date && new Date(t.due_date) < new Date());
         const upcomingTasks = pendingTasks.filter(t => !t.due_date || new Date(t.due_date) >= new Date());
 
+        const safeFirmName = escapeHtml(firm.name);
+        const safeFirstName = escapeHtml(client.first_name);
+
         const isUrgent = overdueTasks.length > 0;
         const subject = isUrgent
           ? `Action needed: ${overdueTasks.length} overdue task${overdueTasks.length > 1 ? "s" : ""} from ${firm.name}`
@@ -144,7 +148,7 @@ serve(async (req: Request) => {
           return `
             <tr>
               <td style="padding: 10px 16px; border-bottom: 1px solid #e4e4e7;">
-                <p style="margin: 0; font-size: 14px; font-weight: 500; color: #18181b;">${t.title}</p>
+                <p style="margin: 0; font-size: 14px; font-weight: 500; color: #18181b;">${escapeHtml(t.title)}</p>
               </td>
               <td style="padding: 10px 16px; border-bottom: 1px solid #e4e4e7; text-align: right;">
                 <span style="font-size: 12px; color: ${color}; font-weight: 500;">${isOverdue ? "⚠️ " : ""}${dueText}</span>
@@ -174,11 +178,11 @@ serve(async (req: Request) => {
           </tr>
           <tr>
             <td style="padding: 0 32px 32px;">
-              <p style="margin: 0 0 16px; font-size: 16px; color: #3f3f46;">Hi ${client.first_name},</p>
+              <p style="margin: 0 0 16px; font-size: 16px; color: #3f3f46;">Hi ${safeFirstName},</p>
               <p style="margin: 0 0 24px; font-size: 16px; color: #3f3f46; line-height: 1.6;">
                 ${isUrgent
-                  ? `You have <strong>${overdueTasks.length} overdue</strong> task${overdueTasks.length > 1 ? "s" : ""} from <strong>${firm.name}</strong>. Please take action as soon as possible.`
-                  : `This is a friendly reminder that you have <strong>${pendingTasks.length}</strong> pending task${pendingTasks.length > 1 ? "s" : ""} from <strong>${firm.name}</strong>.`
+                  ? `You have <strong>${overdueTasks.length} overdue</strong> task${overdueTasks.length > 1 ? "s" : ""} from <strong>${safeFirmName}</strong>. Please take action as soon as possible.`
+                  : `This is a friendly reminder that you have <strong>${pendingTasks.length}</strong> pending task${pendingTasks.length > 1 ? "s" : ""} from <strong>${safeFirmName}</strong>.`
                 }
               </p>
 
@@ -208,7 +212,7 @@ serve(async (req: Request) => {
               </p>
 
               <p style="margin: 0; font-size: 14px; color: #71717a;">
-                If you have questions, contact your accountant at ${firm.name}.
+                If you have questions, contact your accountant at ${safeFirmName}.
               </p>
             </td>
           </tr>
