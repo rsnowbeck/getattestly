@@ -454,6 +454,10 @@ export default function ClientDetail() {
             </div>
           </div>
           <div className="flex items-center gap-2 self-start">
+            <Button variant="outline" size="sm" onClick={() => setEngagementDialogOpen(true)} className="gap-1">
+              <Archive className="h-4 w-4" />
+              Engagements
+            </Button>
             <AuditExportButton
               clientId={client.id}
               clientName={`${client.first_name} ${client.last_name}`}
