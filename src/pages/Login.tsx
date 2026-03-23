@@ -54,6 +54,29 @@ export default function Login() {
     }
   };
 
+  const handleMagicLink = async () => {
+    if (!email) {
+      toast.error("Enter your email first");
+      return;
+    }
+    setLoading(true);
+    try {
+      const { error } = await supabase.auth.signInWithOtp({
+        email,
+        options: { emailRedirectTo: `${window.location.origin}/dashboard` },
+      });
+      if (error) {
+        toast.error(error.message);
+      } else {
+        toast.success("Magic link sent! Check your inbox.");
+      }
+    } catch {
+      toast.error("An unexpected error occurred");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleMFACancel = async () => {
     await supabase.auth.signOut();
     setShowMFA(false);
@@ -167,6 +190,25 @@ export default function Login() {
                 ) : (
                   "Sign In"
                 )}
+              </Button>
+
+              <div className="relative my-2">
+                <div className="absolute inset-0 flex items-center">
+                  <span className="w-full border-t border-border" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-card px-2 text-muted-foreground">or</span>
+                </div>
+              </div>
+
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full"
+                disabled={loading}
+                onClick={handleMagicLink}
+              >
+                Send Magic Link
               </Button>
             </form>
           </div>
