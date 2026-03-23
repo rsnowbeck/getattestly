@@ -47,16 +47,17 @@ const isRedValue = (val: string) => redKeywords.some((k) => val.includes(k));
 const costCards = [
   {
     name: "SmartVault",
-    tagline: "SmartVault requires a 3-user minimum.",
-    pain: "As a solo practitioner you pay for 2 employees who don't exist.",
+    tagline: "SmartVault requires a 2-user minimum.",
+    pain: "As a solo practitioner you pay for 1 employee who doesn't exist.",
     bullets: [
-      "Base cost: $210/month (3-seat minimum)",
-      "Annual cost: $2,520/year",
-      "Employees you're paying for who don't work for you: 2",
+      "Base cost: $110/month (2-seat minimum, Accounting Pro)",
+      "Annual cost: $1,320/year",
+      "Employees you're paying for who don't work for you: 1",
+      "eSignatures: Add-on — not included",
       "Setup time: Days to weeks",
     ],
     ledgerCost: "$588/year",
-    savings: "$1,932/year",
+    savings: "$732/year",
   },
   {
     name: "TaxDome",
