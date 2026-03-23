@@ -600,6 +600,10 @@ export default function ClientDetail() {
         {/* Tasks Tab */}
         <TabsContent value="tasks" className="space-y-4">
           <div className="flex items-center gap-2">
+            <Button variant="outline" size="sm" onClick={() => setScanReturnOpen(true)} className="gap-1">
+              <Sparkles className="h-4 w-4" />
+              Generate from Return
+            </Button>
             <Button variant="outline" size="sm" onClick={() => setTemplatePickerOpen(true)}>
               <ListChecks className="h-4 w-4" />
               Use Template
