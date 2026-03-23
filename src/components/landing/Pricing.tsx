@@ -15,19 +15,19 @@ const planOrder: { key: PlanKey; featured: boolean }[] = [
 
 const planCopy: Record<PlanKey, { title: string; subhead: string; footer: string }> = {
   solo: {
-    title: 'The "Solo" Plan',
+    title: "Solo Practitioner",
     subhead: "Perfect for solo firms and independent practitioners.",
-    footer: "Unlimited Staff Seats",
+    footer: "Unlimited Staff Seats Included",
   },
   boutique: {
-    title: 'The "Boutique" Plan',
+    title: "Boutique Firm",
     subhead: "Built for teams ready to automate.",
-    footer: "All Pro Features + White-labeling",
+    footer: "Unlimited Staff Seats Included",
   },
   enterprise: {
-    title: 'The "Unlimited" Plan',
+    title: "Enterprise Vault",
     subhead: "For firms that refuse to be taxed on growth.",
-    footer: 'The "TaxDome Killer."',
+    footer: "Unlimited Growth",
   },
 };
 
@@ -220,8 +220,17 @@ export function Pricing() {
           })}
         </div>
 
-        <div className="text-center mt-10">
+        {/* Seasonal staff statement */}
+        <div className="max-w-3xl mx-auto mt-10 rounded-xl border border-border bg-accent/5 p-6 text-center">
+          <p className="text-sm font-medium text-foreground">
+            All plans include unlimited team members. Add seasonal staff in January. Remove them in April. Your price never changes.
+          </p>
+        </div>
+
+        <div className="text-center mt-6">
           <p className="text-sm text-muted-foreground">
+            <Link to="/pricing" className="text-accent hover:underline">See full pricing details →</Link>
+            {" · "}
             Questions? See our <a href="#faq" className="text-accent hover:underline">FAQ</a> or start your free trial.
           </p>
         </div>
