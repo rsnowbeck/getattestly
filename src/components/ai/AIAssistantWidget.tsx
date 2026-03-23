@@ -2,7 +2,8 @@ import { useState, useCallback, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { X, Send, Loader2, User, RotateCcw, Bot } from "lucide-react";
 import ReactMarkdown from "react-markdown";
-import sageIcon from "@/assets/sage-shield-icon.png";
+import sageShieldIcon from "@/assets/ai-shield-icon.png";
+import sageChatAvatar from "@/assets/ai-chat-avatar.png";
 import scoutIcon from "@/assets/scout-icon.png";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -198,7 +199,8 @@ export function AIAssistantWidget({ mode = "cpa", clientToken }: AIAssistantWidg
       ];
 
   const agentName = mode === "cpa" ? "Sage" : "Scout";
-  const agentIcon = mode === "cpa" ? sageIcon : scoutIcon;
+  const agentIcon = mode === "cpa" ? sageShieldIcon : scoutIcon;
+  const agentAvatar = mode === "cpa" ? sageChatAvatar : scoutIcon;
   const botLabel = mode === "cpa" ? "Sage — CPA Operations" : "Scout — Client Assistant";
 
   return (
@@ -220,7 +222,7 @@ export function AIAssistantWidget({ mode = "cpa", clientToken }: AIAssistantWidg
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-muted/50">
             <div className="flex items-center gap-2">
-              <img src={agentIcon} alt={agentName} className="h-10 w-10 object-contain" />
+              <img src={agentAvatar} alt={agentName} className="h-10 w-10 object-contain" />
               <div>
                 <span className="font-semibold text-sm text-foreground block">{botLabel}</span>
                 {mode === "cpa" && (
@@ -244,7 +246,7 @@ export function AIAssistantWidget({ mode = "cpa", clientToken }: AIAssistantWidg
           <div className="flex-1 overflow-y-auto p-4 space-y-4 min-h-[280px] max-h-[380px]">
             {messages.length === 0 && (
               <div className="text-center py-8">
-                <img src={agentIcon} alt={agentName} className="h-16 w-16 object-contain mx-auto mb-3" />
+                <img src={agentAvatar} alt={agentName} className="h-16 w-16 object-contain mx-auto mb-3" />
                 <p className="text-sm text-muted-foreground">
                   {mode === "cpa"
                     ? "Hi, I'm Sage! I can query your client data, show you who needs attention, and take actions like sending reminders."
