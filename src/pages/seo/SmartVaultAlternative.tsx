@@ -236,6 +236,9 @@ export default function SmartVaultAlternative() {
               <p className="text-xs text-muted-foreground mt-3 text-center italic">
                 SmartVault Accounting Pro: $55/user/month, 2-user minimum, annual billing. eSignatures are add-on on Business Pro and Accounting Pro plans. Pricing as of 2026.
               </p>
+              <p className="text-[11px] text-muted-foreground/70 mt-1.5 text-center">
+                Per seat and per user refer to the same concept — a charge for each staff member who accesses the software. Terminology varies by vendor.
+              </p>
             </div>
 
             {/* Mobile cards */}
