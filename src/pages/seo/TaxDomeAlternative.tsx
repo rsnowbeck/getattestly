@@ -343,6 +343,9 @@ export default function TaxDomeAlternative() {
               <p className="text-xs text-muted-foreground italic mt-4 text-center">
                 TaxDome pricing based on publicly available information as of 2026. Annual billing upfront — no refunds.
               </p>
+              <p className="text-[11px] text-muted-foreground/70 mt-1.5 text-center">
+                Per seat and per user refer to the same concept — a charge for each staff member who accesses the software. Terminology varies by vendor.
+              </p>
             </div>
           </div>
         </section>
