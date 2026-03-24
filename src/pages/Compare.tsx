@@ -3,7 +3,7 @@ import { Header } from "@/components/landing/Header";
 import { Footer } from "@/components/landing/Footer";
 import { PageSEO } from "@/components/seo/PageSEO";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, ArrowRight, XCircle } from "lucide-react";
+import { CheckCircle2, ArrowRight, XCircle, Download } from "lucide-react";
 import { Helmet } from "react-helmet-async";
 
 const comparisonRows = [
