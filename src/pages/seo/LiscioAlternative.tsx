@@ -3,7 +3,7 @@ import { Footer } from "@/components/landing/Footer";
 import { PageSEO } from "@/components/seo/PageSEO";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { ArrowRight, CheckCircle2, AlertTriangle, Bot, DollarSign, Users, Eye, Search, BrainCircuit, ScanLine } from "lucide-react";
+import { ArrowRight, CheckCircle2, AlertTriangle, Bot, DollarSign, Users, Eye, Search, BrainCircuit, ScanLine, Download } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
